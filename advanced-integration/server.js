@@ -24,3 +24,5 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   const captureData = await paypal.capturePayment(orderID);
   res.json(captureData);
 });
+
+app.listen(8888);
