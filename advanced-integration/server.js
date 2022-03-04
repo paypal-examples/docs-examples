@@ -6,10 +6,11 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-// render html page with client id & token
+// render checkout page with client id & unique client token
 app.get("/", async (req, res) => {
+  const clientId = process.env.CLIENT_ID;
   const clientToken = await paypal.generateClientToken();
-  res.render("index", { clientId: process.env.CLIENT_ID, clientToken });
+  res.render("checkout", { clientId, clientToken });
 });
 
 // create order
