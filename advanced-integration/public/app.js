@@ -8,6 +8,8 @@ if (paypal.HostedFields.isEligible()) {
     createOrder: () => {
       return fetch("/api/orders", {
         method: "post",
+        // use the "body" param to optionally pass additional order information like
+        // product ids or amount.
       })
         .then((res) => res.json())
         .then((orderData) => {
