@@ -71,6 +71,6 @@ export async function generateClientToken() {
       "Content-Type": "application/json",
     },
   });
-  const data = response.json();
+  const data = await response.json();
   return data.client_token;
 }
