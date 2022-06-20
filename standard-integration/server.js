@@ -7,14 +7,22 @@ const app = express();
 app.use(express.static("public"));
 
 app.post("/api/orders", async (req, res) => {
-  const order = await paypal.createOrder();
-  res.json(order);
+  try {
+    const order = await paypal.createOrder();
+    res.json(order);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.post("/api/orders/:orderID/capture", async (req, res) => {
   const { orderID } = req.params;
-  const captureData = await paypal.capturePayment(orderID);
-  res.json(captureData);
+  try {
+    const captureData = await paypal.capturePayment(orderID);
+    res.json(captureData);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.listen(8888);
