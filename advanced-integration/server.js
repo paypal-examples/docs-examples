@@ -9,21 +9,33 @@ app.use(express.static("public"));
 // render checkout page with client id & unique client token
 app.get("/", async (req, res) => {
   const clientId = process.env.CLIENT_ID;
-  const clientToken = await paypal.generateClientToken();
-  res.render("checkout", { clientId, clientToken });
+  try {
+    const clientToken = await paypal.generateClientToken();
+    res.render("checkout", { clientId, clientToken });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 // create order
 app.post("/api/orders", async (req, res) => {
-  const order = await paypal.createOrder();
-  res.json(order);
+  try {
+    const order = await paypal.createOrder();
+    res.json(order);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 // capture payment
 app.post("/api/orders/:orderID/capture", async (req, res) => {
   const { orderID } = req.params;
-  const captureData = await paypal.capturePayment(orderID);
-  res.json(captureData);
+  try {
+    const captureData = await paypal.capturePayment(orderID);
+    res.json(captureData);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.listen(8888);

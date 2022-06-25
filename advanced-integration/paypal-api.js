@@ -27,8 +27,8 @@ export async function createOrder() {
       ],
     }),
   });
-  const data = await response.json();
-  return data;
+
+  return handleResponse(response);
 }
 
 // capture payment for an order
@@ -42,8 +42,8 @@ export async function capturePayment(orderId) {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  const data = await response.json();
-  return data;
+
+  return handleResponse(response);
 }
 
 // generate access token
@@ -56,8 +56,8 @@ export async function generateAccessToken() {
       Authorization: `Basic ${auth}`,
     },
   });
-  const data = await response.json();
-  return data.access_token;
+  const jsonData = await handleResponse(response);
+  return jsonData.access_token;
 }
 
 // generate client token
@@ -71,6 +71,16 @@ export async function generateClientToken() {
       "Content-Type": "application/json",
     },
   });
-  const data = await response.json();
-  return data.client_token;
+  console.log('response', response.status)
+  const jsonData = await handleResponse(response);
+  return jsonData.client_token;
+}
+
+async function handleResponse(response) {
+  if (response.status === 200 || response.status === 201) {
+    return response.json();
+  }
+
+  const errorMessage = await response.text();
+  throw new Error(errorMessage);
 }
