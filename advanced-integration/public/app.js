@@ -23,7 +23,7 @@ paypal
             orderData,
             JSON.stringify(orderData, null, 2)
           );
-          var transaction = orderData.purchase_units[0].payments.captures[0];
+          const transaction = orderData.purchase_units[0].payments.captures[0];
           alert(`Transaction ${transaction.status}: ${transaction.id}
 
             See console for all available details
@@ -115,18 +115,13 @@ if (paypal.HostedFields.isEligible()) {
           })
             .then((res) => res.json())
             .then((orderData) => {
-              // Three cases to handle:
-              //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-              //   (2) Other non-recoverable errors -> Show a failure message
-              //   (3) Successful transaction -> Show confirmation or thank you
+              // Two cases to handle:
+              //   (1) Other non-recoverable errors -> Show a failure message
+              //   (2) Successful transaction -> Show confirmation or thank you
               // This example reads a v2/checkout/orders capture response, propagated from the server
               // You could use a different API or structure for your 'orderData'
-              var errorDetail =
+              const errorDetail =
                 Array.isArray(orderData.details) && orderData.details[0];
-              if (errorDetail && errorDetail.issue === "INSTRUMENT_DECLINED") {
-                return actions.restart(); // Recoverable state, per:
-                // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
-              }
               if (errorDetail) {
                 var msg = "Sorry, your transaction could not be processed.";
                 if (errorDetail.description)

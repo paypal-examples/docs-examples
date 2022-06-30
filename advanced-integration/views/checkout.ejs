@@ -18,13 +18,15 @@
       <form id="card-form">
         <label for="card-number">Card Number</label>
         <div id="card-number" class="card_field"></div>
-        <div>
-          <label for="expiration-date">Expiration Date</label>
-          <div id="expiration-date" class="card_field"></div>
-        </div>
-        <div>
-          <label for="cvv">CVV</label>
-          <div id="cvv" class="card_field"></div>
+        <div style="display: flex; flex-direction:row;">
+          <div>
+            <label for="expiration-date">Expiration Date</label>
+            <div id="expiration-date" class="card_field"></div>
+          </div>
+          <div style="margin-left:10px;">
+            <label for="cvv">CVV</label>
+            <div id="cvv" class="card_field"></div>
+          </div>
         </div>
         <label for="card-holder-name">Name on Card</label>
         <input
