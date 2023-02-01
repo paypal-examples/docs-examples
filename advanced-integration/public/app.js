@@ -1,17 +1,25 @@
 paypal
   .Buttons({
     // Sets up the transaction when a payment button is clicked
-    createOrder: function (data, actions) {
+    createOrder: function () {
       return fetch("/api/orders", {
         method: "post",
         // use the "body" param to optionally pass additional order information
-        // like product ids or amount
+        // like product skus and quantities
+        body: JSON.stringify({
+          cart: [
+            {
+              sku: "<YOUR_PRODUCT_STOCK_KEEPING_UNIT>",
+              quantity: "<YOUR_PRODUCT_QUANTITY>",
+            },
+          ],
+        }),
       })
         .then((response) => response.json())
         .then((order) => order.id);
     },
     // Finalize the transaction after payer approval
-    onApprove: function (data, actions) {
+    onApprove: function (data) {
       return fetch(`/api/orders/${data.orderID}/capture`, {
         method: "post",
       })
@@ -47,8 +55,16 @@ if (paypal.HostedFields.isEligible()) {
     createOrder: () => {
       return fetch("/api/orders", {
         method: "post",
-        // use the "body" param to optionally pass additional order information like
-        // product ids or amount.
+        // use the "body" param to optionally pass additional order information
+        // like product skus and quantities
+        body: JSON.stringify({
+          cart: [
+            {
+              sku: "<YOUR_PRODUCT_STOCK_KEEPING_UNIT>",
+              quantity: "<YOUR_PRODUCT_QUANTITY>",
+            },
+          ],
+        }),
       })
         .then((res) => res.json())
         .then((orderData) => {
