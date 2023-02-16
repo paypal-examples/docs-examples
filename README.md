@@ -25,7 +25,7 @@ The SDK has several [configuration options](https://developer.paypal.com/sdk/js/
 
 To get started with standard checkout, you'll need a developer, personal, or business account.
 
-[Sign Up](https://www.paypal.com/signup) or [Log In](https://www.paypal.com/signin)
+[Sign Up](https://www.paypal.com/signin/client?flow=provisionUser) or [Log In](https://www.paypal.com/signin?returnUri=https%253A%252F%252Fdeveloper.paypal.com%252Fdeveloper%252Fapplications&intent=developer)
 
 You'll then need to visit the [Developer Dashboard](https://developer.paypal.com/dashboard/) to obtain credentials and to
 make sandbox accounts.
