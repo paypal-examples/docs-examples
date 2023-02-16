@@ -6,7 +6,10 @@ const app = express();
 
 app.use(express.static("public"));
 
-app.post("/api/orders", async (req, res) => {
+// parse post params sent in body in json format
+app.use(express.json());
+
+app.post("/my-server/create-paypal-order", async (req, res) => {
   try {
     const order = await paypal.createOrder();
     res.json(order);
@@ -15,8 +18,8 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-app.post("/api/orders/:orderID/capture", async (req, res) => {
-  const { orderID } = req.params;
+app.post("/my-server/capture-paypal-order", async (req, res) => {
+  const { orderID } = req.body;
   try {
     const captureData = await paypal.capturePayment(orderID);
     res.json(captureData);

@@ -13,15 +13,18 @@
         .Buttons({
           // Sets up the transaction when a payment button is clicked
           createOrder: function () {
-            return fetch("/api/orders", {
+            return fetch("/my-server/create-paypal-order", {
               method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
               // use the "body" param to optionally pass additional order information
               // like product skus and quantities
               body: JSON.stringify({
                 cart: [
                   {
-                    sku: "<YOUR_PRODUCT_STOCK_KEEPING_UNIT>",
-                    quantity: "<YOUR_PRODUCT_QUANTITY>",
+                    sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                    quantity: "YOUR_PRODUCT_QUANTITY",
                   },
                 ],
               }),
@@ -31,8 +34,14 @@
           },
           // Finalize the transaction after payer approval
           onApprove: function (data) {
-            return fetch(`/api/orders/${data.orderID}/capture`, {
+            return fetch("/my-server/capture-paypal-order", {
               method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                orderID: data.orderID,
+              }),
             })
               .then((response) => response.json())
               .then((orderData) => {
@@ -42,8 +51,7 @@
                   orderData,
                   JSON.stringify(orderData, null, 2)
                 );
-                var transaction =
-                  orderData.purchase_units[0].payments.captures[0];
+                const transaction = orderData.purchase_units[0].payments.captures[0];
                 alert(
                   "Transaction " +
                     transaction.status +
