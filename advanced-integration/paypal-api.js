@@ -4,7 +4,10 @@ import fetch from "node-fetch";
 const { CLIENT_ID, APP_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 
-// call the create order method
+/**
+ * Create an order
+ * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
+ */
 export async function createOrder() {
   const purchaseAmount = "100.00"; // TODO: pull prices from a database
   const accessToken = await generateAccessToken();
@@ -31,7 +34,10 @@ export async function createOrder() {
   return handleResponse(response);
 }
 
-// capture payment for an order
+/**
+ * Capture payment for an order
+ * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
+ */
 export async function capturePayment(orderId) {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders/${orderId}/capture`;
@@ -46,7 +52,10 @@ export async function capturePayment(orderId) {
   return handleResponse(response);
 }
 
-// generate access token
+/**
+ * Generate an OAuth 2.0 access token
+ * @see https://developer.paypal.com/api/rest/authentication/
+ */
 export async function generateAccessToken() {
   const auth = Buffer.from(CLIENT_ID + ":" + APP_SECRET).toString("base64");
   const response = await fetch(`${base}/v1/oauth2/token`, {
@@ -60,7 +69,10 @@ export async function generateAccessToken() {
   return jsonData.access_token;
 }
 
-// generate client token
+/**
+ * Generate a client token
+ * @see https://developer.paypal.com/docs/multiparty/checkout/advanced/integrate/#link-sampleclienttokenrequest
+ */
 export async function generateClientToken() {
   const accessToken = await generateAccessToken();
   const response = await fetch(`${base}/v1/identity/generate-token`, {

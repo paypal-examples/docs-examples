@@ -3,6 +3,10 @@ import fetch from "node-fetch";
 const { CLIENT_ID, APP_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 
+/**
+ * Create an order
+ * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
+ */
 export async function createOrder() {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
@@ -28,6 +32,10 @@ export async function createOrder() {
   return handleResponse(response);
 }
 
+/**
+ * Capture payment for an order
+ * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
+ */
 export async function capturePayment(orderId) {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders/${orderId}/capture`;
@@ -42,6 +50,10 @@ export async function capturePayment(orderId) {
   return handleResponse(response);
 }
 
+/**
+ * Generate an OAuth 2.0 access token
+ * @see https://developer.paypal.com/api/rest/authentication/
+ */
 export async function generateAccessToken() {
   const auth = Buffer.from(CLIENT_ID + ":" + APP_SECRET).toString("base64");
   const response = await fetch(`${base}/v1/oauth2/token`, {
