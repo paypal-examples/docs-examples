@@ -39,5 +39,5 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 });
 
 app.listen(8888, () => {
-  console.log('App listening at http://localhost:8888/')
+  console.log('App listening at http://localhost:8888/');
 });
