@@ -38,4 +38,4 @@ Once you've setup a PayPal account, you'll need to obtain a **Client ID** and **
 
 These examples will ask you to run commands like `npm install` and `npm start`.
 
-You'll need a version of node >= 12 which can be downloaded from the [nodejs website](https://nodejs.org/en/download/).
+You'll need a version of node >= 14 which can be downloaded from the [Node.js website](https://nodejs.org/en/download/).
