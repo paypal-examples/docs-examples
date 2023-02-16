@@ -34,7 +34,7 @@ make sandbox accounts.
 
 Once you've setup a PayPal account, you'll need to obtain a **Client ID** and **Secret**. [Create a sandbox application](https://developer.paypal.com/dashboard/applications/sandbox/create).
 
-### Have `npm` and `nodejs` installed
+### Have Node.js installed
 
 These examples will ask you to run commands like `npm install` and `npm start`.
 
