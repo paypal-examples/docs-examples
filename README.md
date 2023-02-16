@@ -13,7 +13,7 @@ This repository contains two directories:
 
 **Not sure where to start?** Choose the [standard integration](./standard-integration/).
 
-## The PayPal JavaScript SDK
+### The PayPal JavaScript SDK
 
 These examples use the [PayPal JavaScript SDK](https://developer.paypal.com/sdk/js/) to display PayPal supported payment methods and provide a seamless checkout experience for your buyers.
 
