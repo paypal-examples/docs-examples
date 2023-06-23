@@ -1,0 +1,28 @@
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- To be replaced with your own stylesheet -->
+    <link rel="stylesheet" type="text/css"
+      href="https://www.paypalobjects.com/webstatic/en_US/developer/docs/css/cardfields.css" />
+    <!-- Express fills in the clientId and clientToken variables -->
+    <script src="https://www.paypal.com/sdk/js?components=buttons,card-fields&client-id=<%= clientId %>"></script>
+  </head>
+
+  <body>
+    <div id="paypal-button-container" class="paypal-button-container"></div>
+    <div id="card-name-field-container"></div>
+    <div id="card-number-field-container"></div>
+    <div id="card-expiry-field-container"></div>
+    <div id="card-cvv-field-container"></div>
+    <button id="multi-card-field-button" type="button">Pay now with Card</button>
+    <div id="general-error"></div>
+    <h2>Create Order</h2>
+    <div id="create-order-info"></div>
+    <h2>Capture Order</h2>
+    <div id="capture-order-info"></div>
+    <script src="purchase.js"></script>
+  </body>
+
+</html>
