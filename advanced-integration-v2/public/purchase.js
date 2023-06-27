@@ -26,8 +26,15 @@ const createOrder = () =>
       document.getElementById("create-order-info").textContent = `ERROR: ${error}`;
     });
 
-const onApprove = ({ orderID }) =>
-  fetch(`/api/orders/${orderID}/capture`, {
+let approved = 0
+const onApprove = ({ orderID }, actions) => {
+
+  if (approved === 0) {
+    approved = approved + 1
+    return actions.restart()
+  }
+
+  return fetch(`/api/orders/${orderID}/capture`, {
     method: "post",
   })
     .then((response) => response.json())
@@ -44,6 +51,7 @@ const onApprove = ({ orderID }) =>
         .getElementById("capture-order-info")
         .textContent = `Transaction ${transaction.status}: ${transaction.id}`;
     });
+}
 
 const onError = (error) => {
   console.error(error);
