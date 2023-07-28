@@ -71,7 +71,7 @@ export async function generateAccessToken() {
 
 /**
  * Generate a client token
- * @see https://developer.paypal.com/docs/multiparty/checkout/advanced/integrate/#link-sampleclienttokenrequest
+ * @see https://developer.paypal.com/docs/checkout/advanced/integrate/#link-sampleclienttokenrequest
  */
 export async function generateClientToken() {
   const accessToken = await generateAccessToken();
