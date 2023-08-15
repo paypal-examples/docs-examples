@@ -144,6 +144,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve('./index.html'));
 });
 
-app.listen(8888, () => {
-  console.log('listening on http://localhost:8888/');
+const PORT = Number(process.env.PORT) || 8888;
+
+app.listen(PORT, () => {
+  console.log(`listening on http://localhost:${PORT}/`);
 });
