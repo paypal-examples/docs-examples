@@ -147,5 +147,5 @@ app.get('/', (req, res) => {
 const PORT = Number(process.env.PORT) || 8888;
 
 app.listen(PORT, () => {
-  console.log(`listening on http://localhost:${PORT}/`);
+  console.log(`Node server listening at http://localhost:${PORT}/`);
 });
