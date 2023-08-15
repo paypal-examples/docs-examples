@@ -3,7 +3,10 @@ paypal
     // Sets up the transaction when a payment button is clicked
     createOrder: function () {
       return fetch("/api/orders", {
-        method: "post",
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
         // use the "body" param to optionally pass additional order information
         // like product skus and quantities
         body: JSON.stringify({
@@ -21,7 +24,10 @@ paypal
     // Finalize the transaction after payer approval
     onApprove: function (data) {
       return fetch(`/api/orders/${data.orderID}/capture`, {
-        method: "post",
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
         .then((response) => response.json())
         .then((orderData) => {
@@ -54,7 +60,10 @@ if (paypal.HostedFields.isEligible()) {
     // Call your server to set up the transaction
     createOrder: () => {
       return fetch("/api/orders", {
-        method: "post",
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
         // use the "body" param to optionally pass additional order information
         // like product skus and quantities
         body: JSON.stringify({
@@ -127,7 +136,10 @@ if (paypal.HostedFields.isEligible()) {
         })
         .then(() => {
           fetch(`/api/orders/${orderId}/capture`, {
-            method: "post",
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
           })
             .then((res) => res.json())
             .then((orderData) => {

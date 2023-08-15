@@ -27,11 +27,11 @@
 	},
 
 	"secrets": {
-		"CLIENT_ID": {
+		"PAYPAL_CLIENT_ID": {
 			"description": "Sandbox client ID of the application.",
 			"documentationUrl": "https://developer.paypal.com/dashboard/applications/sandbox"
 		},
-		"APP_SECRET": {
+		"PAYPAL_CLIENT_SECRET": {
 			"description": "Sandbox secret of the application.",
 			"documentationUrl": "https://developer.paypal.com/dashboard/applications/sandbox"
 		}

@@ -2,7 +2,7 @@
 
 ## Instructions
 
-1. Rename `.env.example` to `.env` and update `CLIENT_ID` and `APP_SECRET`.
+1. Rename `.env.example` to `.env` and update `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET`.
 2. Run `npm install`
 3. Run `npm start`
 4. Open http://localhost:8888
