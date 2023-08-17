@@ -55,13 +55,8 @@ async function onApproveCallback(data, actions) {
       orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
     const errorDetail = orderData?.details?.[0];
 
-    const isHostedFieldsComponent = typeof data.card === "object";
-
     // this actions.restart() behavior only applies to the Buttons component
-    if (
-      errorDetail?.issue === "INSTRUMENT_DECLINED" &&
-      isHostedFieldsComponent === false
-    ) {
+    if (errorDetail?.issue === "INSTRUMENT_DECLINED" && !data.card && actions) {
       // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
       // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
       return actions.restart();
