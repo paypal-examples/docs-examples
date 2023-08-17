@@ -50,6 +50,9 @@ async function onApproveCallback(data, actions) {
     //   (2) Other non-recoverable errors -> Show a failure message
     //   (3) Successful transaction -> Show confirmation or thank you message
 
+    const transaction =
+      orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
+      orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
     const errorDetail = orderData?.details?.[0];
 
     const isHostedFieldsComponent = typeof data.card === 'object';
@@ -62,15 +65,25 @@ async function onApproveCallback(data, actions) {
       // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
       // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
       return actions.restart();
-    } else if (errorDetail) {
+    } else if (
+      errorDetail ||
+      !transaction ||
+      transaction.status === 'DECLINED'
+    ) {
       // (2) Other non-recoverable errors -> Show a failure message
-      throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
-    } else if (!orderData.purchase_units) {
-      throw new Error(JSON.stringify(orderData));
+      let errorMessage;
+      if (transaction) {
+        errorMessage = `Transaction ${transaction.status}: ${transaction.id}`;
+      } else if (errorDetail) {
+        errorMessage = `${errorDetail.description} (${orderData.debug_id})`;
+      } else {
+        errorMessage = JSON.stringify(orderData);
+      }
+
+      throw new Error(errorMessage);
     } else {
       // (3) Successful transaction -> Show confirmation or thank you message
       // Or go to another URL:  actions.redirect('thank_you.html');
-      const transaction = orderData.purchase_units[0].payments.captures[0];
       resultMessage(
         `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
       );
