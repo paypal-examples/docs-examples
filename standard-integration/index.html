@@ -82,8 +82,7 @@
                 );
               } else if (!orderData.purchase_units) {
                 throw new Error(JSON.stringify(orderData));
-              }
-              else {
+              } else {
                 // (3) Successful transaction -> Show confirmation or thank you message
                 // Or go to another URL:  actions.redirect('thank_you.html');
                 const transaction =
@@ -107,10 +106,9 @@
         })
         .render('#paypal-button-container');
 
-      // Example function to show a result to the user. Your site's UI library can be used instead,
-      // however alert() should not be used as it will interrupt the JS SDK popup window
+      // Example function to show a result to the user. Your site's UI library can be used instead.
       function resultMessage(message) {
-        const container = document.getElementById('result-message');
+        const container = document.querySelector('#result-message');
         container.innerHTML = message;
       }
     </script>
