@@ -7,12 +7,13 @@
   </head>
   <body>
     <div id="paypal-button-container"></div>
+    <p id="result-message"></p>
     <!-- Replace the "test" client-id value with your client-id -->
     <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
     <script>
       paypal
         .Buttons({
-          createOrder: async (data) => {
+          createOrder: async () => {
             try {
               const response = await fetch('/api/orders', {
                 method: 'POST',
@@ -88,7 +89,7 @@
                 const transaction =
                   orderData.purchase_units[0].payments.captures[0];
                 resultMessage(
-                  `<h3>Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details</h3>`,
+                  `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
                 );
                 console.log(
                   'Capture result',
@@ -107,12 +108,10 @@
         .render('#paypal-button-container');
 
       // Example function to show a result to the user. Your site's UI library can be used instead,
-      // however alert() should not be used as it will interrupt the JS SDK window
+      // however alert() should not be used as it will interrupt the JS SDK popup window
       function resultMessage(message) {
-        const container = document.getElementById('paypal-button-container');
-        const p = document.createElement('p');
-        p.innerHTML = message;
-        container.parentNode.appendChild(p);
+        const container = document.getElementById('result-message');
+        container.innerHTML = message;
       }
     </script>
   </body>
