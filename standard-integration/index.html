@@ -15,18 +15,18 @@
         .Buttons({
           createOrder: async () => {
             try {
-              const response = await fetch('/api/orders', {
-                method: 'POST',
+              const response = await fetch("/api/orders", {
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
                 // use the "body" param to optionally pass additional order information
                 // like product ids and quantities
                 body: JSON.stringify({
                   cart: [
                     {
-                      id: 'YOUR_PRODUCT_ID',
-                      quantity: 'YOUR_PRODUCT_QUANTITY',
+                      id: "YOUR_PRODUCT_ID",
+                      quantity: "YOUR_PRODUCT_QUANTITY",
                     },
                   ],
                 }),
@@ -56,9 +56,9 @@
               const response = await fetch(
                 `/api/orders/${data.orderID}/capture`,
                 {
-                  method: 'POST',
+                  method: "POST",
                   headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                   },
                 },
               );
@@ -71,7 +71,7 @@
 
               const errorDetail = orderData?.details?.[0];
 
-              if (errorDetail?.issue === 'INSTRUMENT_DECLINED') {
+              if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
                 // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
                 // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
                 return actions.restart();
@@ -92,7 +92,7 @@
                   `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`,
                 );
                 console.log(
-                  'Capture result',
+                  "Capture result",
                   orderData,
                   JSON.stringify(orderData, null, 2),
                 );
@@ -105,11 +105,11 @@
             }
           },
         })
-        .render('#paypal-button-container');
+        .render("#paypal-button-container");
 
       // Example function to show a result to the user. Your site's UI library can be used instead.
       function resultMessage(message) {
-        const container = document.querySelector('#result-message');
+        const container = document.querySelector("#result-message");
         container.innerHTML = message;
       }
     </script>
