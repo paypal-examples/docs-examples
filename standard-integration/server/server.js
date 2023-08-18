@@ -7,6 +7,9 @@ const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
+// host static files
+app.use(express.static("client"));
+
 // parse post params sent in body in json format
 app.use(express.json());
 
@@ -141,7 +144,7 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 
 // serve index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./index.html"));
+  res.sendFile(path.resolve("./client/checkout.html"));
 });
 
 app.listen(PORT, () => {
