@@ -2,11 +2,12 @@
   "name": "paypal-advanced-integration",
   "description": "Sample Node.js web app to integrate PayPal Advanced Checkout for online payments",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "server/server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server/server.js",
+    "format": "npx prettier --write **.js"
   },
   "license": "Apache-2.0",
   "dependencies": {
