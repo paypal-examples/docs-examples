@@ -27,7 +27,7 @@ jobs:
             cd "$directory" && npm run format:check && cd -
           done
 
-      - name: 👕 Lint Node.js code with ESLint
+      - name: 👕 Lint code with ESLint
         run: >
           find . -name package.json -maxdepth 2 -type f | while read -r file; do
             directory=$(dirname "$file")
