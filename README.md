@@ -39,3 +39,10 @@ Once you've setup a PayPal account, you'll need to obtain a **Client ID** and **
 These examples will ask you to run commands like `npm install` and `npm start`.
 
 You'll need a version of node >= 16 which can be downloaded from the [Node.js website](https://nodejs.org/en/download/).
+
+
+### PayPal Codespaces Links
+| Application | Codespaces Link |
+| ---- | ---- |
+| Advanced Integration | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fadvanced-integration%2Fdevcontainer.json)|
+| Standard Integration | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fstandard-integration%2Fdevcontainer.json)|
