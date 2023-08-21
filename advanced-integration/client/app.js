@@ -96,7 +96,7 @@ async function onApproveCallback(data, actions) {
   }
 }
 
-paypal
+window.paypal
   .Buttons({
     createOrder: createOrderCallback,
     onApprove: onApproveCallback,
@@ -110,9 +110,9 @@ function resultMessage(message) {
 }
 
 // If this returns false or the card fields aren't visible, see Step #1.
-if (paypal.HostedFields.isEligible()) {
+if (window.paypal.HostedFields.isEligible()) {
   // Renders card fields
-  paypal.HostedFields.render({
+  window.paypal.HostedFields.render({
     // Call your server to set up the transaction
     createOrder: createOrderCallback,
     styles: {
@@ -172,10 +172,9 @@ if (paypal.HostedFields.isEligible()) {
           return onApproveCallback(data);
         })
         .catch((orderData) => {
-          const { links, ...errorMessageData } = orderData;
           resultMessage(
             `Sorry, your transaction could not be processed...<br><br>${JSON.stringify(
-              errorMessageData,
+              orderData,
             )}`,
           );
         });
