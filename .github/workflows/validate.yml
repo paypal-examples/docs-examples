@@ -21,7 +21,15 @@ jobs:
           node-version: 18
 
       - name: 🧹 Check code formatting with Prettier
-        run: find . -name package.json -maxdepth 2 -type f -execdir npm run format:check ';'
+        run: >
+          find . -name package.json -maxdepth 2 -type f | while read -r file; do
+            directory=$(dirname "$file")
+            cd "$directory" && npm run format:check && cd -
+          done
 
-      - name: 👕 Lint Node.js code with ESLint
-        run: find . -name package.json -maxdepth 2 -type f -execdir npm run lint ';'
+      - name: 👕 Lint code with ESLint
+        run: >
+          find . -name package.json -maxdepth 2 -type f | while read -r file; do
+            directory=$(dirname "$file")
+            cd "$directory" && npm run lint && cd -
+          done
