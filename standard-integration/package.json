@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server/server.js",
     "format": "npx prettier --write **.{js,md}",
-    "format:check": "npx prettier  --debug-check --check **.{js,md}",
+    "format:check": "npx prettier  --log-level=debug --check **.{js,md}",
     "lint": "npx eslint server/*.js --env=node && npx eslint client/*.js --env=browser"
   },
   "license": "Apache-2.0",

@@ -24,6 +24,7 @@ jobs:
             directory=$(dirname "$file")
             cd "$directory"
             echo "$PWD"
+            ls -l
             npm run format:check && cd -
           done
 
