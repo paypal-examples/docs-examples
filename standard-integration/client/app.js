@@ -36,7 +36,7 @@ window.paypal
         resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
     },
-    async onApprove (data, actions) {
+    async onApprove(data, actions) {
       try {
         const response = await fetch(`/api/orders/${data.orderID}/capture`, {
           method: "POST",
