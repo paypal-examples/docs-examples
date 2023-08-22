@@ -1,6 +1,6 @@
 window.paypal
   .Buttons({
-    createOrder: async () => {
+    async createOrder() {
       try {
         const response = await fetch("/api/orders", {
           method: "POST",
@@ -36,7 +36,7 @@ window.paypal
         resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
     },
-    onApprove: async (data, actions) => {
+    async onApprove (data, actions) {
       try {
         const response = await fetch(`/api/orders/${data.orderID}/capture`, {
           method: "POST",
