@@ -1,9 +1,10 @@
 import { loadScript } from "https://www.paypalobjects.com/paypal-js/esm/paypal.min.js";
 
 loadScript({
-  // replace the "test" clientId value with your own
+  components: ["buttons", "messages", "hosted-fields"],
   clientId: "test",
   currency: "USD",
+  enableFunding: ["venmo"]
 }).then((paypal) => {
   paypal
     .Buttons({
