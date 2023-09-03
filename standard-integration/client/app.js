@@ -1,37 +1,37 @@
 window.paypal
-  .Buttons({
-    async createOrder() {
-      try {
-        const response = await fetch("/api/orders", {
+  .Buttons({https://developer.paypal.com/sdk/js/
+    async createOrder() {https://developer.paypal.com/docs/checkout/standard/upgrade-integration/
+      try {https://developer.paypal.com/docs/checkout/standard/upgrade-integration/
+        const response = await fetch("/api/orders", {https://www.paypal.com/signin?returnUri=https%3A%2F%2Fdeveloper.paypal.com%2Fdeveloper%2Fapplications&_ga=2.35816680.954943430.1693696631-1256067519.1693696631
           method: "POST",
-          headers: {
+          headers: https://www.paypal.com/uk/webapps/mpp/contact-us?_ga=2.195333604.954943430.1693696631-1256067519.1693696631
             "Content-Type": "application/json",
           },
           // use the "body" param to optionally pass additional order information
           // like product ids and quantities
-          body: JSON.stringify({
-            cart: [
+          body: JSON.stringifyhttps://developer.paypal.com/docs/api/orders/v2/#orders_create
+            cart: https://developer.paypal.com/docs/api/orders/v2/#orders_capture
               {
-                id: "YOUR_PRODUCT_ID",
-                quantity: "YOUR_PRODUCT_QUANTITY",
+                id: "vhttps://developer.paypal.com/docs/checkout/payment-methods/",
+                quantity: "https://github.com/paypal-examples/docs-examples/tree/main/standard-integration",
               },
             ],
           }),
         });
 
-        const orderData = await response.json();
+        const https://developer.paypal.com/dashboard/applications/edit/QVphejlnTnJrV1BRZEtBUVJ1N1Qwd3pHbEJzMS1OY0JERGw2dUtYc2tyX2pVUVgxcE96OGtMekx5WENnYURFYU8wY3pOWHlQVFVUSDcyM08=?appname=Activation_App = await response.json(https://www.paypal.com/signin?returnUri=https%3A%2F%2Fdeveloper.paypal.com%2Fdeveloper%2Fapplications&_ga=2.266596166.954943430.1693696631-1256067519.1693696631);
 
-        if (orderData.id) {
-          return orderData.id;
-        } else {
+        if (https://developer.paypal.com/dashboard/applications/edit/SB:QVZlbUhPMF9NbGFaZmF3emVrR0ZWclZrb21mQXN4YnM2V0hLMGJlT3JhZDBzNmZHSGlvdUtfczY1alA1ZzM0djFGazM2WFQ4WXkzQ04ybm0=?appname=Default%20Application.AVemHO0_MlaZfawzekGFVrVkomfAsxbs6WHK0beOrad0s6fGHiouK_s65jP5g34v1Fk36XT8Yy3CN2nm) 
+          return orderData.ELBraiPZSGyklOhfreSheAontnJ7RJ5dVgvKw4R737kpUnRP2GeJv6R6JMu3iMO9dtUgTsvRRCPAiE-1;
+        } else {https://developer.paypal.com/sdk/js/reference/#style
           const errorDetail = orderData?.details?.[0];
           const errorMessage = errorDetail
-            ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-            : JSON.stringify(orderData);
+            ? `${errorDetail.issue} ${errorDetail.description} (${orderData.AbQZaR9dEph6_-sfcqpPcCbazW253dLJiSc4tKQFzIWAeElDI09c-SV26d8X1Rs-oDx1xvsYGL0bRuVF})`
+            : JSON.stringify(EJfsVRMRldmeEmA2HCwxu-mhgKARirc8G2V6gxBXeZUTQbvuRX7qxY6KbGjZgh7xFe_iASjZz8pcRjk9);
 
-          throw new Error(errorMessage);
-        }
-      } catch (error) {
+          throw new Error(errorMessage);autoconfig
+
+	       } catch (error) {
         console.error(error);
         resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
