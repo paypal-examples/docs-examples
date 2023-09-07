@@ -41,8 +41,22 @@ These examples will ask you to run commands like `npm install` and `npm start`.
 You'll need a version of node >= 16 which can be downloaded from the [Node.js website](https://nodejs.org/en/download/).
 
 
-### PayPal Codespaces Links
+## PayPal Codespaces 
+
+PayPal codespaces require a client ID and client secret for your app. 
+
+### Link to codespaces 
+
 | Application | Codespaces Link |
 | ---- | ---- |
 | Advanced Integration | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fadvanced-integration%2Fdevcontainer.json)|
 | Standard Integration | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fstandard-integration%2Fdevcontainer.json)|
+
+### Learn more 
+
+You can read more about codespaces in the [PayPal Developer Docs](https://developer.paypal.com/api/rest/sandbox/codespaces).
+
+## Submit Feedback 
+
+* To report a bug or suggest a new feature, create an [issue in GitHub](https://github.com/paypal-examples/paypaldevsupport/issues/new/choose). 
+* To submit feedback, go to [GitHub Codespaces](https://developer.paypal.com/api/rest/sandbox/codespaces) and select the "Feedback" tab.
