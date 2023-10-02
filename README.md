@@ -59,4 +59,4 @@ You can read more about codespaces in the [PayPal Developer Docs](https://develo
 ### Feedback
 
 * To report a bug or suggest a new feature, create an [issue in GitHub](https://github.com/paypal-examples/paypaldevsupport/issues/new/choose). 
-* To submit feedback, go to [GitHub Codespaces](https://developer.paypal.com/api/rest/sandbox/codespaces) and select the "Feedback" tab.
+* To submit feedback, go to [PayPal Developer Docs](https://developer.paypal.com/api/rest/sandbox/codespaces) and select the "Feedback" tab.
