@@ -126,7 +126,11 @@ if (cardField.isEligible()) {
   document
     .getElementById("multi-card-field-button")
     .addEventListener("click", () => {
-      cardField.submit();
+      cardField.submit().catch((error) => {
+        resultMessage(
+          `Sorry, your transaction could not be processed...<br><br>${error}`,
+        );
+      });
     });
 } else {
   // Hides card fields if the merchant isn't eligible
