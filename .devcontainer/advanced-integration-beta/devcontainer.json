@@ -4,7 +4,7 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/advanced-integration/beta",
   // Use 'onCreateCommand' to run commands when creating the container.
-  "onCreateCommand": "bash ../.devcontainer/advanced-integration-beta/welcome-message.sh",
+  "onCreateCommand": "bash ../../.devcontainer/advanced-integration-beta/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install",
   // Use 'postAttachCommand' to run commands when attaching to the container.
