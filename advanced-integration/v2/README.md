@@ -13,3 +13,11 @@ Version 2 is the current advanced Checkout integration, and includes Hosted Card
 5. Run `npm start`
 6. Open http://localhost:8888
 7. Enter the credit card number provided from one of your [sandbox accounts](https://developer.paypal.com/dashboard/accounts) or [generate a new credit card](https://developer.paypal.com/dashboard/creditCardGenerator)
+
+## Examples
+
+The documentation for advanced Checkout integration using JavaScript SDK includes additional sample code in the following sections:
+
+* **3. Adding PayPal buttons and card fields** includes [a full-stack Node.js example](v2/examples/full-stack/).
+* **4. Call Orders API for PayPal buttons and card fields** includes [a server-side example](v2/examples/call-orders-api-server-side/)
+* **5. Capture order** includes [a server-side example](v2/examples/capture-order-server-side/)
