@@ -4,7 +4,7 @@ const baseUrl = {
 
   export async function generateAccessToken() {
     try {
-      const auth = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`)
+      const auth = Buffer.from(`${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`)
         .toString("base64");
       const response = await fetch(`${baseUrl.sandbox}/v1/oauth2/token`, {
         method: "POST",
