@@ -1,6 +1,6 @@
 # Advanced Integration Example
 
-This folder contains example code for [version 1](https://developer.paypal.com/docs/checkout/advanced/integrate/sdk/v1) of an advanced Checkout PayPal integration using the JavaScript SDK and Node.js to complete transactions with the PayPal REST API.
+This folder contains example code for [version 1](https://developer.paypal.com/docs/checkout/advanced/integrate/sdk/v1) of a PayPal advanced Checkout integration using the JavaScript SDK and Node.js to complete transactions with the PayPal REST API.
 
 > **Note:** Version 1 is a legacy integration. Use [version 2](https://developer.paypal.com/docs/checkout/advanced/integrate/) for new integrations.
 

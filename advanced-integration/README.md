@@ -1,6 +1,6 @@
 # Advanced Checkout Integration Example
 
-This folder contains example code for an advanced Checkout PayPal integration using both the JavaScript SDK and Node.js to complete transactions with the PayPal REST API.
+This folder contains example code for a PayPal advanced Checkout integration using both the JavaScript SDK and Node.js to complete transactions with the PayPal REST API.
 
 * [`v2`](v2/README.md) contains sample code for the current advanced Checkout integration. This includes guidance on using Hosted Card Fields.
 * [`v1`](v1/README.md) contains sample code for the legacy advanced Checkout integration. Use `v2` for new integrations.
