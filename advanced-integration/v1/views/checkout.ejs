@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PayPal JS SDK Advanced Integration</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
       type="text/css"
       href="https://www.paypalobjects.com/webstatic/en_US/developer/docs/css/cardfields.css"
-    >
+    />
     <script
       src="https://www.paypal.com/sdk/js?components=buttons,hosted-fields&client-id=<%= clientId %>"
       data-client-token="<%= clientToken %>"
@@ -20,12 +18,12 @@
       <form id="card-form">
         <label for="card-number">Card Number</label>
         <div id="card-number" class="card_field"></div>
-        <div style="display: flex; flex-direction: row">
+        <div style="display: flex; flex-direction: row;">
           <div>
             <label for="expiration-date">Expiration Date</label>
             <div id="expiration-date" class="card_field"></div>
           </div>
-          <div style="margin-left: 10px">
+          <div style="margin-left: 10px;">
             <label for="cvv">CVV</label>
             <div id="cvv" class="card_field"></div>
           </div>
@@ -37,7 +35,7 @@
           name="card-holder-name"
           autocomplete="off"
           placeholder="card holder name"
-        >
+        />
         <div>
           <label for="card-billing-address-street">Billing Address</label>
           <input
@@ -46,7 +44,7 @@
             name="card-billing-address-street"
             autocomplete="off"
             placeholder="street address"
-          >
+          />
         </div>
         <div>
           <label for="card-billing-address-unit">&nbsp;</label>
@@ -56,7 +54,7 @@
             name="card-billing-address-unit"
             autocomplete="off"
             placeholder="unit"
-          >
+          />
         </div>
         <div>
           <input
@@ -65,7 +63,7 @@
             name="card-billing-address-city"
             autocomplete="off"
             placeholder="city"
-          >
+          />
         </div>
         <div>
           <input
@@ -74,7 +72,7 @@
             name="card-billing-address-state"
             autocomplete="off"
             placeholder="state"
-          >
+          />
         </div>
         <div>
           <input
@@ -83,7 +81,7 @@
             name="card-billing-address-zip"
             autocomplete="off"
             placeholder="zip / postal code"
-          >
+          />
         </div>
         <div>
           <input
@@ -92,12 +90,11 @@
             name="card-billing-address-country"
             autocomplete="off"
             placeholder="country code"
-          >
+          />
         </div>
-        <br><br>
+        <br /><br />
         <button value="submit" id="submit" class="btn">Pay</button>
       </form>
-      <p id="result-message"></p>
     </div>
     <script src="app.js"></script>
   </body>
