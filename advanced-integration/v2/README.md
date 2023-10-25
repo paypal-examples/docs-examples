@@ -18,6 +18,6 @@ Version 2 is the current advanced Checkout integration, and includes hosted card
 
 The documentation for advanced Checkout integration using JavaScript SDK includes additional sample code in the following sections:
 
-* **3. Adding PayPal buttons and card fields** includes [a full-stack Node.js example](v2/examples/full-stack/).
-* **4. Call Orders API for PayPal buttons and card fields** includes [a server-side example](v2/examples/call-orders-api-server-side/)
-* **5. Capture order** includes [a server-side example](v2/examples/capture-order-server-side/)
+- **3. Adding PayPal buttons and card fields** includes [a full-stack Node.js example](v2/examples/full-stack/).
+- **4. Call Orders API for PayPal buttons and card fields** includes [a server-side example](v2/examples/call-orders-api-server-side/)
+- **5. Capture order** includes [a server-side example](v2/examples/capture-order-server-side/)

@@ -17,8 +17,7 @@
       <button id="multi-card-field-button" type="button">Pay now with Card</button>
     </div>
     <p id="result-message"></p>
-    <!-- Replace the "test" client-id value with your client-id -->
-    <script src="https://www.paypal.com/sdk/js?components=buttons,card-fields&client-id=test"></script>
+    <script src="https://www.paypal.com/sdk/js?components=buttons,card-fields&client-id=<%= clientId %>"></script>
     <script src="checkout.js"></script>
   </body>
 </html>

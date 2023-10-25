@@ -1,11 +1,13 @@
 import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
-import path from "path";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./server/views");
 
 // host static files
 app.use(express.static("client"));
@@ -142,9 +144,15 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   }
 });
 
-// serve index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./client/checkout.html"));
+// render checkout page with client id & unique client token
+app.get("/", async (req, res) => {
+  try {
+    res.render("checkout", {
+      clientId: PAYPAL_CLIENT_ID,
+    });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.listen(PORT, () => {
