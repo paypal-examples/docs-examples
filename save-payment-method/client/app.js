@@ -4,7 +4,7 @@ const main = async () => {
   const data = await response.json();
   const script = document.createElement("script");
   script.src =
-    "https://www.paypal.com/sdk/js?client-id=AcYMYjcezEZ75OhlJfN12BGO9ZlWQG-zM7laW-2cI5GHC7s4WlWFr02F48nrRUa2CG8BcJRH7org9KPm";
+    "https://www.paypal.com/sdk/js?client-id=test";
   script.setAttribute("data-user-id-token", data.id_token);
   script.addEventListener("load", () => renderButtons());
   document.head.appendChild(script);

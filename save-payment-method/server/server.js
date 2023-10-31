@@ -61,7 +61,6 @@ const createOrder = async (cart) => {
   );
 
   const accessToken = await generateAccessToken();
-  console.log("at is", accessToken);
   const url = `${base}/v2/checkout/orders`;
   const payload = {
     intent: "CAPTURE",
