@@ -3,8 +3,7 @@ const main = async () => {
   const response = await fetch(`/api/id-token?user=${user}`);
   const data = await response.json();
   const script = document.createElement("script");
-  script.src =
-    "https://www.paypal.com/sdk/js?client-id=test";
+  script.src = "https://www.paypal.com/sdk/js?client-id=test";
   script.setAttribute("data-user-id-token", data.id_token);
   script.addEventListener("load", () => renderButtons());
   document.head.appendChild(script);
