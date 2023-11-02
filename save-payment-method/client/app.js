@@ -70,7 +70,7 @@ window.paypal
             orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
           resultMessage(
             `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details.<br>
-             <a href='/?${orderData.payment_source.paypal.attributes.vault.customer.id}'>See the return buyer experience</a>
+             <a href='/?customerID=${orderData.payment_source.paypal.attributes.vault.customer.id}'>See the return buyer experience</a>
             `,
           );
 

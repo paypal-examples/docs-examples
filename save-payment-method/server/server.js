@@ -23,9 +23,9 @@ const authenticate = async (bodyParams) => {
   const params = {
     grant_type: "client_credentials",
     response_type: "id_token",
-    ...bodyParams
+    ...bodyParams,
   };
-  
+
   // pass the url encoded value as the body of the post call
   const urlEncodedParams = new URLSearchParams(params).toString();
   try {
@@ -36,14 +36,9 @@ const authenticate = async (bodyParams) => {
       PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
     ).toString("base64");
 
-    let body = "grant_type=client_credentials&response_type=id_token";
-    if (targetCustomerId) {
-      body += `&target_customer_id=${targetCustomerId}`;
-    }
-
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
-      body,
+      body: urlEncodedParams,
       headers: {
         Authorization: `Basic ${auth}`,
       },
@@ -94,6 +89,7 @@ const createOrder = async (cart) => {
         experience_context: {
           return_url: "http://example.com",
           cancel_url: "http://example.com",
+          shipping_preference: "NO_SHIPPING",
         },
       },
     },
@@ -180,7 +176,9 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 // render checkout page with client id & user id token
 app.get("/", async (req, res) => {
   try {
-    const { jsonResponse } = await authenticate(req.query.customerID);
+    const { jsonResponse } = await authenticate({
+      target_customer_id: req.query.customerID,
+    });
     res.render("checkout", {
       clientId: PAYPAL_CLIENT_ID,
       userIdToken: jsonResponse.id_token,
