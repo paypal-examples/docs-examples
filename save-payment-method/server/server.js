@@ -1,11 +1,13 @@
 import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
-import path from "path";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./server/views");
 
 // host static files
 app.use(express.static("client"));
@@ -143,11 +145,6 @@ async function handleResponse(response) {
   }
 }
 
-app.get("/api/id-token", async (req, res) => {
-  const { jsonResponse } = await authenticate(req.query.user);
-  res.json(jsonResponse);
-});
-
 app.post("/api/orders", async (req, res) => {
   try {
     // use the cart information passed from the front-end to calculate the order amount detals
@@ -164,6 +161,7 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   try {
     const { orderID } = req.params;
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
+    console.log("capture response", jsonResponse);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
     console.error("Failed to create order:", error);
@@ -171,9 +169,17 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   }
 });
 
-// serve index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./client/checkout.html"));
+// render checkout page with client id & user id token
+app.get("/", async (req, res) => {
+  try {
+    const { jsonResponse } = await authenticate(req.query.customerID);
+    res.render("checkout", {
+      clientId: PAYPAL_CLIENT_ID,
+      userIdToken: jsonResponse.id_token,
+    });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.listen(PORT, () => {
