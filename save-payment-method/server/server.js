@@ -19,7 +19,15 @@ app.use(express.json());
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
  * @see https://developer.paypal.com/api/rest/authentication/
  */
-const authenticate = async (targetCustomerId) => {
+const authenticate = async (bodyParams) => {
+  const params = {
+    grant_type: "client_credentials",
+    response_type: "id_token",
+    ...bodyParams
+  };
+  
+  // pass the url encoded value as the body of the post call
+  const urlEncodedParams = new URLSearchParams(params).toString();
   try {
     if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
       throw new Error("MISSING_API_CREDENTIALS");
