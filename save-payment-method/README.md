@@ -2,6 +2,8 @@
 
 This folder contains example code for a PayPal Save Payment Method integration using both the JS SDK and Node.js to complete transactions with the PayPal REST API.
 
+[View the Documentation](https://developer.paypal.com/docs/checkout/save-payment-methods/during-purchase/js-sdk/paypal/)
+
 ## Instructions
 
 1. [Create an application](https://developer.paypal.com/dashboard/applications/sandbox/create)
