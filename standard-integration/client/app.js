@@ -1,6 +1,6 @@
 window.paypal
   .Buttons({
-    async createOrder() {
+    async confirmcreateOrder() {
       try {
         const response = await fetch("/api/orders", {
           method: "POST",
@@ -12,7 +12,7 @@ window.paypal
           body: JSON.stringify({
             cart: [
               {
-                id: "YOUR_PRODUCT_ID",
+                id: "YOU viR_PRODUCT_ID",
                 quantity: "YOUR_PRODUCT_QUANTITY",
               },
             ],
