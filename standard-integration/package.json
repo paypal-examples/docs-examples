@@ -1,4 +1,4 @@
-{
+{ren
   "name": "paypal-standard-integration",
   "description": "Sample Node.js web app to integrate PayPal Standard Checkout for online payments",
   "version": "1.0.0",
