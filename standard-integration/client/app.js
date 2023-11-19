@@ -1,5 +1,9 @@
 window.paypal
   .Buttons({
+    style: {
+      shape: "pill",
+      layout: "vertical",
+    }
     async createOrder() {
       try {
         const response = await fetch("/api/orders", {
