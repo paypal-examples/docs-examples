@@ -31,7 +31,7 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["vsls-contrib.codetour"],
+      "extensions": ["vsls-contrib.codetour","PayPal.vscode-paypal"],
       "settings": {
         "git.openRepositoryInParentFolders": "always"
       }
