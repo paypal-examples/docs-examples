@@ -1,10 +1,9 @@
-
 // For more details, see https://aka.ms/devcontainer.json.
 {
   "name": "PayPal Save Payment Method",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/save-payment-method",
-  // Use 'onCreateCommand' to run commands  when creating the container.
+  // Use 'onCreateCommand' to run commands when creating the container.
   "onCreateCommand": "bash ../.devcontainer/save-payment-method/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install",
