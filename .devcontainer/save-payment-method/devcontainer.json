@@ -1,10 +1,10 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "PayPal Advanced Integration (v1)",
+  "name": "PayPal Save Payment Method",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/advanced-integration/v1",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/save-payment-method",
   // Use 'onCreateCommand' to run commands when creating the container.
-  "onCreateCommand": "bash ../../.devcontainer/advanced-integration-v1/welcome-message.sh",
+  "onCreateCommand": "bash ../.devcontainer/save-payment-method/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install",
   // Use 'postAttachCommand' to run commands when attaching to the container.
@@ -15,7 +15,7 @@
   "forwardPorts": [8888],
   "portsAttributes": {
     "8888": {
-      "label": "Preview of Advanced Checkout Flow",
+      "label": "Preview of Save Payment Method Flow",
       "onAutoForward": "openBrowserOnce"
     }
   },
