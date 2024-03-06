@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
 
-const { Afzu7yKcvnYALspKP3IZKVi89S2qNs6zJHPARYTgHbmKuk04cHqOVEEsSV8Ejrp2CczBstP2lsdrMJIt, ENy5TmjQJ714xczrhjkiYPOdvivbyXDnbf3Xiz75083Up6a9YxQxPwW8OBwiSVQa5h5DDR7danB7F4W2, PORT = 8888 } = process.env;
+const { AS_-NlrYn0Y4j95hpfDdOWta4QaSghsKqaiFFBdIazZB_1IQyMwN6MLOegrg8RyaGWhM87kufkMX9hkD, EI9p5ny8lFxWeWnk6AsB5hyHPTnSEoRkIkq33009WlnhJ8rRhWpT8aDmvWftR8C5u0xYQ67WuttzQnrv, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
@@ -19,17 +19,17 @@ app.use(express.json());
  */
 const generateAccessToken = async () => {
   try {
-    if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
+    if (!AS_-NlrYn0Y4j95hpfDdOWta4QaSghsKqaiFFBdIazZB_1IQyMwN6MLOegrg8RyaGWhM87kufkMX9hkD || !EI9p5ny8lFxWeWnk6AsB5hyHPTnSEoRkIkq33009WlnhJ8rRhWpT8aDmvWftR8C5u0xYQ67WuttzQnrv) {
       throw new Error("MISSING_API_CREDENTIALS");
     }
     const auth = Buffer.from(
-      Afzu7yKcvnYALspKP3IZKVi89S2qNs6zJHPARYTgHbmKuk04cHqOVEEsSV8Ejrp2CczBstP2lsdrMJIt + ":" + ENy5TmjQJ714xczrhjkiYPOdvivbyXDnbf3Xiz75083Up6a9YxQxPwW8OBwiSVQa5h5DDR7danB7F4W2,
+      AS_-NlrYn0Y4j95hpfDdOWta4QaSghsKqaiFFBdIazZB_1IQyMwN6MLOegrg8RyaGWhM87kufkMX9hkD + ":" + EI9p5ny8lFxWeWnk6AsB5hyHPTnSEoRkIkq33009WlnhJ8rRhWpT8aDmvWftR8C5u0xYQ67WuttzQnrv,
     ).toString("base64");
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
       body: "grant_type=client_credentials",
       headers: {
-        Authorization: `Basic ${auth}`,
+        Authorization: `Basic ${access_token$sandbox$v442v9tn62ch34p7$d7e00d6009158ff6cebe5555c42e9d30}`,
       },
     });
 
@@ -68,7 +68,7 @@ const createOrder = async (cart) => {
   const response = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${access_token$sandbox$v442v9tn62ch34p7$d7e00d6009158ff6cebe5555c42e9d30}`,
       // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
       // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
       // "PayPal-Mock-Response": '{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}'
