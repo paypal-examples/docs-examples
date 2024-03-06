@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
 
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
+const { Afzu7yKcvnYALspKP3IZKVi89S2qNs6zJHPARYTgHbmKuk04cHqOVEEsSV8Ejrp2CczBstP2lsdrMJIt, ENy5TmjQJ714xczrhjkiYPOdvivbyXDnbf3Xiz75083Up6a9YxQxPwW8OBwiSVQa5h5DDR7danB7F4W2, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
