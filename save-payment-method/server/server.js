@@ -1,11 +1,13 @@
 import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
-import path from "path";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./server/views");
 
 // host static files
 app.use(express.static("client"));
@@ -17,7 +19,15 @@ app.use(express.json());
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
  * @see https://developer.paypal.com/api/rest/authentication/
  */
-const generateAccessToken = async () => {
+const authenticate = async (bodyParams) => {
+  const params = {
+    grant_type: "client_credentials",
+    response_type: "id_token",
+    ...bodyParams,
+  };
+
+  // pass the url encoded value as the body of the post call
+  const urlEncodedParams = new URLSearchParams(params).toString();
   try {
     if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
       throw new Error("MISSING_API_CREDENTIALS");
@@ -25,19 +35,23 @@ const generateAccessToken = async () => {
     const auth = Buffer.from(
       PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
     ).toString("base64");
+
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
-      body: "grant_type=client_credentials",
+      body: urlEncodedParams,
       headers: {
         Authorization: `Basic ${auth}`,
       },
     });
-
-    const data = await response.json();
-    return data.access_token;
+    return handleResponse(response);
   } catch (error) {
     console.error("Failed to generate Access Token:", error);
   }
+};
+
+const generateAccessToken = async () => {
+  const { jsonResponse } = await authenticate();
+  return jsonResponse.access_token;
 };
 
 /**
@@ -63,6 +77,22 @@ const createOrder = async (cart) => {
         },
       },
     ],
+    payment_source: {
+      paypal: {
+        attributes: {
+          vault: {
+            store_in_vault: "ON_SUCCESS",
+            usage_type: "MERCHANT",
+            customer_type: "CONSUMER",
+          },
+        },
+        experience_context: {
+          return_url: "http://example.com",
+          cancel_url: "http://example.com",
+          shipping_preference: "NO_SHIPPING",
+        },
+      },
+    },
   };
 
   const response = await fetch(url, {
@@ -135,6 +165,7 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   try {
     const { orderID } = req.params;
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
+    console.log("capture response", jsonResponse);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
     console.error("Failed to create order:", error);
@@ -142,9 +173,19 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
   }
 });
 
-// serve index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./client/checkout.html"));
+// render checkout page with client id & user id token
+app.get("/", async (req, res) => {
+  try {
+    const { jsonResponse } = await authenticate({
+      target_customer_id: req.query.customerID,
+    });
+    res.render("checkout", {
+      clientId: PAYPAL_CLIENT_ID,
+      userIdToken: jsonResponse.id_token,
+    });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
 app.listen(PORT, () => {

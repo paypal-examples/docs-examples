@@ -1,10 +1,10 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "PayPal Advanced Integration",
+  "name": "PayPal Advanced Integration (v2)",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/advanced-integration",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/advanced-integration/v2",
   // Use 'onCreateCommand' to run commands when creating the container.
-  "onCreateCommand": "bash ../.devcontainer/advanced-integration/welcome-message.sh",
+  "onCreateCommand": "bash ../../.devcontainer/advanced-integration-v2/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install",
   // Use 'postAttachCommand' to run commands when attaching to the container.
@@ -31,7 +31,7 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["vsls-contrib.codetour"],
+      "extensions": ["vsls-contrib.codetour","PayPal.vscode-paypal"],
       "settings": {
         "git.openRepositoryInParentFolders": "always"
       }
