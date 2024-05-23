@@ -124,7 +124,7 @@ if (cardField.isEligible()) {
 
   // Add click listener to submit button and call the submit function on the CardField component
   document
-    .getElementById("multi-card-field-button")
+    .getElementById("card-field-submit-button")
     .addEventListener("click", () => {
       cardField.submit().catch((error) => {
         resultMessage(
