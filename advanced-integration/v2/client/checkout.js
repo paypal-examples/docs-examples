@@ -126,11 +126,33 @@ if (cardField.isEligible()) {
   document
     .getElementById("card-field-submit-button")
     .addEventListener("click", () => {
-      cardField.submit().catch((error) => {
-        resultMessage(
-          `Sorry, your transaction could not be processed...<br><br>${error}`,
-        );
-      });
+      cardField
+        .submit({
+          // From your billing address fields
+          billingAddress: {
+            addressLine1: document.getElementById("card-billing-address-line-1")
+              .value,
+            addressLine2: document.getElementById("card-billing-address-line-2")
+              .value,
+            adminArea1: document.getElementById(
+              "card-billing-address-admin-area-line-1",
+            ).value,
+            adminArea2: document.getElementById(
+              "card-billing-address-admin-area-line-2",
+            ).value,
+            countryCode: document.getElementById(
+              "card-billing-address-country-code",
+            ).value,
+            postalCode: document.getElementById(
+              "card-billing-address-postal-code",
+            ).value,
+          },
+        })
+        .catch((error) => {
+          resultMessage(
+            `Sorry, your transaction could not be processed...<br><br>${error}`,
+          );
+        });
     });
 } else {
   // Hides card fields if the merchant isn't eligible
