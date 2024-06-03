@@ -1,5 +1,14 @@
 window.paypal
   .Buttons({
+    style: {
+      shape: "rect",
+      layout: "vertical",
+      color: "gold",
+      label: "paypal",
+    },
+    message: {
+      amount: "YOUR_AMOUNT_HERE" // This needs to be a number value
+    },
     async createOrder() {
       try {
         const response = await fetch("/api/orders", {
