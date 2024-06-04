@@ -1,5 +1,8 @@
 window.paypal
   .Buttons({
+    message: {
+      amount: "YOUR_AMOUNT_HERE" // This needs to be a number value
+    },
     async createOrder() {
       try {
         const response = await fetch("/api/orders", {
