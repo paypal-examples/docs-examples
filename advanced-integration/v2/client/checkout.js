@@ -26,7 +26,6 @@ async function createOrderCallback() {
       const errorMessage = errorDetail
         ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
         : JSON.stringify(orderData);
-
       throw new Error(errorMessage);
     }
   } catch (error) {
@@ -154,10 +153,10 @@ if (cardField.isEligible()) {
           );
         });
     });
-} else {
+  } else {
   // Hides card fields if the merchant isn't eligible
   document.querySelector("#card-form").style = "display: none";
-}
+  }
 
 // Example function to show a result to the user. Your site's UI library can be used instead.
 function resultMessage(message) {
