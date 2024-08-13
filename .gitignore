@@ -99,3 +99,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# .NET output folder
+bin
+obj
