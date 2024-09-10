@@ -6,15 +6,19 @@
   // Use 'onCreateCommand' to run commands when creating the container.
   "onCreateCommand": "bash ../../.devcontainer/advanced-integration-v1/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install",
+  "postCreateCommand": {
+    "Install Backend Packages": "cd backend/node && npm install",
+    "Install Frontend Packages": "cd frontend/html && npm install"
+  },
   // Use 'postAttachCommand' to run commands when attaching to the container.
   "postAttachCommand": {
-    "Start server": "npm start"
+    "Start server": "cd backend/node && npm start",
+    "Start frontend": "cd frontend/html && npm start"
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [8888],
+  "forwardPorts": [3000, 8080],
   "portsAttributes": {
-    "8888": {
+    "3000": {
       "label": "Preview of Advanced Checkout Flow",
       "onAutoForward": "openBrowserOnce"
     }
