@@ -6,7 +6,8 @@
         "ext-json": "*",
         "guzzlehttp/guzzle": "^7.9",
         "monolog/monolog": "^2.8",
-        "php-di/php-di": "^6.4"
+        "php-di/php-di": "^6.4",
+        "paypal/paypal-server-sdk": "0.5.1"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^1.0.0",

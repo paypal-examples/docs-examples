@@ -102,3 +102,5 @@ dist
 
 # dotnet
 *.sln
+
+*.local
