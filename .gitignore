@@ -99,3 +99,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+.vscode/settings.json
+.devcontainer/update_settings.sh
