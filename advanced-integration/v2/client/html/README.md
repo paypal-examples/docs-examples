@@ -35,11 +35,11 @@ npm install
       PAYPAL_CLIENT_ID=<PAYPAL_CLIENT_ID>
       ```
 
-2. Connecting the frontend and backend (vite.config.js)
+2. Connecting the client and server (vite.config.js)
 
     - Open vite.config.js in the root directory.
     - Locate the proxy configuration object.
-    - Update the proxy key to match the backend server's address and port. For example:
+    - Update the proxy key to match the server's address and port. For example:
 
         ```js
             export default defineConfig({
@@ -47,7 +47,7 @@ npm install
                 server: {
                     proxy: {
                         "/api": {
-                            target: "http://localhost:8080", // Replace with your backend URL
+                            target: "http://localhost:8080", // Replace with your server URL
                             changeOrigin: true,
                         },
                     },
@@ -57,9 +57,9 @@ npm install
 
 3. Starting the development server
 
-    - **Start the backend server**: Follow the instructions in the backend's README to start it. Typically, this involves running npm run dev or a similar command in the backend directory.
+    - **Start the server**: Follow the instructions in the server's README to start it. Typically, this involves running npm run dev or a similar command in the server directory.
 
-    - **Start the frontend server**:
+    - **Start the client**:
 
         ```sh
             npm run dev
@@ -69,6 +69,6 @@ npm install
 
 ### Additional Notes
 
-- **Backend Setup**: Make sure you have the backend server up and running before starting the frontend.
+- **Server Setup**: Make sure you have the server up and running before starting the client.
 - **Environment Variables**: Carefully configure the environment variables in the .env file to match your setup.
-- **Proxy Configuration**: The proxy setting in vite.config.js is crucial for routing API requests from the frontend to the backend during development.
+- **Proxy Configuration**: The proxy setting in vite.config.js is crucial for routing API requests from the client to the server during development.
