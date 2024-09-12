@@ -2,16 +2,35 @@ import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
+import { fileURLToPath } from 'url';
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../client/views'));
+
 // host static files
-app.use(express.static("client"));
+app.use(express.static(path.join(__dirname, '../client/public')));
 
 // parse post params sent in body in json format
 app.use(express.json());
+
+/**
+ * Middleware to gracefully render error page in the event of missing credentials
+ */
+const checkPaypalEnvVars = (req, res, next) => {
+  if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
+    return res.render("error", { reason: "Missing API credentials, Please verify your .env file." })
+  }
+
+  next();
+}
+
+app.use(checkPaypalEnvVars);
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
@@ -144,7 +163,7 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 
 // serve index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve("./client/checkout.html"));
+  res.render("checkout", { clientId: process.env.PAYPAL_CLIENT_ID });
 });
 
 app.listen(PORT, () => {
