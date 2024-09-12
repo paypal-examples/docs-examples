@@ -2,7 +2,7 @@ import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const __filename = fileURLToPath(import.meta.url);
@@ -10,11 +10,11 @@ const __dirname = path.dirname(__filename);
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../client/views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "../client/views"));
 
 // host static files
-app.use(express.static(path.join(__dirname, '../client/public')));
+app.use(express.static(path.join(__dirname, "../client/public")));
 
 // parse post params sent in body in json format
 app.use(express.json());
@@ -87,9 +87,9 @@ const createOrder = async (cart) => {
       Authorization: `Bearer ${accessToken}`,
       // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
       // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
-      // "PayPal-Mock-Response": '{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}'
-      // "PayPal-Mock-Response": '{"mock_application_codes": "PERMISSION_DENIED"}'
-      // "PayPal-Mock-Response": '{"mock_application_codes": "INTERNAL_SERVER_ERROR"}'
+      // "PayPal-Mock-Response": "{"mock_application_codes": "MISSING_REQUIRED_PARAMETER"}"
+      // "PayPal-Mock-Response": "{"mock_application_codes": "PERMISSION_DENIED"}"
+      // "PayPal-Mock-Response": "{"mock_application_codes": "INTERNAL_SERVER_ERROR"}"
     },
     method: "POST",
     body: JSON.stringify(payload),
@@ -113,9 +113,9 @@ const captureOrder = async (orderID) => {
       Authorization: `Bearer ${accessToken}`,
       // Uncomment one of these to force an error for negative testing (in sandbox mode only). Documentation:
       // https://developer.paypal.com/tools/sandbox/negative-testing/request-headers/
-      // "PayPal-Mock-Response": '{"mock_application_codes": "INSTRUMENT_DECLINED"}'
-      // "PayPal-Mock-Response": '{"mock_application_codes": "TRANSACTION_REFUSED"}'
-      // "PayPal-Mock-Response": '{"mock_application_codes": "INTERNAL_SERVER_ERROR"}'
+      // "PayPal-Mock-Response": "{"mock_application_codes": "INSTRUMENT_DECLINED"}"
+      // "PayPal-Mock-Response": "{"mock_application_codes": "TRANSACTION_REFUSED"}"
+      // "PayPal-Mock-Response": "{"mock_application_codes": "INTERNAL_SERVER_ERROR"}"
     },
   });
 
