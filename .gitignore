@@ -102,3 +102,7 @@ dist
 
 # dotnet
 *.sln
+
+#Codespace
+.vscode/settings.json
+.devcontainer/update_settings.sh
