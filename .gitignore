@@ -100,5 +100,9 @@ dist
 # TernJS port file
 .tern-port
 
+#Codespace
 .vscode/settings.json
 .devcontainer/update_settings.sh
+
+# dotnet
+*.sln
