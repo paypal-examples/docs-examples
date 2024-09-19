@@ -18,9 +18,23 @@ This sample app demonstrates how to integrate with ACDC using PayPal's REST APIs
 
 ## How to Run Locally
 
-1. Replace your Client ID & Client Secret in the server/.env file:
-2. Open the `.env` file in a text editor and replace the placeholders with the appropriate values.
-3. Follow the below instructions to setup & run server.
+1. Add your API credentials to the environment:
+
+   - **Windows**
+
+     ```powershell
+     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+     ```
+
+   - **Unix**
+
+     ```bash
+     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+     ```
+
+2. Follow the below instructions to setup & run server.
 
 ## Install the Composer
 

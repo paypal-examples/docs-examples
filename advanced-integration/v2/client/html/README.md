@@ -20,7 +20,7 @@ This guide will walk you through setting up and running the HTML/JS Advanced Int
 
 ### Installation
 
-```sh
+```bash
 npm install
 ```
 
@@ -31,7 +31,7 @@ npm install
     - Rename the .env.example file to .env
     - Update the following keys with their actual values -
 
-      ```sh
+      ```bash
       PAYPAL_CLIENT_ID=<PAYPAL_CLIENT_ID>
       ```
 
@@ -61,7 +61,7 @@ npm install
 
     - **Start the client**:
 
-        ```sh
+        ```bash
             npm run dev
         ```
 

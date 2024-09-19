@@ -1,18 +1,35 @@
 # Standard Integartion Java Sample
+
 PayPal Standard Integration sample in Java
 
 ## Running the sample
 
-1. Build the server
+1. Add your API credentials to the environment:
 
-~~~
-mvn clean install
-~~~
+   - **Windows**
 
-2. Run the server
+     ```powershell
+     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+     ```
 
-~~~
-mvn spring-boot:run
-~~~
+   - **Unix**
 
-3. Go to [http://localhost:8080/](http://localhost:8080/)
+     ```bash
+     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+     ```
+
+2. Build the server
+
+   ```bash
+   mvn clean install
+   ```
+
+3. Run the server
+
+   ```bash
+   mvn spring-boot:run
+   ```
+
+4. Go to [http://localhost:8080/](http://localhost:8080/)
