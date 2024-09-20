@@ -1,6 +1,6 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "advanced-integration/client-html/server-java",
+  "name": "advanced-integration/html/java",
   "image": "mcr.microsoft.com/devcontainers/java:21",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   // Use 'onCreateCommand' to run commands when creating the container.

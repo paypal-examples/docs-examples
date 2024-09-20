@@ -1,6 +1,6 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "standard-integration/client-react/server-dotnet",
+  "name": "standard-integration/react/dotnet",
   "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   // Use 'onCreateCommand' to run commands when creating the container.

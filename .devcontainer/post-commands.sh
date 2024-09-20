@@ -26,13 +26,13 @@ setup_backend() {
             cd "$SERVER_DIR/node" && npm install
             ;;
         java)
-            cd "$SERVER_DIR" && touch java/.env && cd java && mvn clean install
+            cd "$SERVER_DIR" && cd java && mvn clean install
             ;;
         dotnet)
             cd "$SERVER_DIR/dotnet" && dotnet restore
             ;;
         php)
-            cd "$SERVER_DIR" && touch php/.env && cd php && composer install
+            cd "$SERVER_DIR" && cd php && composer install
             ;;
         *)
             echo "Unknown server: $VISIBLE_FOLDER_SERVER"

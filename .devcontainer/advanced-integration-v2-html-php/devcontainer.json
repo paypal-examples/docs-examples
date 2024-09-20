@@ -1,6 +1,6 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "advanced-integration/client-html/server-php",
+  "name": "advanced-integration/html/php",
   "image": "mcr.microsoft.com/devcontainers/php:8",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   // Use 'onCreateCommand' to run commands when creating the container.
