@@ -4,16 +4,32 @@ PayPal Advanced Integration sample in Node.js
 
 ## Running the sample
 
-1. Install the packages
+1. Add your API credentials to the environment:
 
-    ```sh
-    npm install
-    ```
+   - **Windows**
 
-2. Run the server
+     ```powershell
+     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+     ```
 
-    ```sh
-    npm run start
-    ```
+   - **Unix**
 
-3. Go to [http://localhost:8080/](http://localhost:8080/)
+     ```bash
+     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+     ```
+
+2. Install the packages
+
+   ```bash
+   npm install
+   ```
+
+3. Run the server
+
+   ```bash
+   npm run start
+   ```
+
+4. Go to [http://localhost:8080/](http://localhost:8080/)
