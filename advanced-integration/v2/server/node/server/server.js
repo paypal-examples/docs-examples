@@ -56,22 +56,19 @@ const createOrder = async (cart) => {
   }
   
   try {
-    const { result, ...httpResponse } = await ordersController.ordersCreate(collect);
+    const { body, ...httpResponse } = await ordersController.ordersCreate(collect);
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
-      jsonResponse: result,
+      jsonResponse: JSON.parse(body),
       httpStatusCode: httpResponse.statusCode,
     };
   } catch (error) {
     if (error instanceof ApiError) {
-      const errors = error.result;
       // const { statusCode, headers } = error;
-    const errorMessage = await errors;
-    throw new Error(errorMessage);
+       throw new Error(error.message);
     }
   }
-
 };
 
 /**
@@ -86,19 +83,17 @@ const captureOrder = async (orderID) => {
   }
   
   try {
-    const { result, ...httpResponse } = await ordersController.ordersCapture(collect);
+    const { body, ...httpResponse } = await ordersController.ordersCapture(collect);
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
-      jsonResponse: result,
+      jsonResponse: JSON.parse(body),
       httpStatusCode: httpResponse.statusCode,
     };
   } catch (error) {
     if (error instanceof ApiError) {
-      const errors = error.result;
       // const { statusCode, headers } = error;
-    const errorMessage = await errors;
-    throw new Error(errorMessage);
+       throw new Error(error.message);
     }
   }
 };
