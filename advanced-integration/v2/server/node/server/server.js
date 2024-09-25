@@ -7,7 +7,7 @@ import {
   Environment,
   LogLevel,
   OrdersController,
-} from '@paypal/paypal-server-sdk';
+} from "@paypal/paypal-server-sdk";
 import bodyParser from "body-parser";
 
 const app = express();
@@ -18,18 +18,18 @@ const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8080 } = process.env;
 const client = new Client({
   clientCredentialsAuthCredentials: {
     oAuthClientId: PAYPAL_CLIENT_ID,
-    oAuthClientSecret: PAYPAL_CLIENT_SECRET
+    oAuthClientSecret: PAYPAL_CLIENT_SECRET,
   },
   timeout: 0,
   environment: Environment.Sandbox,
   logging: {
     logLevel: LogLevel.Info,
     logRequest: {
-      logBody: true
+      logBody: true,
     },
     logResponse: {
-      logHeaders: true
-    }
+      logHeaders: true,
+    },
   },
 });
 
@@ -46,17 +46,18 @@ const createOrder = async (cart) => {
       purchaseUnits: [
         {
           amount: {
-            currencyCode: 'USD',
-            value: '100.00',
+            currencyCode: "USD",
+            value: "100.00",
           },
-        }
+        },
       ],
     },
-    prefer: 'return=minimal'
-  }
-  
+    prefer: "return=minimal",
+  };
+
   try {
-    const { body, ...httpResponse } = await ordersController.ordersCreate(collect);
+    const { body, ...httpResponse } =
+      await ordersController.ordersCreate(collect);
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
@@ -66,7 +67,7 @@ const createOrder = async (cart) => {
   } catch (error) {
     if (error instanceof ApiError) {
       // const { statusCode, headers } = error;
-       throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 };
@@ -76,14 +77,14 @@ const createOrder = async (cart) => {
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
  */
 const captureOrder = async (orderID) => {
-  
   const collect = {
     id: orderID,
-    prefer: 'return=minimal'
-  }
-  
+    prefer: "return=minimal",
+  };
+
   try {
-    const { body, ...httpResponse } = await ordersController.ordersCapture(collect);
+    const { body, ...httpResponse } =
+      await ordersController.ordersCapture(collect);
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
@@ -93,7 +94,7 @@ const captureOrder = async (orderID) => {
   } catch (error) {
     if (error instanceof ApiError) {
       // const { statusCode, headers } = error;
-       throw new Error(error.message);
+      throw new Error(error.message);
     }
   }
 };
