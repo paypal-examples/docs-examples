@@ -1,107 +1,83 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use GuzzleHttp\Client;
+use PaypalServerSDKLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
+use PaypalServerSDKLib\Environment;
+use PaypalServerSDKLib\PaypalServerSDKClientBuilder;
+use PaypalServerSDKLib\Models\Builders\OrderRequestBuilder;
+use PaypalServerSDKLib\Models\CheckoutPaymentIntent;
+use PaypalServerSDKLib\Models\Builders\PurchaseUnitRequestBuilder;
+use PaypalServerSDKLib\Models\Builders\AmountWithBreakdownBuilder;
 
 $env = parse_ini_file('.env');
 
 $PAYPAL_CLIENT_ID = $env['PAYPAL_CLIENT_ID'];
 $PAYPAL_CLIENT_SECRET = $env['PAYPAL_CLIENT_SECRET'];
-$base = "https://api-m.sandbox.paypal.com";
 
-/**
- * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
- * @see https://developer.paypal.com/api/rest/authentication/
- */
-function generateAccessToken() {
-    global $PAYPAL_CLIENT_ID, $PAYPAL_CLIENT_SECRET, $base;
-
-    if (!$PAYPAL_CLIENT_ID || !$PAYPAL_CLIENT_SECRET) {
-        throw new Exception("MISSING_API_CREDENTIALS");
-    }
-
-    $auth = base64_encode($PAYPAL_CLIENT_ID . ":" . $PAYPAL_CLIENT_SECRET);
-    
-    // Disabling certificate validation for local development
-    $client = new Client(['verify' => false]);
-    $response = $client->post("$base/v1/oauth2/token", [
-        'form_params' => [
-            'grant_type' => 'client_credentials'
-        ],
-        'headers' => [
-            'Authorization' => "Basic $auth"
-        ]
-    ]);
-
-    $data = json_decode($response->getBody(), true);
-    return $data['access_token'];
-}
+$client = PaypalServerSDKClientBuilder::init()
+    ->clientCredentialsAuthCredentials(
+        ClientCredentialsAuthCredentialsBuilder::init(
+            $PAYPAL_CLIENT_ID,
+            $PAYPAL_CLIENT_SECRET
+        )
+    )
+    ->environment(Environment::SANDBOX)
+    ->build();
 
 /**
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
-function createOrder($cart) {
-    global $base;
+function createOrder($cart)
+{
+    global $client;
 
-    $accessToken = generateAccessToken();
-    
-    // Disabling certificate validation for local development
-    $client = new Client(['verify' => false]);
-    $payload = [
-        'intent' => 'CAPTURE',
-        'purchase_units' => [
+    $orderBody = [
+        'body' => OrderRequestBuilder::init(
+            CheckoutPaymentIntent::CAPTURE,
             [
-                'amount' => [
-                    'currency_code' => 'USD',
-                    'value' => '100.00'
-                ]
+                PurchaseUnitRequestBuilder::init(
+                    AmountWithBreakdownBuilder::init(
+                        'USD',
+                        '100.00'
+                    )->build()
+                )->build()
             ]
-        ],
+        )->build()
     ];
 
-    $response = $client->post("$base/v2/checkout/orders", [
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Authorization' => "Bearer $accessToken"
-        ],
-        'json' => $payload
-    ]);
+    $apiResponse = $client->getOrdersController()->ordersCreate($orderBody);
 
-    return handleResponse($response);
+    return handleResponse($apiResponse);
 }
 
 /**
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
  */
-function captureOrder($orderID) {
-    global $base;
+function captureOrder($orderID)
+{
+    global $client;
 
-    $accessToken = generateAccessToken();
+    $captureBody = [
+        'id' => $orderID
+    ];
 
-    // Disabling certificate validation for local development
-    $client = new Client(['verify' => false]);
-    $response = $client->post("$base/v2/checkout/orders/$orderID/capture", [
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Authorization' => "Bearer $accessToken"
-        ]
-    ]);
+    $apiResponse = $client->getOrdersController()->ordersCapture($captureBody);
 
-    return handleResponse($response);
+    return handleResponse($apiResponse);
 }
 
-function handleResponse($response) {
-    $jsonResponse = json_decode($response->getBody(), true);
+function handleResponse($response)
+{
     return [
-        'jsonResponse' => $jsonResponse,
+        'jsonResponse' => $response->getResult(),
         'httpStatusCode' => $response->getStatusCode()
     ];
 }
 
 $endpoint = $_SERVER['REQUEST_URI'];
-if($endpoint === '/') {
+if ($endpoint === '/') {
     try {
         $response = [
             "message" => "Server is running"
@@ -114,7 +90,7 @@ if($endpoint === '/') {
     }
 }
 
-if($endpoint === '/api/orders') {
+if ($endpoint === '/api/orders') {
     $data = json_decode(file_get_contents('php://input'), true);
     $cart = $data['cart'];
     header('Content-Type: application/json');
@@ -128,7 +104,7 @@ if($endpoint === '/api/orders') {
 }
 
 
-if(str_ends_with($endpoint, '/capture')) {
+if (str_ends_with($endpoint, '/capture')) {
     $urlSegments = explode('/', $endpoint);
     end($urlSegments); // Will set the pointer to the end of array
     $orderID = prev($urlSegments);

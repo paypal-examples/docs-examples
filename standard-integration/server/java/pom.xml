@@ -27,7 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,6 +37,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>
+				com.paypal.sdk
+			</groupId>
+			<artifactId>
+				paypal-server-sdk
+			</artifactId>
+			<version>
+				0.5.1
+			</version>
 		</dependency>
 	</dependencies>
 
