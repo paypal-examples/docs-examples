@@ -1,6 +1,6 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "PayPal Advanced Integration (v1)",
+  "name": "advanced-integration-v1",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/advanced-integration/v1",
   // Use 'onCreateCommand' to run commands when creating the container.
