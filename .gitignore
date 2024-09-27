@@ -102,3 +102,9 @@ dist
 
 # dotnet
 *.sln
+
+# Python
+.venv
+
+# Environment
+.env
