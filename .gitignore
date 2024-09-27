@@ -103,8 +103,14 @@ dist
 # dotnet
 *.sln
 
+
 # env
 *.local
+
+# Python
+.venv
+__pycache__
+
 
 #Codespace
 .vscode/settings.json
