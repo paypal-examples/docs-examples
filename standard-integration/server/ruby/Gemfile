@@ -2,7 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "paypal-server-sdk", "~> 0.5.2"
+
+gem "dotenv", "~> 3.1"
+gem "paypal-server-sdk", "~> 0.5.1"
 gem "puma", "~> 6.4"
 gem "rackup", "~> 2.1"
 gem "sinatra", "~> 4.0"
