@@ -69,7 +69,9 @@ def create_order():
              ) 
           )
         ]
-      )}
+      ),
+      "prefer": 'return=representation'
+      }
     )
     return ApiHelper.json_serialize(order.body)
 
