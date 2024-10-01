@@ -1,25 +1,22 @@
 // For more details, see https://aka.ms/devcontainer.json.
 {
-  "name": "PayPal Standard Integration",
+  "name": "advanced-integration-v2/react/node",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/standard-integration",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   // Use 'onCreateCommand' to run commands when creating the container.
-  "onCreateCommand": "bash ../.devcontainer/standard-integration/welcome-message.sh",
+  "onCreateCommand": "bash .devcontainer/advanced-integration-v2-react-node/welcome-message.sh",
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": {
-    "Install Client Packages": "cd client/html && npm install",
-    "Install Server Packages": "cd server/node && npm install"
-  },
+  "postCreateCommand": "chmod +x .devcontainer/update_settings.sh && .devcontainer/update_settings.sh && chmod +x .devcontainer/post-commands.sh && .devcontainer/post-commands.sh post-create",
   // Use 'postAttachCommand' to run commands when attaching to the container.
-  "postAttachCommand": {
-    "Start client": "cd client/html && npm start",
-    "Start server": "cd server/node && npm start"
-  },
+  "postAttachCommand": "chmod +x .devcontainer/post-commands.sh && .devcontainer/post-commands.sh post-attach",
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [3000, 8080],
   "portsAttributes": {
+    "8080": {
+      "label": "Preview of Advanced Checkout Flow"
+    },
     "3000": {
-      "label": "Preview of Standard Checkout Flow",
+      "label": "React",
       "onAutoForward": "openBrowserOnce"
     }
   },
@@ -33,12 +30,27 @@
       "documentationUrl": "https://developer.paypal.com/dashboard/applications/sandbox"
     }
   },
+  "containerEnv": {
+    "VISIBLE_FOLDER_SERVER": "node",
+    "VISIBLE_FOLDER_CLIENT": "react",
+    "VISIBLE_FOLDER_PROJECT": "advanced-integration",
+    "VISIBLE_FOLDER_VERSION": "v2"
+  },
   "customizations": {
     "vscode": {
-      "extensions": ["vsls-contrib.codetour","PayPal.vscode-paypal"],
+      "extensions": [
+        "vsls-contrib.codetour",
+        "PayPal.vscode-paypal",
+        "dbaeumer.vscode-eslint"
+      ],
       "settings": {
         "git.openRepositoryInParentFolders": "always"
       }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
     }
   }
 }
