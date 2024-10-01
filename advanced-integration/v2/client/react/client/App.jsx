@@ -9,6 +9,7 @@ import {
 
 export default function App() {
   const [isPaying, setIsPaying] = useState(false);
+  const [message, setMessage] = useState("");
   const initialOptions = {
     "client-id": import.meta.env.PAYPAL_CLIENT_ID,
     "enable-funding": "venmo",
@@ -126,7 +127,7 @@ export default function App() {
       <PayPalScriptProvider options={initialOptions}>
         <PayPalButtons
           createOrder={createOrder}
-          onApprove={onApprove}
+          onApprove={async (data) => setMessage(await onApprove(data))}
           onError={onError}
           style={{
             shape: "rect",
@@ -138,7 +139,7 @@ export default function App() {
 
         <PayPalCardFieldsProvider
           createOrder={createOrder}
-          onApprove={onApprove}
+          onApprove={async (data) => setMessage(await onApprove(data))}
         >
           <PayPalCardFieldsForm />
           <input
@@ -203,6 +204,7 @@ export default function App() {
           />
         </PayPalCardFieldsProvider>
       </PayPalScriptProvider>
+      <Message content={message} />
     </div>
   );
 }
@@ -224,7 +226,7 @@ const SubmitPayment = ({ isPaying, setIsPaying, billingAddress }) => {
     }
     setIsPaying(true);
 
-    cardFieldsForm.submit({ billingAddress }).catch((err) => {
+    cardFieldsForm.submit({ billingAddress }).finally((err) => {
       setIsPaying(false);
     });
   };
@@ -237,4 +239,8 @@ const SubmitPayment = ({ isPaying, setIsPaying, billingAddress }) => {
       {isPaying ? <div className="spinner tiny" /> : "Pay"}
     </button>
   );
+};
+
+const Message = ({ content }) => {
+  return <p>{content}</p>;
 };

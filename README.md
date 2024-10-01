@@ -41,9 +41,18 @@ These examples will ask you to run commands like `npm install` and `npm start`.
 You'll need a version of node >= 16 which can be downloaded from the [Node.js website](https://nodejs.org/en/download/).
 
 
-## PayPal Codespaces 
+# Running on Codespaces
+Follow below steps to use Codespaces.
 
-PayPal codespaces require a client ID and client secret for your app. 
+1) Click "New with options..." to open a page where you can choose the Dev container to run.
+![image](https://github.com/user-attachments/assets/0d4bf202-0c94-42ec-aa2e-d8ccb6da9eb8)
+
+2) Choose the Dev container to run
+![image](https://github.com/user-attachments/assets/b612467d-9fdc-4666-8dfa-0d99af6a2d39)
+
+3) Client ID and Client Secrets are required for running the application in codespace.
+![image](https://github.com/user-attachments/assets/cbbc4521-aa43-403f-9243-e3c555e67f4a)
+
 
 ### Link to codespaces 
 

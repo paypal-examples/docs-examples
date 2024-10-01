@@ -11,8 +11,8 @@ use PaypalServerSDKLib\Models\Builders\AmountWithBreakdownBuilder;
 
 $env = parse_ini_file('.env');
 
-$PAYPAL_CLIENT_ID = $env['PAYPAL_CLIENT_ID'];
-$PAYPAL_CLIENT_SECRET = $env['PAYPAL_CLIENT_SECRET'];
+$PAYPAL_CLIENT_ID = getenv('PAYPAL_CLIENT_ID');
+$PAYPAL_CLIENT_SECRET = getenv('PAYPAL_CLIENT_SECRET');
 
 $client = PaypalServerSDKClientBuilder::init()
     ->clientCredentialsAuthCredentials(
@@ -117,4 +117,4 @@ if (str_ends_with($endpoint, '/capture')) {
         http_response_code(500);
     }
 }
-?>
+
