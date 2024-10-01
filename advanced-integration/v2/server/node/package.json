@@ -11,9 +11,9 @@
     "node-fetch": "^3.3.2"
   },
   "scripts": {
-    "server-dev": "nodemon server/server.js",
+    "server-dev": "nodemon server.js",
     "start": "npm run server-dev",
-    "prod": "node server/server.js",
+    "prod": "node server.js",
     "format": "npx prettier --write **/*.{js,jsx,md}",
     "format:check": "npx prettier --check **/*.{js,jsx,md}"
   },

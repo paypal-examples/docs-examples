@@ -57,15 +57,15 @@ npm install
 
 3. Starting the development server
 
-    - **Start the server**: Follow the instructions in the server's README to start it. Typically, this involves running npm run dev or a similar command in the server directory.
+    - **Start the server**: Follow the instructions in the server's README to start it. Typically, this involves running npm run start or a similar command in the server directory.
 
     - **Start the client**:
 
         ```bash
-            npm run dev
+            npm run start
         ```
 
-        This will start the development server, and you should be able to access the Advanced Checkout Page in your browser at `http://localhost:3000` (or the port specfied in the terminal output).
+        This will start the development server, and you should be able to access the Standard Checkout Page in your browser at `http://localhost:3000` (or the port specfied in the terminal output).
 
 ### Additional Notes
 

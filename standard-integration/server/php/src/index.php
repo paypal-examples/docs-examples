@@ -9,8 +9,6 @@ use PaypalServerSDKLib\Models\CheckoutPaymentIntent;
 use PaypalServerSDKLib\Models\Builders\PurchaseUnitRequestBuilder;
 use PaypalServerSDKLib\Models\Builders\AmountWithBreakdownBuilder;
 
-$env = parse_ini_file('.env');
-
 $PAYPAL_CLIENT_ID = getenv('PAYPAL_CLIENT_ID');
 $PAYPAL_CLIENT_SECRET = getenv('PAYPAL_CLIENT_SECRET');
 
@@ -34,7 +32,7 @@ function createOrder($cart)
 
     $orderBody = [
         'body' => OrderRequestBuilder::init(
-            CheckoutPaymentIntent::CAPTURE,
+            'AUTHORIZE',
             [
                 PurchaseUnitRequestBuilder::init(
                     AmountWithBreakdownBuilder::init(
