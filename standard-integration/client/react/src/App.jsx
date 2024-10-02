@@ -13,7 +13,6 @@ function App() {
     "buyer-country": "US",
     currency: "USD",
     components: "buttons",
-    intent: 'authorize'
   };
 
   const [message, setMessage] = useState("");
