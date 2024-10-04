@@ -54,7 +54,7 @@ post "/api/orders" do
     ),
     'prefer' => 'return=representation'
     })
-  order_response.data.to_json
+  json order_response.data
 end
 
 #  Capture payment for the created order to complete the transaction.
@@ -65,6 +65,6 @@ post '/api/orders/:order_id/capture' do |order_id|
     'id' => order_id,
     'prefer' => 'return=representation'
   })
-  capture_response.data.to_json
+  json capture_response.data
 rescue ErrorException => e
 end
