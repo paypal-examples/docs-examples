@@ -4,26 +4,13 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.9",
-        "monolog/monolog": "^2.8",
-        "php-di/php-di": "^6.4",
         "paypal/paypal-server-sdk": "0.5.1"
     },
     "require-dev": {
-        "jangregor/phpstan-prophecy": "^1.0.0",
-        "phpspec/prophecy-phpunit": "^2.0",
-        "phpstan/extension-installer": "^1.2.0",
-        "phpstan/phpstan": "^1.8",
-        "phpunit/phpunit": "^9.5.26",
-        "squizlabs/php_codesniffer": "^3.7"
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t src",
-        "test": "phpunit"
+        "start": "php -S localhost:8080 -t src"
     },
     "config": {
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
     }
 }

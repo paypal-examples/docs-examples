@@ -32,7 +32,7 @@ function createOrder($cart)
 
     $orderBody = [
         'body' => OrderRequestBuilder::init(
-            'AUTHORIZE',
+            CheckoutPaymentIntent::CAPTURE,
             [
                 PurchaseUnitRequestBuilder::init(
                     AmountWithBreakdownBuilder::init(
