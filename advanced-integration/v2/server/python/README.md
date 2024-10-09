@@ -1,15 +1,19 @@
-# Standard Integration Ruby Sinatra Sample
+# Standard Integration Python Flask Sample
 
-PayPal Standard Integration sample in Ruby using Sinatra
+PayPal Standard Integration sample in Python using Flask
 
 ## Running the sample
 
-1. **Ensure you have a supported Ruby version installed**: [Ruby Maintenance Branches](https://www.ruby-lang.org/en/downloads/branches/)
+1. **Setup a virtual environment**
+
+   ```sh
+   python3 -m venv .venv
+   ```
 
 1. **Install the dependencies**
 
-   ```bash
-   bundle install
+   ```sh
+   pip install -r requirements.txt
    ```
 
 1. **Add your API credentials to the environment:**
@@ -30,8 +34,8 @@ PayPal Standard Integration sample in Ruby using Sinatra
 
 1. **Run the server**
 
-   ```bash
-   bundle exec ruby server.rb
+   ```sh
+   flask --app server run  --port 8080
    ```
 
-1. Go to [http://localhost:8080/](http://localhost:8080/)
+1. Go to [http://localhost:8080/](http://localhost:8080/) 
