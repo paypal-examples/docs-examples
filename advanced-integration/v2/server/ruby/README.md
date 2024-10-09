@@ -1,4 +1,4 @@
-# Standard Integartion Ruby Sinatra Sample
+# Standard Integration Ruby Sinatra Sample
 
 PayPal Standard Integration sample in Ruby using Sinatra
 

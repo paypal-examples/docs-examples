@@ -1,4 +1,4 @@
-# Standard Integartion Python Flask Sample
+# Standard Integration Python Flask Sample
 
 PayPal Standard Integration sample in Python using Flask
 
