@@ -4,19 +4,35 @@ PayPal Standard Integration sample in Python using Flask
 
 ## Running the sample
 
-1. Setup a virtual environment
+1. **Setup a virtual environment**
 
    ```sh
-   python3 -m vene .venv
+   python3 -m venv .venv
    ```
 
-1. Install the dependencies
+1. **Install the dependencies**
 
    ```sh
    pip install -r requirements.txt
    ```
 
-1. Run the server
+1. **Add your API credentials to the environment:**
+
+   - **Windows**
+
+     ```powershell
+     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+     ```
+
+   - **Unix**
+
+     ```bash
+     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+     ```
+
+1. **Run the server**
 
    ```sh
    flask --app server run

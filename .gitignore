@@ -102,10 +102,3 @@ dist
 
 # dotnet
 *.sln
-
-# Python
-.venv
-__pycache__
-
-# Environment
-.env

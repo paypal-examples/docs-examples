@@ -1,11 +1,8 @@
-require 'dotenv'
 require 'paypal_server_sdk'
 require 'sinatra'
 require 'sinatra/json'
 
 include PaypalServerSdk
-
-Dotenv.load(".env")
 
 set :port, 8080
 

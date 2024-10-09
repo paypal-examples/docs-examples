@@ -1,7 +1,6 @@
 import logging
 import os
 
-from dotenv import load_dotenv
 from flask import Flask, request
 from paypalserversdk.http.auth.o_auth_2 import ClientCredentialsAuthCredentials
 from paypalserversdk.logging.configuration.api_logging_configuration import LoggingConfiguration, \
@@ -15,8 +14,6 @@ from paypalserversdk.models.purchase_unit_request import PurchaseUnitRequest
 from paypalserversdk.api_helper import ApiHelper
 
 app = Flask(__name__)
-
-load_dotenv()
 
 paypal_client: PaypalserversdkClient = PaypalserversdkClient(
     client_credentials_auth_credentials=ClientCredentialsAuthCredentials(
