@@ -1,4 +1,4 @@
-# Standard Integartion Java Sample
+# Standard Integration Java Sample
 
 PayPal Standard Integration sample in Java
 

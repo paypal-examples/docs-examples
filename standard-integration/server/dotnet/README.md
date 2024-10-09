@@ -1,4 +1,4 @@
-# Standard Integartion .NET Sample
+# Standard Integration .NET Sample
 
 PayPal Standard Integration sample in .NET
 

@@ -1,4 +1,4 @@
-# Advanced Integartion Node.js Sample
+# Advanced Integration Node.js Sample
 
 PayPal Advanced Integration sample in Node.js
 

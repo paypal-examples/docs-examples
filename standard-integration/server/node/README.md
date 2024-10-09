@@ -1,4 +1,4 @@
-# Standard Integartion Node.js Sample
+# Standard Integration Node.js Sample
 
 PayPal Standard Integration sample in Node.js
 

@@ -1,4 +1,4 @@
-# Advanced Integartion .NET Sample
+# Advanced Integration .NET Sample
 
 PayPal Advanced Integration sample in .NET
 

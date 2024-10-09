@@ -1,4 +1,4 @@
-# Advanced Integartion Java Sample
+# Advanced Integration Java Sample
 
 PayPal Advanced Integration sample in Java
 
