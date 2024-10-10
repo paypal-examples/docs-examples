@@ -4,14 +4,15 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@paypal/paypal-server-sdk": "^0.5.1",
+    "body-parser": "^1.20.3",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2"
+    "express": "^4.18.2"
   },
   "scripts": {
-    "server-dev": "nodemon server/server.js",
+    "server-dev": "nodemon server.js",
     "start": "npm run server-dev",
-    "prod": "node server/server.js",
+    "prod": "node server.js",
     "format": "npx prettier --write **/*.{js,jsx,md}",
     "format:check": "npx prettier --check **/*.{js,jsx,md}"
   },

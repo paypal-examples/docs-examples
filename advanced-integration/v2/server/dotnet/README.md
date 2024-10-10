@@ -1,4 +1,4 @@
-# Advanced Integartion .NET Sample
+# Advanced Integration .NET Sample
 
 PayPal Advanced Integration sample in .NET
 
@@ -6,14 +6,14 @@ PayPal Advanced Integration sample in .NET
 
 1. **Add your API credentials to the environment:**
 
-   - **Windows**
+   - **Windows (powershell)**
 
      ```powershell
      $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
      $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
      ```
 
-   - **Unix**
+   - **Linux / MacOS**
 
      ```bash
      export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"

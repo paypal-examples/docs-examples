@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [],
   envDir: "../",
   envPrefix: "PAYPAL",
-  root: "client",
+  root: "src",
   server: {
     port: 3000,
     proxy: {

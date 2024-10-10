@@ -1,4 +1,4 @@
-# Standard Integartion .NET Sample
+# Standard Integration .NET Sample
 
 PayPal Standard Integration sample in .NET
 
@@ -6,14 +6,14 @@ PayPal Standard Integration sample in .NET
 
 1. **Add your API credentials to the environment:**
 
-   - **Windows**
+   - **Windows (powershell)**
 
      ```powershell
      $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
      $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
      ```
 
-   - **Unix**
+   - **Linux / MacOS**
 
      ```bash
      export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
