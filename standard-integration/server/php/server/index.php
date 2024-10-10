@@ -3,17 +3,16 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use GuzzleHttp\Client;
 
-$env = parse_ini_file('.env');
-
-$PAYPAL_CLIENT_ID = $env['PAYPAL_CLIENT_ID'];
-$PAYPAL_CLIENT_SECRET = $env['PAYPAL_CLIENT_SECRET'];
+$PAYPAL_CLIENT_ID = getenv('PAYPAL_CLIENT_ID');
+$PAYPAL_CLIENT_SECRET = getenv('PAYPAL_CLIENT_SECRET');
 $base = "https://api-m.sandbox.paypal.com";
 
 /**
  * Generate an OAuth 2.0 access token for authenticating with PayPal REST APIs.
  * @see https://developer.paypal.com/api/rest/authentication/
  */
-function generateAccessToken() {
+function generateAccessToken()
+{
     global $PAYPAL_CLIENT_ID, $PAYPAL_CLIENT_SECRET, $base;
 
     if (!$PAYPAL_CLIENT_ID || !$PAYPAL_CLIENT_SECRET) {
@@ -21,7 +20,7 @@ function generateAccessToken() {
     }
 
     $auth = base64_encode($PAYPAL_CLIENT_ID . ":" . $PAYPAL_CLIENT_SECRET);
-    
+
     // Disabling certificate validation for local development
     $client = new Client(['verify' => false]);
     $response = $client->post("$base/v1/oauth2/token", [
@@ -41,11 +40,12 @@ function generateAccessToken() {
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
  */
-function createOrder($cart) {
+function createOrder($cart)
+{
     global $base;
 
     $accessToken = generateAccessToken();
-    
+
     // Disabling certificate validation for local development
     $client = new Client(['verify' => false]);
     $payload = [
@@ -75,7 +75,8 @@ function createOrder($cart) {
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
  */
-function captureOrder($orderID) {
+function captureOrder($orderID)
+{
     global $base;
 
     $accessToken = generateAccessToken();
@@ -92,7 +93,8 @@ function captureOrder($orderID) {
     return handleResponse($response);
 }
 
-function handleResponse($response) {
+function handleResponse($response)
+{
     $jsonResponse = json_decode($response->getBody(), true);
     return [
         'jsonResponse' => $jsonResponse,
@@ -101,7 +103,7 @@ function handleResponse($response) {
 }
 
 $endpoint = $_SERVER['REQUEST_URI'];
-if($endpoint === '/') {
+if ($endpoint === '/') {
     try {
         $response = [
             "message" => "Server is running"
@@ -114,7 +116,7 @@ if($endpoint === '/') {
     }
 }
 
-if($endpoint === '/api/orders') {
+if ($endpoint === '/api/orders') {
     $data = json_decode(file_get_contents('php://input'), true);
     $cart = $data['cart'];
     header('Content-Type: application/json');
@@ -128,7 +130,7 @@ if($endpoint === '/api/orders') {
 }
 
 
-if(str_ends_with($endpoint, '/capture')) {
+if (str_ends_with($endpoint, '/capture')) {
     $urlSegments = explode('/', $endpoint);
     end($urlSegments); // Will set the pointer to the end of array
     $orderID = prev($urlSegments);
@@ -141,4 +143,3 @@ if(str_ends_with($endpoint, '/capture')) {
         http_response_code(500);
     }
 }
-?>

@@ -42,7 +42,7 @@ window.paypal
         throw new Error(errorMessage);
       } catch (error) {
         console.error(error);
-        // resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+        resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
     },
 
@@ -98,3 +98,9 @@ window.paypal
     },
   })
   .render("#paypal-button-container");
+
+// Example function to show a result to the user. Your site's UI library can be used instead.
+function resultMessage(message) {
+  const container = document.querySelector("#result-message");
+  container.innerHTML = message;
+}

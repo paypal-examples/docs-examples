@@ -23,12 +23,6 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(
-                (context, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                }
-            )
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseUrls("http://localhost:8080");
@@ -66,11 +60,11 @@ public class CheckoutController : Controller
     private IConfiguration _configuration { get; }
     private string _paypalClientId
     {
-        get { return _configuration["PAYPAL_CLIENT_ID"]; }
+        get { return Environment.GetEnvironmentVariable("PAYPAL_CLIENT_ID"); }
     }
     private string _paypalClientSecret
     {
-        get { return _configuration["PAYPAL_CLIENT_SECRET"]; }
+        get { return Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET"); }
     }
     private readonly string _base = "https://api-m.sandbox.paypal.com";
 
