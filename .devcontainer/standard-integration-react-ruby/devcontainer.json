@@ -1,0 +1,51 @@
+// For more details, see https://aka.ms/devcontainer.json.
+{
+  "name": "standard-integration/react/ruby",
+  "image": "mcr.microsoft.com/devcontainers/ruby:3.3",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  // Use 'onCreateCommand' to run commands when creating the container.
+  "onCreateCommand": "bash .devcontainer/standard-integration-react-ruby/welcome-message.sh",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "chmod +x .devcontainer/update_settings.sh && .devcontainer/update_settings.sh && chmod +x .devcontainer/post-commands.sh && .devcontainer/post-commands.sh post-create",
+  // Use 'postAttachCommand' to run commands when attaching to the container.
+  "postAttachCommand": "chmod +x .devcontainer/post-commands.sh && .devcontainer/post-commands.sh post-attach",
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [3000, 8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Preview of Standard Checkout Flow"
+    },
+    "3000": {
+      "label": "React",
+      "onAutoForward": "openBrowserOnce"
+    }
+  },
+  "secrets": {
+    "PAYPAL_CLIENT_ID": {
+      "description": "Sandbox client ID of the application.",
+      "documentationUrl": "https://developer.paypal.com/dashboard/applications/sandbox"
+    },
+    "PAYPAL_CLIENT_SECRET": {
+      "description": "Sandbox secret of the application.",
+      "documentationUrl": "https://developer.paypal.com/dashboard/applications/sandbox"
+    }
+  },
+  "containerEnv": {
+    "VISIBLE_FOLDER_SERVER": "ruby",
+    "VISIBLE_FOLDER_CLIENT": "react",
+    "VISIBLE_FOLDER_PROJECT": "standard-integration"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["vsls-contrib.codetour", "PayPal.vscode-paypal"],
+      "settings": {
+        "git.openRepositoryInParentFolders": "always"
+      }
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  }
+}
