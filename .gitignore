@@ -101,7 +101,6 @@ dist
 .tern-port
 
 # dotnet
-<<<<<<< HEAD
 *.sln
 
 # env
