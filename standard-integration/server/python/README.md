@@ -35,7 +35,7 @@ PayPal Standard Integration sample in Python using Flask
 1. **Run the server**
 
    ```sh
-   flask --app server run
+   flask --app server run --port 8080
    ```
 
 1. Go to [http://localhost:8080/](http://localhost:8080/)
