@@ -1,18 +1,18 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-use PaypalServerSDKLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
-use PaypalServerSDKLib\Environment;
-use PaypalServerSDKLib\PaypalServerSDKClientBuilder;
-use PaypalServerSDKLib\Models\Builders\OrderRequestBuilder;
-use PaypalServerSDKLib\Models\CheckoutPaymentIntent;
-use PaypalServerSDKLib\Models\Builders\PurchaseUnitRequestBuilder;
-use PaypalServerSDKLib\Models\Builders\AmountWithBreakdownBuilder;
+use PaypalServerSdkLib\Authentication\ClientCredentialsAuthCredentialsBuilder;
+use PaypalServerSdkLib\Environment;
+use PaypalServerSdkLib\PaypalServerSdkClientBuilder;
+use PaypalServerSdkLib\Models\Builders\OrderRequestBuilder;
+use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
+use PaypalServerSdkLib\Models\Builders\PurchaseUnitRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\AmountWithBreakdownBuilder;
 
 $PAYPAL_CLIENT_ID = getenv('PAYPAL_CLIENT_ID');
 $PAYPAL_CLIENT_SECRET = getenv('PAYPAL_CLIENT_SECRET');
 
-$client = PaypalServerSDKClientBuilder::init()
+$client = PaypalServerSdkClientBuilder::init()
     ->clientCredentialsAuthCredentials(
         ClientCredentialsAuthCredentialsBuilder::init(
             $PAYPAL_CLIENT_ID,

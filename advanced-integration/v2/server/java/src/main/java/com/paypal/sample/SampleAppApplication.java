@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import com.paypal.sdk.Environment;
-import com.paypal.sdk.PaypalServerSDKClient;
+import com.paypal.sdk.PaypalServerSdkClient;
 import com.paypal.sdk.authentication.ClientCredentialsAuthModel;
 import com.paypal.sdk.controllers.OrdersController;
 import com.paypal.sdk.exceptions.ApiException;
@@ -53,8 +53,8 @@ public class SampleAppApplication {
 	}
 
 	@Bean
-    public PaypalServerSDKClient paypalClient() {
-        return new PaypalServerSDKClient.Builder()
+    public PaypalServerSdkClient paypalClient() {
+        return new PaypalServerSdkClient.Builder()
                 .loggingConfig(builder -> builder
                         .level(Level.DEBUG)
                         .requestConfig(logConfigBuilder -> logConfigBuilder.body(true))
@@ -75,9 +75,9 @@ public class SampleAppApplication {
 	public class CheckoutController {
 
 		private final ObjectMapper objectMapper;
-		private final PaypalServerSDKClient client;
+		private final PaypalServerSdkClient client;
 
-		public CheckoutController(ObjectMapper objectMapper, PaypalServerSDKClient client) {
+		public CheckoutController(ObjectMapper objectMapper, PaypalServerSdkClient client) {
 			this.objectMapper = objectMapper;
 			this.client = client;
 		}

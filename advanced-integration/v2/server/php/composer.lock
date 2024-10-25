@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4a57a266f3f33beef57b02efc8cfaac",
+    "content-hash": "f2e528a550aa0e8926b330dcdcfc67dc",
     "packages": [
         {
             "name": "apimatic/core",
@@ -224,16 +224,16 @@
         },
         {
             "name": "paypal/paypal-server-sdk",
-            "version": "0.5.1",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/PayPal-PHP-Server-SDK.git",
-                "reference": "09148245f72f9dc2f6c8363b6206eac5effefa77"
+                "reference": "7d69e118998fdf2ae2cf234f1bd49f4248782380"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paypal/PayPal-PHP-Server-SDK/zipball/09148245f72f9dc2f6c8363b6206eac5effefa77",
-                "reference": "09148245f72f9dc2f6c8363b6206eac5effefa77",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-Server-SDK/zipball/7d69e118998fdf2ae2cf234f1bd49f4248782380",
+                "reference": "7d69e118998fdf2ae2cf234f1bd49f4248782380",
                 "shasum": ""
             },
             "require": {
@@ -250,7 +250,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "PaypalServerSDKLib\\": "src/"
+                    "PaypalServerSdkLib\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -261,9 +261,9 @@
             "homepage": "https://github.com/paypal/PayPal-PHP-Server-SDK",
             "support": {
                 "issues": "https://github.com/paypal/PayPal-PHP-Server-SDK/issues",
-                "source": "https://github.com/paypal/PayPal-PHP-Server-SDK/tree/0.5.1"
+                "source": "https://github.com/paypal/PayPal-PHP-Server-SDK/tree/0.6.0"
             },
-            "time": "2024-09-10T15:31:38+00:00"
+            "time": "2024-10-18T19:06:27+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",

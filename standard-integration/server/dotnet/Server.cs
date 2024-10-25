@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PaypalServerSDK.Standard;
-using PaypalServerSDK.Standard.Authentication;
-using PaypalServerSDK.Standard.Controllers;
-using PaypalServerSDK.Standard.Http.Response;
-using PaypalServerSDK.Standard.Models;
+using PaypalServerSdk.Standard;
+using PaypalServerSdk.Standard.Authentication;
+using PaypalServerSdk.Standard.Controllers;
+using PaypalServerSdk.Standard.Http.Response;
+using PaypalServerSdk.Standard.Models;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace PayPalAdvancedIntegration;
@@ -79,8 +79,8 @@ public class CheckoutController : Controller
         _logger = logger;
 
         // Initialize the PayPal SDK client
-        PaypalServerSDKClient client = new PaypalServerSDKClient.Builder()
-            .Environment(PaypalServerSDK.Standard.Environment.Sandbox)
+        PaypalServerSdkClient client = new PaypalServerSdkClient.Builder()
+            .Environment(PaypalServerSdk.Standard.Environment.Sandbox)
             .ClientCredentialsAuth(
                 new ClientCredentialsAuthModel.Builder(_paypalClientId, _paypalClientSecret).Build()
             )
