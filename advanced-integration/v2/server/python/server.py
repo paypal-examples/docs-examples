@@ -5,7 +5,7 @@ from flask import Flask, request
 from paypalserversdk.http.auth.o_auth_2 import ClientCredentialsAuthCredentials
 from paypalserversdk.logging.configuration.api_logging_configuration import LoggingConfiguration, \
     RequestLoggingConfiguration, ResponseLoggingConfiguration
-from paypalserversdk.paypalserversdk_client import PaypalserversdkClient
+from paypalserversdk.paypal_serversdk_client import PaypalServersdkClient
 from paypalserversdk.controllers.orders_controller import OrdersController
 from paypalserversdk.models.amount_with_breakdown import AmountWithBreakdown
 from paypalserversdk.models.checkout_payment_intent import CheckoutPaymentIntent
@@ -15,7 +15,7 @@ from paypalserversdk.api_helper import ApiHelper
 
 app = Flask(__name__)
 
-paypal_client: PaypalserversdkClient = PaypalserversdkClient(
+paypal_client: PaypalServersdkClient = PaypalServersdkClient(
     client_credentials_auth_credentials=ClientCredentialsAuthCredentials(
         o_auth_client_id=os.getenv('PAYPAL_CLIENT_ID'),
         o_auth_client_secret=os.getenv('PAYPAL_CLIENT_SECRET')

@@ -42,7 +42,7 @@ const ordersController = new OrdersController(client);
 const createOrder = async (cart) => {
   const collect = {
     body: {
-      intent: CheckoutPaymentIntent.CAPTURE,
+      intent: CheckoutPaymentIntent.Capture,
       purchaseUnits: [
         {
           amount: {
@@ -56,8 +56,9 @@ const createOrder = async (cart) => {
   };
 
   try {
-    const { body, ...httpResponse } =
-      await ordersController.ordersCreate(collect);
+    const { body, ...httpResponse } = await ordersController.ordersCreate(
+      collect
+    );
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
@@ -83,8 +84,9 @@ const captureOrder = async (orderID) => {
   };
 
   try {
-    const { body, ...httpResponse } =
-      await ordersController.ordersCapture(collect);
+    const { body, ...httpResponse } = await ordersController.ordersCapture(
+      collect
+    );
     // Get more response info...
     // const { statusCode, headers } = httpResponse;
     return {
