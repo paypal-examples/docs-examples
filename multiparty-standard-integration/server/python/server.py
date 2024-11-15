@@ -134,6 +134,9 @@ def create_order():
                     )
                 ],
             ),
+            "paypal_auth_assertion": get_auth_assertion_token(
+                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_PAYER_ID
+            ),
             "paypal_partner_attribution_id": PAYPAL_BN_CODE,
         }
     )

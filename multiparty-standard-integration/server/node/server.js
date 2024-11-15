@@ -99,6 +99,10 @@ const createOrder = async (cart) => {
         ],
       },
     },
+    paypalAuthAssertion: getAuthAssertionToken(
+      PAYPAL_CLIENT_ID,
+      PAYPAL_SELLER_PAYER_ID
+    ),
     paypalPartnerAttributionId: PAYPAL_BN_CODE,
     prefer: "return=representation",
   };

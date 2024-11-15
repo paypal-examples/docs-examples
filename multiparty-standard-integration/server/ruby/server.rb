@@ -97,6 +97,7 @@ post "/api/orders" do
         ),
       ],
     ),
+    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID),
     "paypal_partner_attribution_id" => PAYPAL_BN_CODE,
     "prefer" => "return=representation",
   })

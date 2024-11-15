@@ -186,6 +186,7 @@ public class SampleAppApplication {
 											.build())
 
 					).build())
+					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID))
 					.paypalPartnerAttributionId(PAYPAL_BN_CODE)
 					.build();
 			OrdersController ordersController = client.getOrdersController();

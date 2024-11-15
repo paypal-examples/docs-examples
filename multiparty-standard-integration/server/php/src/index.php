@@ -83,6 +83,7 @@ if ($endpoint === "/") {
 function createOrder($cart)
 {
     global $client;
+    global $PAYPAL_CLIENT_ID;
     global $PAYPAL_SELLER_PAYER_ID;
     global $PAYPAL_BN_CODE;
 
@@ -120,6 +121,7 @@ function createOrder($cart)
                 )
                 ->build(),
         ])->build(),
+        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_PAYER_ID),
         "paypalPartnerAttributionId" => $PAYPAL_BN_CODE
     ];
 

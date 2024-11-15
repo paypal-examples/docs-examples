@@ -160,6 +160,7 @@ public class CheckoutController : Controller
                     },
                 },
             },
+            PaypalAuthAssertion = GetAuthAssertionValue(_paypalClientId, _sellerId),
             PaypalPartnerAttributionId = _bnCode
         };
 
