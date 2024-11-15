@@ -1,6 +1,6 @@
-# Standard Integration Java Sample
+# Multiparty Standard Integration Java Sample
 
-PayPal Standard Integration sample in Java
+PayPal Multiparty Standard Integration sample in Java
 
 ## Running the sample
 
@@ -9,15 +9,19 @@ PayPal Standard Integration sample in Java
    - **Windows (powershell)**
 
      ```powershell
-     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
-     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+      $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+      $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+      $env:PAYPAL_SELLER_PAYER_ID = "<PAYPAL_SELLER_PAYER_ID>"
+      $env:PAYPAL_BN_CODE = "<PAYPAL_BN_CODE>"
      ```
 
    - **Linux / MacOS**
 
      ```bash
-     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
-     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+      export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+      export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+      export PAYPAL_SELLER_PAYER_ID="<PAYPAL_SELLER_PAYER_ID>"
+      export PAYPAL_BN_CODE="<PAYPAL_BN_CODE>"
      ```
 
 2. Build the server

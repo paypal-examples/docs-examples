@@ -10,8 +10,8 @@ set :port, 8080
 
 PAYPAL_CLIENT_ID = ENV["PAYPAL_CLIENT_ID"]
 PAYPAL_CLIENT_SECRET = ENV["PAYPAL_CLIENT_SECRET"]
-PAYPAL_SELLER_ID = "BXCWTD6FWTQEU"
-PAYPAL_BN_CODE = "FLAVORsb-aw9kc33369618_MP"
+PAYPAL_SELLER_PAYER_ID = ENV["PAYPAL_SELLER_PAYER_ID"]
+PAYPAL_BN_CODE = ENV["PAYPAL_BN_CODE"]
 
 paypal_client = PaypalServerSdk::Client.new(
   client_credentials_auth_credentials: ClientCredentialsAuthCredentials.new(
@@ -68,7 +68,7 @@ post "/api/orders" do
             value: "100",
           ),
           payee: Payee.new(
-            merchant_id: PAYPAL_SELLER_ID,
+            merchant_id: PAYPAL_SELLER_PAYER_ID,
           ),
           shipping: ShippingDetails.new(
             options: [
@@ -110,7 +110,7 @@ end
 post "/api/orders/:order_id/capture" do |order_id|
   capture_response = paypal_client.orders.orders_capture({
     "id" => order_id,
-    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
+    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID),
     "prefer" => "return=representation",
   })
   json capture_response.data
@@ -123,7 +123,7 @@ end
 post "/api/orders/:order_id/authorize" do |order_id|
   capture_response = paypal_client.orders.orders_authorize({
     "id" => order_id,
-    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
+    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID),
     "prefer" => "return=representation",
   })
   json capture_response.data
@@ -136,7 +136,7 @@ end
 post "/api/orders/:authorization_id/captureAuthorize" do |authorization_id|
   authorize_response = paypal_client.payments.authorizations_capture({
     "authorization_id" => authorization_id,
-    "prefer" => "return=minimal",
+    "prefer" => "return=representation",
     "body" => CaptureRequest.new(
       final_capture: false,
     ),
@@ -152,8 +152,8 @@ post "/api/payments/refund" do
   payment = JSON.parse request.body.read
   refund_response = paypal_client.payments.captures_refund({
     "id" => payment.capturedPaymentId,
-    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
-    "prefer" => "return=minimal",
+    "paypal_auth_assertion" => get_auth_assertion_token(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID),
+    "prefer" => "return=representation",
   })
   json refund_response.data
 rescue ErrorException => e

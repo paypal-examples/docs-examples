@@ -34,8 +34,8 @@ app = Flask(__name__)
 
 PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
 PAYPAL_CLIENT_SECRET = os.getenv("PAYPAL_CLIENT_SECRET")
-PAYPAL_SELLER_ID = "BXCWTD6FWTQEU"
-PAYPAL_BN_CODE = "FLAVORsb-aw9kc33369618_MP"
+PAYPAL_SELLER_PAYER_ID = os.getenv("PAYPAL_SELLER_PAYER_ID")
+PAYPAL_BN_CODE = os.getenv("PAYPAL_BN_CODE")
 
 paypal_client: PaypalServersdkClient = PaypalServersdkClient(
     client_credentials_auth_credentials=ClientCredentialsAuthCredentials(
@@ -59,6 +59,8 @@ paypal_client: PaypalServersdkClient = PaypalServersdkClient(
 """
 Generate Auth Assertion Header
 """
+
+
 def get_auth_assertion_token(client_id, merchant_id):
     header = {"alg": "none"}
     body = {"iss": client_id, "payer_id": merchant_id}
@@ -77,6 +79,8 @@ def get_auth_assertion_token(client_id, merchant_id):
 """
 Health check
 """
+
+
 @app.route("/", methods=["GET"])
 def index():
     return {"message": "Server is running"}
@@ -91,6 +95,8 @@ Create an order to start the transaction.
 
 @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
 """
+
+
 @app.route("/api/orders", methods=["POST"])
 def create_order():
     request_body = request.get_json()
@@ -106,7 +112,7 @@ def create_order():
                             currency_code="USD",
                             value="100",
                         ),
-                        payee=Payee(merchant_id=PAYPAL_SELLER_ID),
+                        payee=Payee(merchant_id=PAYPAL_SELLER_PAYER_ID),
                         shipping=ShippingDetails(
                             options=[
                                 ShippingOption(
@@ -139,13 +145,15 @@ Capture payment for the created order to complete the transaction.
 
 @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
 """
+
+
 @app.route("/api/orders/<order_id>/capture", methods=["POST"])
 def capture_order(order_id):
     order = orders_controller.orders_capture(
         {
             "id": order_id,
             "paypal_auth_assertion": get_auth_assertion_token(
-                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_ID
+                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_PAYER_ID
             ),
             "prefer": "return=representation",
         }
@@ -157,15 +165,17 @@ def capture_order(order_id):
 Authorize payment for the created order to complete the transaction.
 @see https://developer.paypal.com/docs/api/orders/v2/#orders_authorize
 """
+
+
 @app.route("/api/orders/<order_id>/authorize", methods=["POST"])
 def authorize_order(order_id):
     order = orders_controller.orders_authorize(
         {
             "id": order_id,
             "paypal_auth_assertion": get_auth_assertion_token(
-                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_ID
-            ),            
-            "prefer": "return=minimal"
+                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_PAYER_ID
+            ),
+            "prefer": "return=minimal",
         }
     )
     return ApiHelper.json_serialize(order.body)
@@ -175,6 +185,8 @@ def authorize_order(order_id):
 Captures an authorized payment, by ID.
 @see https://developer.paypal.com/docs/api/payments/v2/#authorizations_capture
 """
+
+
 @app.route("/api/orders/<authorization_id>/captureAuthorize", methods=["POST"])
 def capture_authorize(authorization_id):
     order = payments_controller.authorizations_capture(
@@ -191,6 +203,8 @@ def capture_authorize(authorization_id):
 Refund an authorized payment, by ID.
 @see https://developer.paypal.com/docs/api/payments/v2/#captures_refund
 """
+
+
 @app.route("/api/payments/refund", methods=["POST"])
 def refundCapture():
     request_body = request.get_json()
@@ -198,7 +212,7 @@ def refundCapture():
         {
             "capture_id": request_body.get("capturedPaymentId"),
             "paypal_auth_assertion": get_auth_assertion_token(
-                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_ID
+                client_id=PAYPAL_CLIENT_ID, merchant_id=PAYPAL_SELLER_PAYER_ID
             ),
             "prefer": "return=minimal",
         }

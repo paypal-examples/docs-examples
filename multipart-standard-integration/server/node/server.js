@@ -13,9 +13,13 @@ import bodyParser from "body-parser";
 const app = express();
 app.use(bodyParser.json());
 
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8080 } = process.env;
-const PAYPAL_SELLER_ID = "BXCWTD6FWTQEU";
-const PAYPAL_BN_CODE = "FLAVORsb-aw9kc33369618_MP";
+const {
+  PAYPAL_CLIENT_ID,
+  PAYPAL_CLIENT_SECRET,
+  PAYPAL_SELLER_PAYER_ID,
+  PAYPAL_BN_CODE,
+  PORT = 8080,
+} = process.env;
 
 const client = new Client({
   clientCredentialsAuthCredentials: {
@@ -35,18 +39,18 @@ const paymentsController = new PaymentsController(client);
 
 function getAuthAssertionToken(clientId, merchantId) {
   const header = {
-    alg: 'none',
+    alg: "none",
   };
   const body = {
     iss: clientId,
     payer_id: merchantId,
   };
-  const signature = '';
+  const signature = "";
   const jwtParts = [header, body, signature];
 
   const authAssertion = jwtParts
     .map((part) => part && btoa(JSON.stringify(part)))
-    .join('.');
+    .join(".");
 
   return authAssertion;
 }
@@ -66,7 +70,7 @@ const createOrder = async (cart) => {
             value: "100",
           },
           payee: {
-            merchantId: PAYPAL_SELLER_ID,
+            merchantId: PAYPAL_SELLER_PAYER_ID,
           },
         },
       ],
@@ -136,7 +140,10 @@ app.post("/api/orders", async (req, res) => {
 const captureOrder = async (orderID) => {
   const collect = {
     id: orderID,
-    paypalAuthAssertion: getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
+    paypalAuthAssertion: getAuthAssertionToken(
+      PAYPAL_CLIENT_ID,
+      PAYPAL_SELLER_PAYER_ID
+    ),
     prefer: "return=minimal",
   };
 
@@ -176,7 +183,10 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
 const authorizeOrder = async (orderID) => {
   const collect = {
     id: orderID,
-    paypalAuthAssertion: getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
+    paypalAuthAssertion: getAuthAssertionToken(
+      PAYPAL_CLIENT_ID,
+      PAYPAL_SELLER_PAYER_ID
+    ),
     prefer: "return=minimal",
   };
 
@@ -254,7 +264,10 @@ app.post("/api/orders/:authorizationId/captureAuthorize", async (req, res) => {
 const refundCapturedPayment = async (capturedPaymentId) => {
   const collect = {
     captureId: capturedPaymentId,
-    paypalAuthAssertion: getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID),
+    paypalAuthAssertion: getAuthAssertionToken(
+      PAYPAL_CLIENT_ID,
+      PAYPAL_SELLER_PAYER_ID
+    ),
     prefer: "return=minimal",
   };
 

@@ -74,9 +74,13 @@ public class CheckoutController : Controller
         get { return System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET"); }
     }
 
-    private readonly string _sellerId = "BXCWTD6FWTQEU";
+    private string _sellerId {
+        get { return System.Environment.GetEnvironmentVariable("PAYPAL_SELLER_PAYER_ID"); }
+    }
 
-    private readonly string _bnCode = "FLAVORsb-aw9kc33369618_MP";
+    private string _bnCode {
+        get { return System.Environment.GetEnvironmentVariable("PAYPAL_BN_CODE"); }
+    }
 
     private readonly ILogger<CheckoutController> _logger;
 

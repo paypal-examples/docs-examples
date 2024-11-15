@@ -23,15 +23,19 @@ This sample app demonstrates how to integrate with ACDC using PayPal's REST APIs
    - **Windows (powershell)**
 
      ```powershell
-     $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
-     $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+      $env:PAYPAL_CLIENT_ID = "<PAYPAL_CLIENT_ID>"
+      $env:PAYPAL_CLIENT_SECRET = "<PAYPAL_CLIENT_SECRET>"
+      $env:PAYPAL_SELLER_PAYER_ID = "<PAYPAL_SELLER_PAYER_ID>"
+      $env:PAYPAL_BN_CODE = "<PAYPAL_BN_CODE>"
      ```
 
    - **Linux / MacOS**
 
      ```bash
-     export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
-     export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+      export PAYPAL_CLIENT_ID="<PAYPAL_CLIENT_ID>"
+      export PAYPAL_CLIENT_SECRET="<PAYPAL_CLIENT_SECRET>"
+      export PAYPAL_SELLER_PAYER_ID="<PAYPAL_SELLER_PAYER_ID>"
+      export PAYPAL_BN_CODE="<PAYPAL_BN_CODE>"
      ```
 
 2. Follow the below instructions to setup & run server.

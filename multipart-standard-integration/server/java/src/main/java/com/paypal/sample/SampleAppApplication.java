@@ -44,9 +44,11 @@ public class SampleAppApplication {
 	@Value("${PAYPAL_CLIENT_SECRET}")
 	private String PAYPAL_CLIENT_SECRET;
 
-	private String PAYPAL_SELLER_ID = "BXCWTD6FWTQEU";
+	@Value("${PAYPAL_SELLER_PAYER_ID}")
+	private String PAYPAL_SELLER_PAYER_ID;
 
-	private String PAYPAL_BN_CODE = "FLAVORsb-aw9kc33369618_MP";
+	@Value("${PAYPAL_BN_CODE}")
+	private String PAYPAL_BN_CODE;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SampleAppApplication.class, args);
@@ -179,7 +181,7 @@ public class SampleAppApplication {
 																	.build()))
 													.build())
 											.payee(new Payee.Builder()
-													.merchantId(PAYPAL_SELLER_ID)
+													.merchantId(PAYPAL_SELLER_PAYER_ID)
 													.build())
 											.build())
 
@@ -206,7 +208,7 @@ public class SampleAppApplication {
 			OrdersCaptureInput ordersCaptureInput = new OrdersCaptureInput.Builder(
 					orderID,
 					null)
-					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID))
+					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID))
 					.build();
 			OrdersController ordersController = client.getOrdersController();
 			ApiResponse<Order> apiResponse = ordersController.ordersCapture(ordersCaptureInput);
@@ -228,7 +230,7 @@ public class SampleAppApplication {
 		private OrderAuthorizeResponse authorizeOrders(String orderID) throws IOException, ApiException {
 			OrdersAuthorizeInput ordersAuthorizeInput = new OrdersAuthorizeInput.Builder(
 					orderID, null)
-					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID))
+					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID))
 					.build();
 			OrdersController ordersController = client.getOrdersController();
 			ApiResponse<OrderAuthorizeResponse> apiResponse = ordersController.ordersAuthorize(ordersAuthorizeInput);
@@ -273,7 +275,7 @@ public class SampleAppApplication {
 			CapturesRefundInput capturesRefundInput = new CapturesRefundInput.Builder(
 					capturedPaymentId,
 					null)
-					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_ID))
+					.paypalAuthAssertion(getAuthAssertionToken(PAYPAL_CLIENT_ID, PAYPAL_SELLER_PAYER_ID))
 					.build();
 			ApiResponse<Refund> refundApiResponse = paymentsController.capturesRefund(capturesRefundInput);
 			return refundApiResponse.getResult();

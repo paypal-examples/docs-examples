@@ -15,8 +15,8 @@ use PaypalServerSdkLib\Models\ShippingType;
 
 $PAYPAL_CLIENT_ID = getenv("PAYPAL_CLIENT_ID");
 $PAYPAL_CLIENT_SECRET = getenv("PAYPAL_CLIENT_SECRET");
-$PAYPAL_SELLER_ID = "BXCWTD6FWTQEU";
-$PAYPAL_BN_CODE = "FLAVORsb-aw9kc33369618_MP";
+$PAYPAL_SELLER_PAYER_ID =  getenv("PAYPAL_SELLER_PAYER_ID");
+$PAYPAL_BN_CODE = getenv("PAYPAL_BN_CODE");
 
 $client = PaypalServerSdkClientBuilder::init()
     ->clientCredentialsAuthCredentials(
@@ -83,7 +83,7 @@ if ($endpoint === "/") {
 function createOrder($cart)
 {
     global $client;
-    global $PAYPAL_SELLER_ID;
+    global $PAYPAL_SELLER_PAYER_ID;
     global $PAYPAL_BN_CODE;
 
     $orderBody = [
@@ -91,7 +91,7 @@ function createOrder($cart)
             PurchaseUnitRequestBuilder::init(
                 AmountWithBreakdownBuilder::init("USD", "100")->build()
             )
-                ->payee(PayeeBuilder::init()->merchantId($PAYPAL_SELLER_ID)->build())
+                ->payee(PayeeBuilder::init()->merchantId($PAYPAL_SELLER_PAYER_ID)->build())
                 ->shipping(
                     ShippingDetailsBuilder::init()
                         ->options([
@@ -151,11 +151,11 @@ function captureOrder($orderID)
 {
     global $client;
     global $PAYPAL_CLIENT_ID;
-    global $PAYPAL_SELLER_ID;
+    global $PAYPAL_SELLER_PAYER_ID;
 
     $captureBody = [
         "id" => $orderID,
-        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_ID)
+        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_PAYER_ID)
     ];
 
     $apiResponse = $client->getOrdersController()->ordersCapture($captureBody);
@@ -186,11 +186,11 @@ function authorizeOrder($orderID)
 {
     global $client;
     global $PAYPAL_CLIENT_ID;
-    global $PAYPAL_SELLER_ID;
+    global $PAYPAL_SELLER_PAYER_ID;
 
     $authorizeBody = [
         "id" => $orderID,
-        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_ID)
+        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_PAYER_ID)
     ];
 
     $apiResponse = $client
@@ -222,11 +222,11 @@ function captureAuthorize($authorizationId)
 {
     global $client;
     global $PAYPAL_CLIENT_ID;
-    global $PAYPAL_SELLER_ID;
+    global $PAYPAL_SELLER_PAYER_ID;
 
     $captureAuthorizeBody = [
         "authorizationId" => $authorizationId,
-        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_ID)
+        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_PAYER_ID)
     ];
 
     $apiResponse = $client
@@ -259,11 +259,11 @@ function refundCapturedPayment($capturedPaymentId)
 {
     global $client;
     global $PAYPAL_CLIENT_ID;
-    global $PAYPAL_SELLER_ID;
+    global $PAYPAL_SELLER_PAYER_ID;
 
     $refundCapturedPaymentBody = [
         "captureId" => $capturedPaymentId,
-        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_ID)
+        "paypalAuthAssertion" => getAuthAssertionToken($PAYPAL_CLIENT_ID, $PAYPAL_SELLER_PAYER_ID)
     ];
 
     $apiResponse = $client
