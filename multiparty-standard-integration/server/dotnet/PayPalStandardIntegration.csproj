@@ -7,6 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.9" />
-    <PackageReference Include="PayPalServerSDK" Version="0.6.0" />
+    <PackageReference Include="PayPalServerSDK" Version="0.6.1" />
   </ItemGroup>
 </Project>

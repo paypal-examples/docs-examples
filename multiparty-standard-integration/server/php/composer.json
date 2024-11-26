@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "paypal/paypal-server-sdk": "0.6.0"
+        "paypal/paypal-server-sdk": "0.6.1.0"
     },
     "require-dev": {
     },

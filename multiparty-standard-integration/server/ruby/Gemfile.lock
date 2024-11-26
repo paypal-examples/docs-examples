@@ -20,8 +20,8 @@ GEM
     base64 (0.2.0)
     certifi (2018.01.18)
     connection_pool (2.4.1)
-    faraday (2.12.0)
-      faraday-net_http (>= 2.0, < 3.4)
+    faraday (2.12.1)
+      faraday-net_http (>= 2.0, < 3.5)
       json
       logger
     faraday-follow_redirects (0.3.0)
@@ -33,14 +33,14 @@ GEM
       faraday (>= 0.8)
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (3.3.0)
-      net-http
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     faraday-net_http_persistent (2.3.0)
       faraday (~> 2.5)
       net-http-persistent (>= 4.0.4, < 5)
     faraday-retry (2.2.1)
       faraday (~> 2.0)
-    json (2.8.1)
+    json (2.8.2)
     logger (1.6.1)
     multi_json (1.15.0)
     multipart-post (2.4.1)
@@ -63,7 +63,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
-    paypal-server-sdk (0.6.0)
+    paypal-server-sdk (0.6.1)
       apimatic_core (~> 0.3.9)
       apimatic_core_interfaces (~> 0.2.1)
       apimatic_faraday_client_adapter (~> 0.1.4)
@@ -104,7 +104,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  paypal-server-sdk (~> 0.6.0)
+  paypal-server-sdk (~> 0.6.1)
   puma (~> 6.4)
   rackup (~> 2.1)
   sinatra (~> 4.0)
