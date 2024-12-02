@@ -57,7 +57,6 @@ function getAuthAssertionToken(clientId, merchantId) {
   return authAssertion;
 }
 //@snippet:end
-// @snippet:start("createOrderRoute", "createOrderRouteStandardNode")
 // @snippet:start("createOrder", "createOrderStandardNode")
 /**
  * Create an order to start the transaction.
@@ -140,8 +139,7 @@ app.post("/api/orders", async (req, res) => {
     res.status(500).json({ error: "Failed to create order." });
   }
 });
-// @snippet:end
-// @snippet:start("captureOrderRoute", "captureOrderRouteStandardNode")
+
 // @snippet:start("captureOrder", "captureOrderStandardNode")
 /**
  * Capture payment for the created order to complete the transaction.
@@ -185,8 +183,6 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
     res.status(500).json({ error: "Failed to capture order." });
   }
 });
-// @snippet:end
-// @snippet:start("authorizeOrderRoute", "authorizeOrderRouteStandardNode")
 // @snippet:start("authorizeOrder", "authorizeOrderStandardNode")
 /**
  * Authorize payment for the created order to complete the transaction.
@@ -230,8 +226,6 @@ app.post("/api/orders/:orderID/authorize", async (req, res) => {
     res.status(500).json({ error: "Failed to authorize order." });
   }
 });
-// @snippet:end
-// @snippet:start("captureAuthorizeRoute", "captureAuthorizeRouteStandardNode")
 // @snippet:start("captureAuthorize", "captureAuthorizeStandardPhp")
 /**
  * Captures an authorized payment, by ID.
@@ -274,8 +268,6 @@ app.post("/api/orders/:authorizationId/captureAuthorize", async (req, res) => {
     res.status(500).json({ error: "Failed to capture authorize." });
   }
 });
-// @snippet:end
-// @snippet:start("refundCapturedPaymentRoute", "refundCapturedPaymentRouteStandardNode")
 // @snippet:start("refundCapturedPayment", "refundCapturedPaymentStandardNode")
 const refundCapturedPayment = async (capturedPaymentId) => {
   const collect = {
@@ -316,7 +308,6 @@ app.post("/api/payments/refund", async (req, res) => {
     res.status(500).json({ error: "Failed refund captured payment." });
   }
 });
-// @snippet:end
 app.listen(PORT, () => {
   console.log(`Node server listening at http://localhost:${PORT}/`);
 });
