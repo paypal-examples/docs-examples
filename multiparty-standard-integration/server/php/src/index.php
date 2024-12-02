@@ -1,3 +1,4 @@
+// @snippet:start("baseFile", "baseFile")
 <?php
 require __DIR__ . "/../vendor/autoload.php";
 
@@ -37,7 +38,7 @@ function handleResponse($response)
         "httpStatusCode" => $response->getStatusCode(),
     ];
 }
-
+// @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardPhp")
 function getAuthAssertionToken(
     string $clientId,
     string $merchantId
@@ -76,6 +77,8 @@ if ($endpoint === "/") {
     }
 }
 
+// @snippet:end
+// @snippet:start("createOrder", "createOrderStandardPhp")
 /**
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
@@ -143,8 +146,8 @@ if ($endpoint === "/api/orders") {
         http_response_code(500);
     }
 }
-
-
+// @snippet:end
+// @snippet:start("captureOrder", "captureOrderStandardPhp")
 /**
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
@@ -178,8 +181,8 @@ if (str_ends_with($endpoint, "/capture")) {
         http_response_code(500);
     }
 }
-
-
+// @snippet:end
+// @snippet:start("authorizePayment", "authorizePaymentStandardPhp")
 /**
  * Authorizes payment for an order.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_authorize
@@ -215,7 +218,8 @@ if (str_ends_with($endpoint, "/authorize")) {
         http_response_code(500);
     }
 }
-
+// @snippet:end
+// @snippet:start("captureAuthorize", "captureAuthorizeStandardPhp")
 /**
  * Captures an authorized payment, by ID.
  * @see https://developer.paypal.com/docs/api/payments/v2/#authorizations_capture
@@ -251,8 +255,9 @@ if (str_ends_with($endpoint, "/captureAuthorize")) {
         http_response_code(500);
     }
 }
+// @snippet:end
 
-
+// @snippet:start("refundCapture", "crefundCaptureStandardPython")
 /**
  * Refunds a captured payment, by ID.
  * @see https://developer.paypal.com/docs/api/payments/v2/#captures_refund
@@ -289,4 +294,5 @@ if ($endpoint === "/api/payments/refund") {
         http_response_code(500);
     }
 }
-
+// @snippet:end
+// @snippet:end

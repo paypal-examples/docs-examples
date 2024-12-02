@@ -1,3 +1,4 @@
+# @snippet:start("baseFile", "baseFile")
 require "paypal_server_sdk"
 require "sinatra"
 require "sinatra/json"
@@ -33,6 +34,7 @@ paypal_client = PaypalServerSdk::Client.new(
   ),
 )
 
+# @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardRuby")
 def get_auth_assertion_token(client_id, merchant_id)
   header = { alg: "none" }
   body = { iss: client_id, payer_id: merchant_id }
@@ -46,12 +48,16 @@ def get_auth_assertion_token(client_id, merchant_id)
   joined_jwt_parts = jwt_parts.join(".")
   joined_jwt_parts
 end
+# @snippet:end
 
+# @snippet:start("healthCheck", "healthCheckStandardRuby")
 # Health Check
 get "/" do
   json :message => "Server is running"
 end
+# @snippet:end
 
+# @snippet:start("createOrder", "createOrderStandardRuby")
 # Create an order to start the transaction.
 #
 # @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
@@ -104,7 +110,9 @@ post "/api/orders" do
 
   json order_response.data
 end
+# @snippet:end
 
+# @snippet:start("captureOrder", "captureOrderStandardRuby")
 #  Capture payment for the created order to complete the transaction.
 #
 #  @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
@@ -117,7 +125,9 @@ post "/api/orders/:order_id/capture" do |order_id|
   json capture_response.data
 rescue ErrorException => e
 end
+# @snippet:end
 
+# @snippet:start("authorizePayment", "authorizePaymentStandardRuby")
 #  Authorize payment for the created order to complete the transaction.
 #
 #  @see https://developer.paypal.com/docs/api/orders/v2/#orders_authorize
@@ -130,7 +140,9 @@ post "/api/orders/:order_id/authorize" do |order_id|
   json capture_response.data
 rescue ErrorException => e
 end
+# @snippet:end
 
+# @snippet:start("captureAuthorize", "captureAuthorizeStandardRuby")
 #  Captures an authorized payment, by ID.
 #
 #  @see https://developer.paypal.com/docs/api/payments/v2/#authorizations_capture
@@ -145,7 +157,9 @@ post "/api/orders/:authorization_id/captureAuthorize" do |authorization_id|
   json authorize_response.data
 rescue ErrorException => e
 end
+# @snippet:end
 
+# @snippet:start("refundCapture", "refundCaptureStandardRuby")
 #  Refunds a captured payment, by ID.
 #
 #  @see https://developer.paypal.com/docs/api/payments/v2/#captures_refund
@@ -159,3 +173,5 @@ post "/api/payments/refund" do
   json refund_response.data
 rescue ErrorException => e
 end
+# @snippet:end
+# @snippet:end

@@ -1,3 +1,4 @@
+// @snippet:start("baseFile", "baseFile")
 import express from "express";
 import "dotenv/config";
 import {
@@ -37,6 +38,7 @@ const client = new Client({
 const ordersController = new OrdersController(client);
 const paymentsController = new PaymentsController(client);
 
+// @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardNode")
 function getAuthAssertionToken(clientId, merchantId) {
   const header = {
     alg: "none",
@@ -54,7 +56,9 @@ function getAuthAssertionToken(clientId, merchantId) {
 
   return authAssertion;
 }
-
+//@snippet:end
+// @snippet:start("createOrderRoute", "createOrderRouteStandardNode")
+// @snippet:start("createOrder", "createOrderStandardNode")
 /**
  * Create an order to start the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_create
@@ -123,7 +127,7 @@ const createOrder = async (cart) => {
     }
   }
 };
-
+// @snippet:end
 // createOrder route
 app.post("/api/orders", async (req, res) => {
   try {
@@ -136,7 +140,9 @@ app.post("/api/orders", async (req, res) => {
     res.status(500).json({ error: "Failed to create order." });
   }
 });
-
+// @snippet:end
+// @snippet:start("captureOrderRoute", "captureOrderRouteStandardNode")
+// @snippet:start("captureOrder", "captureOrderStandardNode")
 /**
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
@@ -167,7 +173,7 @@ const captureOrder = async (orderID) => {
     }
   }
 };
-
+// @snippet:end
 // captureOrder route
 app.post("/api/orders/:orderID/capture", async (req, res) => {
   try {
@@ -179,7 +185,9 @@ app.post("/api/orders/:orderID/capture", async (req, res) => {
     res.status(500).json({ error: "Failed to capture order." });
   }
 });
-
+// @snippet:end
+// @snippet:start("authorizeOrderRoute", "authorizeOrderRouteStandardNode")
+// @snippet:start("authorizeOrder", "authorizeOrderStandardNode")
 /**
  * Authorize payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_authorize
@@ -210,7 +218,7 @@ const authorizeOrder = async (orderID) => {
     }
   }
 };
-
+// @snippet:end
 // authorizeOrder route
 app.post("/api/orders/:orderID/authorize", async (req, res) => {
   try {
@@ -222,7 +230,9 @@ app.post("/api/orders/:orderID/authorize", async (req, res) => {
     res.status(500).json({ error: "Failed to authorize order." });
   }
 });
-
+// @snippet:end
+// @snippet:start("captureAuthorizeRoute", "captureAuthorizeRouteStandardNode")
+// @snippet:start("captureAuthorize", "captureAuthorizeStandardPhp")
 /**
  * Captures an authorized payment, by ID.
  * @see https://developer.paypal.com/docs/api/payments/v2/#authorizations_capture
@@ -251,7 +261,7 @@ const captureAuthorize = async (authorizationId) => {
     }
   }
 };
-
+// @snippet:end
 // captureAuthorize route
 app.post("/api/orders/:authorizationId/captureAuthorize", async (req, res) => {
   try {
@@ -264,7 +274,9 @@ app.post("/api/orders/:authorizationId/captureAuthorize", async (req, res) => {
     res.status(500).json({ error: "Failed to capture authorize." });
   }
 });
-
+// @snippet:end
+// @snippet:start("refundCapturedPaymentRoute", "refundCapturedPaymentRouteStandardNode")
+// @snippet:start("refundCapturedPayment", "refundCapturedPaymentStandardNode")
 const refundCapturedPayment = async (capturedPaymentId) => {
   const collect = {
     captureId: capturedPaymentId,
@@ -291,7 +303,7 @@ const refundCapturedPayment = async (capturedPaymentId) => {
     }
   }
 };
-
+// @snippet:end
 // refundCapturedPayment route
 app.post("/api/payments/refund", async (req, res) => {
   try {
@@ -304,7 +316,9 @@ app.post("/api/payments/refund", async (req, res) => {
     res.status(500).json({ error: "Failed refund captured payment." });
   }
 });
-
+// @snippet:end
 app.listen(PORT, () => {
   console.log(`Node server listening at http://localhost:${PORT}/`);
 });
+
+//@snippet:end

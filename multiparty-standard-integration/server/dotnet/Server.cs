@@ -1,3 +1,4 @@
+// @snippet:start("baseFile", "baseFile")
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -111,7 +112,7 @@ public class CheckoutController : Controller
         _ordersController = client.OrdersController;
         _paymentsController = client.PaymentsController;
     }
-
+  // @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardDotnet") 
     public static string GetAuthAssertionValue(string clientId, string merchantId)
     {
         var header = new { alg = "none" };
@@ -126,7 +127,7 @@ public class CheckoutController : Controller
 
         return authAssertion;
     }
-
+   // @snippet:end
     [HttpPost("api/orders")]
     public async Task<IActionResult> CreateOrder([FromBody] dynamic cart)
     {
@@ -141,7 +142,7 @@ public class CheckoutController : Controller
             return StatusCode(500, new { error = "Failed to create order." });
         }
     }
-
+   // @snippet:start("createOrder", "createOrderDotnet")
     private async Task<dynamic> _CreateOrder(dynamic cart)
     {
         OrdersCreateInput ordersCreateInput = new OrdersCreateInput
@@ -167,7 +168,7 @@ public class CheckoutController : Controller
         ApiResponse<Order> result = await _ordersController.OrdersCreateAsync(ordersCreateInput);
         return result;
     }
-
+   // @snippet:end
     [HttpPost("api/orders/{orderID}/capture")]
     public async Task<IActionResult> CaptureOrder(string orderID)
     {
@@ -182,7 +183,7 @@ public class CheckoutController : Controller
             return StatusCode(500, new { error = "Failed to capture order." });
         }
     }
-
+   // @snippet:start("captureOrder", "captureOrderDotnet")
     private async Task<dynamic> _CaptureOrder(string orderID)
     {
         OrdersCaptureInput ordersCaptureInput = new OrdersCaptureInput
@@ -195,7 +196,7 @@ public class CheckoutController : Controller
 
         return result;
     }
-
+   // @snippet:end
     [HttpPost("api/orders/{orderID}/authorize")]
     public async Task<IActionResult> AuthorizeOrder(string orderID)
     {
@@ -210,7 +211,7 @@ public class CheckoutController : Controller
             return StatusCode(500, new { error = "Failed to authorize order." });
         }
     }
-
+ // @snippet:start("authorizeOrder", "authorizeOrderJava")
     private async Task<dynamic> _AuthorizeOrder(string orderID)
     {
         OrdersAuthorizeInput ordersAuthorizeInput = new OrdersAuthorizeInput
@@ -225,7 +226,7 @@ public class CheckoutController : Controller
 
         return result;
     }
-
+   // @snippet:end
     [HttpPost("api/orders/{authorizationID}/captureAuthorize")]
     public async Task<IActionResult> CaptureAuthorizeOrder(string authorizationID)
     {
@@ -240,7 +241,7 @@ public class CheckoutController : Controller
             return StatusCode(500, new { error = "Failed to authorize order." });
         }
     }
-
+    // @snippet:start("capturePaymant", "capturePaymantJava")
     private async Task<dynamic> _CaptureAuthorizeOrder(string authorizationID)
     {
         AuthorizationsCaptureInput authorizationsCaptureInput = new AuthorizationsCaptureInput
@@ -254,7 +255,7 @@ public class CheckoutController : Controller
 
         return result;
     }
-
+   // @snippet:end
     [HttpPost("api/payments/refund")]
     public async Task<IActionResult> RefundCapture([FromBody] dynamic body)
     {
@@ -269,7 +270,7 @@ public class CheckoutController : Controller
             return StatusCode(500, new { error = "Failed to refund capture." });
         }
     }
-
+  // @snippet:start("refundCapture", "refundCaptureJava")
     private async Task<dynamic> _RefundCapture(string captureID)
     {
         CapturesRefundInput capturesRefundInput = new CapturesRefundInput
@@ -284,4 +285,6 @@ public class CheckoutController : Controller
 
         return result;
     }
+    // @snippet:end
 }
+// @snippet:end

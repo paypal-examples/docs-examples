@@ -1,3 +1,4 @@
+# @snippet:start("baseFile", "baseFile")
 import logging
 import os
 import base64
@@ -55,7 +56,7 @@ paypal_client: PaypalServersdkClient = PaypalServersdkClient(
         ),
     ),
 )
-
+# @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardPython")
 """
 Generate Auth Assertion Header
 """
@@ -75,7 +76,8 @@ def get_auth_assertion_token(client_id, merchant_id):
 
     return auth_assertion
 
-
+# @snippet:end
+# @snippet:start("healthCheck", "healthCheckStandardPython")
 """
 Health check
 """
@@ -89,7 +91,8 @@ def index():
 orders_controller: OrdersController = paypal_client.orders
 payments_controller: PaymentsController = paypal_client.payments
 
-
+# @snippet:end
+# @snippet:start("createOrder", "createOrderStandardPython")
 """
 Create an order to start the transaction.
 
@@ -141,8 +144,8 @@ def create_order():
         }
     )
     return ApiHelper.json_serialize(order.body)
-
-
+# @snippet:end
+# @snippet:start("captureOrder", "captureOrderStandardPython")
 """
 Capture payment for the created order to complete the transaction.
 
@@ -162,8 +165,8 @@ def capture_order(order_id):
         }
     )
     return ApiHelper.json_serialize(order.body)
-
-
+# @snippet:end
+# @snippet:start("authorizePayment", "authorizePaymentStandardPython")
 """
 Authorize payment for the created order to complete the transaction.
 @see https://developer.paypal.com/docs/api/orders/v2/#orders_authorize
@@ -182,8 +185,8 @@ def authorize_order(order_id):
         }
     )
     return ApiHelper.json_serialize(order.body)
-
-
+# @snippet:end
+# @snippet:start("captureAuthorize", "captureAuthorizeStandardPython")
 """
 Captures an authorized payment, by ID.
 @see https://developer.paypal.com/docs/api/payments/v2/#authorizations_capture
@@ -200,8 +203,9 @@ def capture_authorize(authorization_id):
         }
     )
     return ApiHelper.json_serialize(order.body)
+# @snippet:end
 
-
+# @snippet:start("refundCapture", "crefundCaptureStandardPython")
 """
 Refund an authorized payment, by ID.
 @see https://developer.paypal.com/docs/api/payments/v2/#captures_refund
@@ -221,3 +225,5 @@ def refundCapture():
         }
     )
     return ApiHelper.json_serialize(order.body)
+# @snippet:end
+# @snippet:end

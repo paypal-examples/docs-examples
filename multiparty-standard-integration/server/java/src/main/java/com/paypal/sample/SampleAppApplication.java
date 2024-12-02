@@ -1,3 +1,4 @@
+// @snippet:start("baseFile", "baseFile")
 package com.paypal.sample;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -95,7 +96,7 @@ public class SampleAppApplication {
 
 		private final ObjectMapper objectMapper;
 		private final PaypalServerSdkClient client;
-
+       // @snippet:start("getAuthAssertionToken", "getAuthAssertionTokenStandardJava")
 		private String getAuthAssertionToken(String clientId, String merchantId) {
 			try {
 				HashMap<String, String> header = new HashMap<>();
@@ -129,7 +130,7 @@ public class SampleAppApplication {
 				return "";
 			}
 		}
-
+    // @snippet:end
 		public CheckoutController(ObjectMapper objectMapper, PaypalServerSdkClient client) {
 			this.objectMapper = objectMapper;
 			this.client = client;
@@ -146,7 +147,7 @@ public class SampleAppApplication {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-
+    // @snippet:start("createOrder", "createOrderJava")
 		private Order createOrder(String cart) throws IOException, ApiException {
 
 			OrdersCreateInput ordersCreateInput = new OrdersCreateInput.Builder(
@@ -193,7 +194,7 @@ public class SampleAppApplication {
 			ApiResponse<Order> apiResponse = ordersController.ordersCreate(ordersCreateInput);
 			return apiResponse.getResult();
 		}
-
+    // @snippet:end
 		@PostMapping("/api/orders/{orderID}/capture")
 		public ResponseEntity<Order> captureOrder(@PathVariable String orderID) {
 			try {
@@ -204,7 +205,7 @@ public class SampleAppApplication {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-
+   // @snippet:start("captureOrder", "captureOrderJava")
 		private Order captureOrders(String orderID) throws IOException, ApiException {
 			OrdersCaptureInput ordersCaptureInput = new OrdersCaptureInput.Builder(
 					orderID,
@@ -215,6 +216,7 @@ public class SampleAppApplication {
 			ApiResponse<Order> apiResponse = ordersController.ordersCapture(ordersCaptureInput);
 			return apiResponse.getResult();
 		}
+    // @snippet:end
 
 		@PostMapping("/api/orders/{orderID}/authorize")
 		public ResponseEntity<OrderAuthorizeResponse> authorizeOrder(@PathVariable String orderID)
@@ -227,7 +229,7 @@ public class SampleAppApplication {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-
+   // @snippet:start("authorizeOrder", "authorizeOrderJava")
 		private OrderAuthorizeResponse authorizeOrders(String orderID) throws IOException, ApiException {
 			OrdersAuthorizeInput ordersAuthorizeInput = new OrdersAuthorizeInput.Builder(
 					orderID, null)
@@ -237,7 +239,7 @@ public class SampleAppApplication {
 			ApiResponse<OrderAuthorizeResponse> apiResponse = ordersController.ordersAuthorize(ordersAuthorizeInput);
 			return apiResponse.getResult();
 		}
-
+       // @snippet:end
 		@PostMapping("/api/orders/{authorizationId}/captureAuthorize")
 		public ResponseEntity<CapturedPayment> captureAuthorizeOrder(@PathVariable String authorizationId) {
 			try {
@@ -248,7 +250,7 @@ public class SampleAppApplication {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-
+     // @snippet:start("capturePaymant", "capturePaymantJava")
 		private CapturedPayment captureAuthorizeOrders(String authorizationId) throws IOException, ApiException {
 			PaymentsController paymentsController = client.getPaymentsController();
 			AuthorizationsCaptureInput authorizationsCaptureInput = new AuthorizationsCaptureInput.Builder(
@@ -258,7 +260,7 @@ public class SampleAppApplication {
 					.authorizationsCapture(authorizationsCaptureInput);
 			return authorizationsCapture.getResult();
 		}
-
+    // @snippet:end
 		@PostMapping("/api/payments/refund")
 		public ResponseEntity<Refund> refundCapturedPayment(@RequestBody Map<String, String> request) {
 			try {
@@ -270,7 +272,7 @@ public class SampleAppApplication {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-
+     // @snippet:start("refundCapture", "refundCaptureJava")
 		private Refund refundCapturedPayments(String capturedPaymentId) throws IOException, ApiException {
 			PaymentsController paymentsController = client.getPaymentsController();
 			CapturesRefundInput capturesRefundInput = new CapturesRefundInput.Builder(
@@ -281,5 +283,7 @@ public class SampleAppApplication {
 			ApiResponse<Refund> refundApiResponse = paymentsController.capturesRefund(capturesRefundInput);
 			return refundApiResponse.getResult();
 		}
+	// @snippet:end
 	}
 }
+// @snippet:end
