@@ -8,9 +8,9 @@ function Message({ content }) {
 
 function App() {
   const initialOptions = {
-    "client-id": import.meta.env.PAYPAL_CLIENT_ID,
-    "enable-funding": "venmo",
-    "buyer-country": "US",
+    clientId: import.meta.env.PAYPAL_CLIENT_ID,
+    enableFunding: "venmo",
+    buyerCountry: "US",
     currency: "USD",
     components: "buttons",
   };
