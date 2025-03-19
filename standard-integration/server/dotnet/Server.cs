@@ -125,7 +125,48 @@ public class CheckoutController : Controller
                 {
                     new PurchaseUnitRequest
                     {
-                        Amount = new AmountWithBreakdown { CurrencyCode = "USD", MValue = "100", },
+                        Amount = new AmountWithBreakdown
+                        {
+                            CurrencyCode = "{order_currency_code}",
+                            MValue = "{order_value}",
+                            Breakdown = new AmountBreakdown
+                            {
+                                ItemTotal = new Money
+                                {
+                                    CurrencyCode = "{order_currency_code}",
+                                    MValue = "{order_value}",
+                                },
+                            }
+                        },
+                        Items =
+                        [
+                            new Item
+                            {
+                                Name = "T-Shirt",
+                                UnitAmount = new Money
+                                {
+                                    CurrencyCode = "{order_currency_code}",
+                                    MValue = "{order_value}",
+                                },
+                                Quantity = "1",
+                                Description = "Super Fresh Shirt",
+                                Sku = "sku01"
+                            },
+                        ],
+                    },
+                },
+                PaymentSource = new PaymentSource
+                {
+                    Paypal = new PaypalWallet
+                    {
+                        ExperienceContext = new PaypalWalletExperienceContext
+                        {
+                            ShippingPreference = ShippingPreference.GetFromFile,
+                            ReturnUrl = "https://example.com/returnUrl",
+                            CancelUrl = "https://example.com/cancelUrl",
+                            LandingPage = PaypalExperienceLandingPage.Login,
+                            UserAction = PaypalExperienceUserAction.PayNow,
+                        },
                     },
                 },
             },
@@ -158,4 +199,170 @@ public class CheckoutController : Controller
 
         return result;
     }
+
+    [HttpPost("api/shipping-callback")]
+    public async Task<dynamic> ShippingCallback([FromBody] OrderUpdateCallbackRequest request)
+    {
+        // Build the response object
+        var orderUpdateCallbackResponse = new
+        {
+            id = request.Id,
+            purchase_units = request
+                .PurchaseUnits.Select(pu => new
+                {
+                    reference_id = pu.ReferenceId,
+                    amount = new
+                    {
+                        currency_code = pu.Amount?.CurrencyCode,
+                        value = pu.Amount?.Value,
+                        breakdown = new
+                        {
+                            item_total = new
+                            {
+                                currency_code = pu.Amount?.Breakdown?.ItemTotal?.CurrencyCode,
+                                value = pu.Amount?.Breakdown?.ItemTotal?.Value
+                            },
+                            tax_total = new { currency_code = "USD", value = "0.00" }, // Assuming tax_total is always 0.00 for this example. Modify as needed
+                            shipping = new { currency_code = "USD", value = "3.00" } // Assuming shipping is always 3.00 for this example. Modify as needed
+                        }
+                    },
+                    shipping_options = new[]
+                    {
+                        new
+                        {
+                            id = "1",
+                            amount = new { currency_code = "USD", value = "0.00" },
+                            type = "SHIPPING",
+                            label = "Free Shipping",
+                            selected = true
+                        },
+                        new
+                        {
+                            id = "2",
+                            amount = new { currency_code = "USD", value = "7.00" },
+                            type = "SHIPPING",
+                            label = "USPS Priority Shipping",
+                            selected = false
+                        },
+                        new
+                        {
+                            id = "3",
+                            amount = new { currency_code = "USD", value = "10.00" },
+                            type = "SHIPPING",
+                            label = "1-Day Shipping",
+                            selected = false
+                        }
+                    }
+                })
+                .ToArray()
+        };
+
+        return await Task.FromResult(orderUpdateCallbackResponse);
+    }
+}
+
+public class OrderUpdateCallbackRequest
+{
+    public string Id { get; set; }
+    public ShippingAddress ShippingAddress { get; set; }
+    public List<PurchaseUnit> PurchaseUnits { get; set; }
+}
+
+public class OrderUpdateCallbackResponse
+{
+    public string Id { get; set; }
+    public List<PurchaseUnit> PurchaseUnits { get; set; }
+}
+
+public class ShippingAddress
+{
+    public string AdminArea1 { get; set; } // State
+    public string AdminArea2 { get; set; } // City
+    public string PostalCode { get; set; }
+    public string CountryCode { get; set; }
+}
+
+public class PurchaseUnit
+{
+    public string ReferenceId { get; set; }
+    public Amount Amount { get; set; }
+    public Payee Payee { get; set; }
+    public List<Item> Items { get; set; }
+    public ShippingDetails Shipping { get; set; }
+}
+
+public class Amount
+{
+    public string CurrencyCode { get; set; }
+    public string Value { get; set; }
+    public Breakdown Breakdown { get; set; }
+}
+
+public class Breakdown
+{
+    public ItemTotal ItemTotal { get; set; }
+}
+
+public class ItemTotal
+{
+    public string CurrencyCode { get; set; }
+    public string Value { get; set; }
+}
+
+public class Payee
+{
+    public string EmailAddress { get; set; }
+    public string MerchantId { get; set; }
+}
+
+public class Item
+{
+    public string Name { get; set; }
+    public UnitAmount UnitAmount { get; set; }
+    public string Quantity { get; set; }
+    public string Description { get; set; }
+    public string Sku { get; set; }
+    public string Url { get; set; }
+    public string ImageUrl { get; set; }
+    public UPC Upc { get; set; }
+    public string Category { get; set; }
+}
+
+public class UnitAmount
+{
+    public string CurrencyCode { get; set; }
+    public string Value { get; set; }
+}
+
+public class UPC
+{
+    public string Type { get; set; }
+    public string Code { get; set; }
+}
+
+public class ShippingDetails
+{
+    public ShippingName Name { get; set; }
+    public ShippingPhoneNumber PhoneNumber { get; set; }
+    public string EmailAddress { get; set; }
+    public List<ShippingOption> Options { get; set; }
+}
+
+public class ShippingName
+{
+    public string FullName { get; set; }
+}
+
+public class ShippingPhoneNumber
+{
+    public string NationalNumber { get; set; }
+}
+
+public class ShippingOption
+{
+    public string Id { get; set; }
+    public string Label { get; set; }
+    public string Type { get; set; }
+    public Amount Amount { get; set; }
+    public bool Selected { get; set; }
 }
