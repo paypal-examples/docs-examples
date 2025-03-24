@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2e528a550aa0e8926b330dcdcfc67dc",
+    "content-hash": "e0fc9d83942f146aaa20785c7c614107",
     "packages": [
         {
             "name": "apimatic/core",
-            "version": "0.3.11",
+            "version": "0.3.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apimatic/core-lib-php.git",
-                "reference": "2274f103f9f210664f546f504e4559d772a81fee"
+                "reference": "c3eaad6cf0c00b793ce6d9bee8b87176247da582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apimatic/core-lib-php/zipball/2274f103f9f210664f546f504e4559d772a81fee",
-                "reference": "2274f103f9f210664f546f504e4559d772a81fee",
+                "url": "https://api.github.com/repos/apimatic/core-lib-php/zipball/c3eaad6cf0c00b793ce6d9bee8b87176247da582",
+                "reference": "c3eaad6cf0c00b793ce6d9bee8b87176247da582",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
                 "psr/log": "^1.1.4 || ^2.0.0 || ^3.0.0"
             },
             "require-dev": {
-                "phan/phan": "5.4.2",
+                "phan/phan": "5.4.5",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
                 "squizlabs/php_codesniffer": "^3.5"
             },
@@ -56,9 +56,9 @@
             ],
             "support": {
                 "issues": "https://github.com/apimatic/core-lib-php/issues",
-                "source": "https://github.com/apimatic/core-lib-php/tree/0.3.11"
+                "source": "https://github.com/apimatic/core-lib-php/tree/0.3.14"
             },
-            "time": "2024-07-08T11:50:08+00:00"
+            "time": "2025-02-27T06:03:30+00:00"
         },
         {
             "name": "apimatic/core-interfaces",
@@ -105,16 +105,16 @@
         },
         {
             "name": "apimatic/jsonmapper",
-            "version": "3.1.4",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apimatic/jsonmapper.git",
-                "reference": "407b455d2adda2efa51a44b99400389fbee0394e"
+                "reference": "c6cc21bd56bfe5d5822bbd08f514be465c0b24e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apimatic/jsonmapper/zipball/407b455d2adda2efa51a44b99400389fbee0394e",
-                "reference": "407b455d2adda2efa51a44b99400389fbee0394e",
+                "url": "https://api.github.com/repos/apimatic/jsonmapper/zipball/c6cc21bd56bfe5d5822bbd08f514be465c0b24e7",
+                "reference": "c6cc21bd56bfe5d5822bbd08f514be465c0b24e7",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "email": "mehdi.jaffery@apimatic.io",
                 "issues": "https://github.com/apimatic/jsonmapper/issues",
-                "source": "https://github.com/apimatic/jsonmapper/tree/3.1.4"
+                "source": "https://github.com/apimatic/jsonmapper/tree/3.1.6"
             },
-            "time": "2024-06-11T11:48:30+00:00"
+            "time": "2024-11-28T09:15:32+00:00"
         },
         {
             "name": "apimatic/unirest-php",
@@ -224,27 +224,27 @@
         },
         {
             "name": "paypal/paypal-server-sdk",
-            "version": "0.6.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/PayPal-PHP-Server-SDK.git",
-                "reference": "7d69e118998fdf2ae2cf234f1bd49f4248782380"
+                "reference": "66fd3341bbffafe7d650fe7d9d2699fabf355e67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paypal/PayPal-PHP-Server-SDK/zipball/7d69e118998fdf2ae2cf234f1bd49f4248782380",
-                "reference": "7d69e118998fdf2ae2cf234f1bd49f4248782380",
+                "url": "https://api.github.com/repos/paypal/PayPal-PHP-Server-SDK/zipball/66fd3341bbffafe7d650fe7d9d2699fabf355e67",
+                "reference": "66fd3341bbffafe7d650fe7d9d2699fabf355e67",
                 "shasum": ""
             },
             "require": {
-                "apimatic/core": "~0.3.11",
+                "apimatic/core": "~0.3.13",
                 "apimatic/core-interfaces": "~0.1.5",
                 "apimatic/unirest-php": "^4.0.0",
                 "ext-json": "*",
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "phan/phan": "5.4.2",
+                "phan/phan": "5.4.5",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
@@ -261,9 +261,9 @@
             "homepage": "https://github.com/paypal/PayPal-PHP-Server-SDK",
             "support": {
                 "issues": "https://github.com/paypal/PayPal-PHP-Server-SDK/issues",
-                "source": "https://github.com/paypal/PayPal-PHP-Server-SDK/tree/0.6.0"
+                "source": "https://github.com/paypal/PayPal-PHP-Server-SDK/tree/1.0.0"
             },
-            "time": "2024-10-18T19:06:27+00:00"
+            "time": "2025-03-24T18:44:18+00:00"
         },
         {
             "name": "php-jsonpointer/php-jsonpointer",
@@ -375,13 +375,13 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

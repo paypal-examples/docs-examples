@@ -56,7 +56,7 @@ const createOrder = async (cart) => {
   };
 
   try {
-    const { body, ...httpResponse } = await ordersController.ordersCreate(
+    const { body, ...httpResponse } = await ordersController.createOrder(
       collect
     );
     // Get more response info...
@@ -84,7 +84,7 @@ const captureOrder = async (orderID) => {
   };
 
   try {
-    const { body, ...httpResponse } = await ordersController.ordersCapture(
+    const { body, ...httpResponse } = await ordersController.captureOrder(
       collect
     );
     // Get more response info...

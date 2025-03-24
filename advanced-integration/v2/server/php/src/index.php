@@ -44,7 +44,7 @@ function createOrder($cart)
         )->build()
     ];
 
-    $apiResponse = $client->getOrdersController()->ordersCreate($orderBody);
+    $apiResponse = $client->getOrdersController()->createOrder($orderBody);
 
     return handleResponse($apiResponse);
 }
@@ -61,7 +61,7 @@ function captureOrder($orderID)
         'id' => $orderID
     ];
 
-    $apiResponse = $client->getOrdersController()->ordersCapture($captureBody);
+    $apiResponse = $client->getOrdersController()->captureOrder($captureBody);
 
     return handleResponse($apiResponse);
 }

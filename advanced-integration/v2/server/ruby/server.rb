@@ -37,7 +37,7 @@ end
 post "/api/orders" do
   # use the cart information passed from the front-end to calculate the order amount detals
   cart = JSON.parse request.body.read
-  order_response = paypal_client.orders.orders_create({
+  order_response = paypal_client.orders.create_order({
     'body' => OrderRequest.new(
       intent: CheckoutPaymentIntent::CAPTURE,
       purchase_units: [
@@ -58,7 +58,7 @@ end
 #
 #  @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
 post '/api/orders/:order_id/capture' do |order_id|
-  capture_response = paypal_client.orders.orders_capture({
+  capture_response = paypal_client.orders.capture_order({
     'id' => order_id,
     'prefer' => 'return=representation'
   })
