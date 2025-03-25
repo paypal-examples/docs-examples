@@ -131,7 +131,7 @@ public class CheckoutController : Controller
             },
         };
 
-        ApiResponse<Order> result = await _ordersController.OrdersCreateAsync(createOrderInput);
+        ApiResponse<Order> result = await _ordersController.CreateOrderAsync(createOrderInput);
         return result;
     }
 
@@ -154,7 +154,7 @@ public class CheckoutController : Controller
     {
         CaptureOrderInput ordersCaptureInput = new CaptureOrderInput { Id = orderID, };
 
-        ApiResponse<Order> result = await _ordersController.OrdersCaptureAsync(ordersCaptureInput);
+        ApiResponse<Order> result = await _ordersController.CaptureOrderAsync(ordersCaptureInput);
 
         return result;
     }
