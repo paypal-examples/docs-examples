@@ -25,8 +25,8 @@ import com.paypal.sdk.models.AmountWithBreakdown;
 import com.paypal.sdk.models.CheckoutPaymentIntent;
 import com.paypal.sdk.models.Order;
 import com.paypal.sdk.models.OrderRequest;
-import com.paypal.sdk.models.OrdersCaptureInput;
-import com.paypal.sdk.models.OrdersCreateInput;
+import com.paypal.sdk.models.CaptureOrderInput;
+import com.paypal.sdk.models.CreateOrderInput;
 import com.paypal.sdk.models.PurchaseUnitRequest;
 import java.util.Arrays;
 import org.slf4j.event.Level;
@@ -107,7 +107,7 @@ public class SampleAppApplication {
 
 		private Order createOrder(String cart) throws IOException, ApiException {
 
-			OrdersCreateInput ordersCreateInput = new OrdersCreateInput.Builder(
+			CreateOrderInput createOrderInput = new CreateOrderInput.Builder(
 					null,
 					new OrderRequest.Builder(
 							CheckoutPaymentIntent.CAPTURE,
@@ -123,18 +123,18 @@ public class SampleAppApplication {
 
 			OrdersController ordersController = client.getOrdersController();
 
-			ApiResponse<Order> apiResponse = ordersController.ordersCreate(ordersCreateInput);
+			ApiResponse<Order> apiResponse = ordersController.createOrder(createOrderInput);
 
 			return apiResponse.getResult();
 		}
 
 		private Order captureOrders(String orderID) throws IOException, ApiException {
-			OrdersCaptureInput ordersCaptureInput = new OrdersCaptureInput.Builder(
+			CaptureOrderInput ordersCaptureInput = new CaptureOrderInput.Builder(
 					orderID,
 					null)
 					.build();
 			OrdersController ordersController = client.getOrdersController();
-			ApiResponse<Order> apiResponse = ordersController.ordersCapture(ordersCaptureInput);
+			ApiResponse<Order> apiResponse = ordersController.captureOrder(ordersCaptureInput);
 			return apiResponse.getResult();
 		}
 	}
