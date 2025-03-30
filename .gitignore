@@ -110,3 +110,7 @@ dist
 #Codespace
 .vscode/settings.json
 .devcontainer/update_settings.sh
+
+# Python
+.venv
+__pycache__
