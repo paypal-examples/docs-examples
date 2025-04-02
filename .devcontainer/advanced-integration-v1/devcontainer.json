@@ -31,7 +31,11 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["vsls-contrib.codetour","PayPal.vscode-paypal"],
+      "extensions": [
+        "vsls-contrib.codetour",
+        "PayPal.vscode-paypal",
+        "ms-iot.vscode-ros"
+      ],
       "settings": {
         "git.openRepositoryInParentFolders": "always"
       }
