@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.9" />
     <PackageReference Include="PayPalServerSDK" Version="1.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PayPal Business/" />
+  </ItemGroup>
 </Project>
