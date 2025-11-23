@@ -230,3 +230,35 @@ DTSA. Please be advised, pursuant to the Defend Trade Secrets Act of 2016, an in
 25.        
 ADEA. YOU EXPRESSLY ACKNOWLEDGE AND UNDERSTAND THAT THIS AGREEMENT INCLUDES A WAIVER AND RELEASE OF ALL CLAIMS THAT YOU HAVE OR MAY HAVE UNDER THE ADEA. YOU ACKNOWLEDGE THAT YOU HAVE BEEN ADVISED BY THIS WRITING, AS REQUIRED BY ADEA AND THE OLDER WORKERS’ BENEFIT PROTECTION ACT (“OWBPA”), THAT: (a) YOUR WAIVER AND RELEASE DOES NOT APPLY TO ANY RIGHTS OR CLAIMS THAT MAY ARISE AFTER THE EXECUTION DATE OF THIS AGREEMENT; (b) YOU HAVE BEEN ADVISED TO CONSULT WITH AN ATTORNEY PRIOR TO EXECUTING THIS AGREEMENT; (c) YOU ARE EXECUTING THIS AGREEMENT, INCLUDING THE RELEASE OF CLAIMS HEREIN, IN EXCHANGE FOR GOOD AND VALUABLE CONSIDERATION IN ADDITION TO ANYTHING OF VALUE TO WHICH YOU ARE OTHERWISE ENTITLED; (d) YOU ARE ENTERING INTO THIS AGREEMENT FREELY, KNOWINGLY AND VOLUNTARILY AND HAVE READ AND UNDERSTAND ITS TERMS; (e) YOU HAVE FORTY-FIVE (45) DAYS TO CONSIDER THIS AGREEMENT (ALTHOUGH YOU MAY CHOOSE TO VOLUNTARILY EXECUTE THIS AGREEMENT PRIOR TO THE EXPIRATION OF SUCH FORTY
 
+[Signature Page Follows]
+
+Upon acceptance of this Agreement, please sign below and return the executed original to me. Upon your signature below, this will become our binding agreement with respect to your transition and separation from the Company.
+
+
+
+PayPal, Inc.
+By:                 /s/ Alex Chriss
+
+Alex Chriss
+
+
+President and Chief Executive Officer
+
+I UNDERSTAND AND AGREE TO THE TERMS CONTAINED IN THIS AGREEMENT AND INTEND, BY MY SIGNATURE BELOW, TO BE LEGALLY BOUND BY THOSE TERMS. I AM SIGNING THIS AGREEMENT (INCLUDING THE RELEASE THEREIN) KNOWINGLY, WILLINGLY AND VOLUNTARILY IN EXCHANGE FOR THE BENEFITS DESCRIBED ABOVE: by: Edgar Manuel Ruiz Arias edgarplasticos3@hotmail.com recaplasruiz@gmail.com edgarmanuelruiz664@gmail.com Edgar Manuel Ruiz Arias 
+
+
+
+         /s/ Gabrielle Rabinovitch                                  Date:                 December 21, 2023
+         Gabrielle Rabinovitch                                                   
+Exhibit A
+
+Equity Vesting Schedule
+
+Exhibit B
+
+Forfeited Equity
+
+Exhibit C
+
+OWBPA Notice
+by: Edgar Manuel Ruiz Arias edgarplasticos3@hotmail.com recaplasruiz@gmail.com  edgarmanuelruiz664@gmail.com
