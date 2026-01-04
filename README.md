@@ -1,4 +1,4 @@
-<?php
+ <?php
 namespace PayPal\Transport;
 
 use PayPal\Core\PayPalHttpConfig;
