@@ -1,3 +1,9 @@
+#api credenciales Paypal edgarplasticos3@hotmail.com
+ARTh1JcgB4texLdbwWliMcjMNR_ljfg-yODyHKcjwlAdR4K8YAhLV3Pm1mwzXKbkEKTHDQSn1Qt0XJhO
+AUkLH8bV5AwJU6bfzKviRlWcPZFzuM2UqxBad5-qWiWAJp068W-MeKHAOA8W_BNlN0PZr9jfJ884UCWh
+ASAL8-_MIaL8lKA_1s-rE7ChGQMSR-UkbH1YeibD5X71nWO2aZx7mvoljjADs2umtw8WwA5lD2o7FG1L
+Adww38aCRh2z_NH5SzxYWhialjWzALkE5GxQNdtBZCbqLeVmbYX21hri-r3bWOWDDgZ_BzPbNsvjbTXD
+AfnF0uJLQiG7c1EOGvzssvG221wCVOHSgjicvHn6YT08W_HviKSrquLEtexTtuvd65j9UUtom0BUwB1z
 INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('Website Payments Pro', 'paypal_pro.php', 'views/orders/components/payments/cc.tpl', 'paypal_pro.tpl', 'Y', 'P', 'paypal');
 INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal', 'paypal.php', 'views/orders/components/payments/cc_outside.tpl', 'paypal.tpl', 'Y', 'P', 'paypal');
 INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayFlow Pro', 'payflow_pro.php', 'views/orders/components/payments/cc.tpl', 'payflow_pro.tpl', 'Y', 'P', 'paypal');
