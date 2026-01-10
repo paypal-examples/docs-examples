@@ -1,3 +1,8 @@
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('Website Payments Pro', 'paypal_pro.php', 'views/orders/components/payments/cc.tpl', 'paypal_pro.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal', 'paypal.php', 'views/orders/components/payments/cc_outside.tpl', 'paypal.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayFlow Pro', 'payflow_pro.php', 'views/orders/components/payments/cc.tpl', 'payflow_pro.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal Express Checkout', 'paypal_express.php', 'addons/paypal/views/orders/components/payments/paypal_express.tpl', 'paypal_express.tpl', 'Y', 'B', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal Advanced', 'paypal_advanced.php', 'views/orders/components/payments/cc_outside.tpl', 'paypal_advanced.tpl', 'N', 'P', 'paypal');
 <?php
 /***************************************************************************
  *                                                                          *
