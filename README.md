@@ -1,3 +1,509 @@
+"RFC 7636
+Proposed Standard
+
+
+Internet Engineering Task Force (IETF)                  N. Sakimura, Ed.
+Request for Comments: 7636                     Nomura Research Institute
+Category: Standards Track                                     J. Bradley
+ISSN: 2070-1721                                            Ping Identity
+                                                              N. Agarwal
+                                                                  Google
+                                                          September 2015
+
+
+          Proof Key for Code Exchange by OAuth Public Clients
+
+Abstract
+
+   OAuth 2.0 public clients utilizing the Authorization Code Grant are
+   susceptible to the authorization code interception attack.  This
+   specification describes the attack as well as a technique to mitigate
+   against the threat through the use of Proof Key for Code Exchange
+   (PKCE, pronounced "pixy").
+
+Status of This Memo
+
+   This is an Internet Standards Track document.
+
+   This document is a product of the Internet Engineering Task Force
+   (IETF).  It represents the consensus of the IETF community.  It has
+   received public review and has been approved for publication by the
+   Internet Engineering Steering Group (IESG).  Further information on
+   Internet Standards is available in Section 2 of RFC 5741.
+
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   http://www.rfc-editor.org/info/rfc7636.
+
+Copyright Notice
+
+   Copyright (c) 2015 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 1]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+Table of Contents
+
+   1. Introduction ....................................................3
+      1.1. Protocol Flow ..............................................5
+   2. Notational Conventions ..........................................6
+   3. Terminology .....................................................7
+      3.1. Abbreviations ..............................................7
+   4. Protocol ........................................................8
+      4.1. Client Creates a Code Verifier .............................8
+      4.2. Client Creates the Code Challenge ..........................8
+      4.3. Client Sends the Code Challenge with the
+           Authorization Request ......................................9
+      4.4. Server Returns the Code ....................................9
+           4.4.1. Error Response ......................................9
+      4.5. Client Sends the Authorization Code and the Code
+           Verifier to the Token Endpoint ............................10
+      4.6. Server Verifies code_verifier before Returning the
+           Tokens ....................................................10
+   5. Compatibility ..................................................11
+   6. IANA Considerations ............................................11
+      6.1. OAuth Parameters Registry .................................11
+      6.2. PKCE Code Challenge Method Registry .......................11
+           6.2.1. Registration Template ..............................12
+           6.2.2. Initial Registry Contents ..........................13
+   7. Security Considerations ........................................13
+      7.1. Entropy of the code_verifier ..............................13
+      7.2. Protection against Eavesdroppers ..........................13
+      7.3. Salting the code_challenge ................................14
+      7.4. OAuth Security Considerations .............................14
+      7.5. TLS Security Considerations ...............................15
+   8. References .....................................................15
+      8.1. Normative References ......................................15
+      8.2. Informative References ....................................16
+   Appendix A.  Notes on Implementing Base64url Encoding without
+                Padding  .............................................17
+   Appendix B.  Example for the S256 code_challenge_method ...........17
+   Acknowledgements ..................................................19
+   Authors' Addresses ................................................20
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 2]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+1.  Introduction
+
+   OAuth 2.0 [RFC6749] public clients are susceptible to the
+   authorization code interception attack.
+
+   In this attack, the attacker intercepts the authorization code
+   returned from the authorization endpoint within a communication path
+   not protected by Transport Layer Security (TLS), such as inter-
+   application communication within the client's operating system.
+
+   Once the attacker has gained access to the authorization code, it can
+   use it to obtain the access token.
+
+   Figure 1 shows the attack graphically.  In step (1), the native
+   application running on the end device, such as a smartphone, issues
+   an OAuth 2.0 Authorization Request via the browser/operating system.
+   The Redirection Endpoint URI in this case typically uses a custom URI
+   scheme.  Step (1) happens through a secure API that cannot be
+   intercepted, though it may potentially be observed in advanced attack
+   scenarios.  The request then gets forwarded to the OAuth 2.0
+   authorization server in step (2).  Because OAuth requires the use of
+   TLS, this communication is protected by TLS and cannot be
+   intercepted.  The authorization server returns the authorization code
+   in step (3).  In step (4), the Authorization Code is returned to the
+   requester via the Redirection Endpoint URI that was provided in step
+   (1).
+
+   Note that it is possible for a malicious app to register itself as a
+   handler for the custom scheme in addition to the legitimate OAuth 2.0
+   app.  Once it does so, the malicious app is now able to intercept the
+   authorization code in step (4).  This allows the attacker to request
+   and obtain an access token in steps (5) and (6), respectively.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 3]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+    | End Device (e.g., Smartphone)  |
+    |                                |
+    | +-------------+   +----------+ | (6) Access Token  +----------+
+    | |Legitimate   |   | Malicious|<--------------------|          |
+    | |OAuth 2.0 App|   | App      |-------------------->|          |
+    | +-------------+   +----------+ | (5) Authorization |          |
+    |        |    ^          ^       |        Grant      |          |
+    |        |     \         |       |                   |          |
+    |        |      \   (4)  |       |                   |          |
+    |    (1) |       \  Authz|       |                   |          |
+    |   Authz|        \ Code |       |                   |  Authz   |
+    | Request|         \     |       |                   |  Server  |
+    |        |          \    |       |                   |          |
+    |        |           \   |       |                   |          |
+    |        v            \  |       |                   |          |
+    | +----------------------------+ |                   |          |
+    | |                            | | (3) Authz Code    |          |
+    | |     Operating System/      |<--------------------|          |
+    | |         Browser            |-------------------->|          |
+    | |                            | | (2) Authz Request |          |
+    | +----------------------------+ |                   +----------+
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+
+             Figure 1: Authorization Code Interception Attack
+
+   A number of pre-conditions need to hold for this attack to work:
+
+   1. The attacker manages to register a malicious application on the
+      client device and registers a custom URI scheme that is also used
+      by another application.  The operating systems must allow a custom
+      URI scheme to be registered by multiple applications.
+
+   2. The OAuth 2.0 authorization code grant is used.
+
+   3. The attacker has access to the OAuth 2.0 [RFC6749] "client_id" and
+      "client_secret" (if provisioned).  All OAuth 2.0 native app
+      client-instances use the same "client_id".  Secrets provisioned in
+      client binary applications cannot be considered confidential.
+
+   4. Either one of the following condition is met:
+
+      4a. The attacker (via the installed application) is able to
+          observe only the responses from the authorization endpoint.
+          When "code_challenge_method" value is "plain", only this
+          attack is mitigated.
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 4]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+      4b. A more sophisticated attack scenario allows the attacker to
+          observe requests (in addition to responses) to the
+          authorization endpoint.  The attacker is, however, not able to
+          act as a man in the middle.  This was caused by leaking http
+          log information in the OS.  To mitigate this,
+          "code_challenge_method" value must be set either to "S256" or
+          a value defined by a cryptographically secure
+          "code_challenge_method" extension.
+
+   While this is a long list of pre-conditions, the described attack has
+   been observed in the wild and has to be considered in OAuth 2.0
+   deployments.  While the OAuth 2.0 threat model (Section 4.4.1 of
+   [RFC6819]) describes mitigation techniques, they are, unfortunately,
+   not applicable since they rely on a per-client instance secret or a
+   per-client instance redirect URI.
+
+   To mitigate this attack, this extension utilizes a dynamically
+   created cryptographically random key called "code verifier".  A
+   unique code verifier is created for every authorization request, and
+   its transformed value, called "code challenge", is sent to the
+   authorization server to obtain the authorization code.  The
+   authorization code obtained is then sent to the token endpoint with
+   the "code verifier", and the server compares it with the previously
+   received request code so that it can perform the proof of possession
+   of the "code verifier" by the client.  This works as the mitigation
+   since the attacker would not know this one-time key, since it is sent
+   over TLS and cannot be intercepted.
+
+1.1.  Protocol Flow
+
+                                                 +-------------------+
+                                                 |   Authz Server    |
+       +--------+                                | +---------------+ |
+       |        |--(A)- Authorization Request ---->|               | |
+       |        |       + t(code_verifier), t_m  | | Authorization | |
+       |        |                                | |    Endpoint   | |
+       |        |<-(B)---- Authorization Code -----|               | |
+       |        |                                | +---------------+ |
+       | Client |                                |                   |
+       |        |                                | +---------------+ |
+       |        |--(C)-- Access Token Request ---->|               | |
+       |        |          + code_verifier       | |    Token      | |
+       |        |                                | |   Endpoint    | |
+       |        |<-(D)------ Access Token ---------|               | |
+       +--------+                                | +---------------+ |
+                                                 +-------------------+
+
+                     Figure 2: Abstract Protocol Flow
+
+
+
+Sakimura, et al.             Standards Track                    [Page 5]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+   This specification adds additional parameters to the OAuth 2.0
+   Authorization and Access Token Requests, shown in abstract form in
+   Figure 2.
+
+   A. The client creates and records a secret named the "code_verifier"
+      and derives a transformed version "t(code_verifier)" (referred to
+      as the "code_challenge"), which is sent in the OAuth 2.0
+      Authorization Request along with the transformation method "t_m".
+
+   B. The Authorization Endpoint responds as usual but records
+      "t(code_verifier)" and the transformation method.
+
+   C. The client then sends the authorization code in the Access Token
+      Request as usual but includes the "code_verifier" secret generated
+      at (A).
+
+   D. The authorization server transforms "code_verifier" and compares
+      it to "t(code_verifier)" from (B).  Access is denied if they are
+      not equal.
+
+   An attacker who intercepts the authorization code at (B) is unable to
+   redeem it for an access token, as they are not in possession of the
+   "code_verifier" secret.
+
+2.  Notational Conventions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   "Key words for use in RFCs to Indicate Requirement Levels" [RFC2119].
+   If these words are used without being spelled in uppercase, then they
+   are to be interpreted with their natural language meanings.
+
+   This specification uses the Augmented Backus-Naur Form (ABNF)
+   notation of [RFC5234].
+
+   STRING denotes a sequence of zero or more ASCII [RFC20] characters.
+
+   OCTETS denotes a sequence of zero or more octets.
+
+   ASCII(STRING) denotes the octets of the ASCII [RFC20] representation
+   of STRING where STRING is a sequence of zero or more ASCII
+   characters.
+
+   BASE64URL-ENCODE(OCTETS) denotes the base64url encoding of OCTETS,
+   per Appendix A, producing a STRING.
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 6]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+   BASE64URL-DECODE(STRING) denotes the base64url decoding of STRING,
+   per Appendix A, producing a sequence of octets.
+
+   SHA256(OCTETS) denotes a SHA2 256-bit hash [RFC6234] of OCTETS.
+
+3.  Terminology
+
+   In addition to the terms defined in OAuth 2.0 [RFC6749], this
+   specification defines the following terms:
+
+   code verifier
+      A cryptographically random string that is used to correlate the
+      authorization request to the token request.
+
+   code challenge
+      A challenge derived from the code verifier that is sent in the
+      authorization request, to be verified against later.
+
+   code challenge method
+      A method that was used to derive code challenge.
+
+   Base64url Encoding
+      Base64 encoding using the URL- and filename-safe character set
+      defined in Section 5 of [RFC4648], with all trailing '='
+      characters omitted (as permitted by Section 3.2 of [RFC4648]) and
+      without the inclusion of any line breaks, whitespace, or other
+      additional characters.  (See Appendix A for notes on implementing
+      base64url encoding without padding.)
+
+3.1.  Abbreviations
+
+   ABNF   Augmented Backus-Naur Form
+
+   Authz  Authorization
+
+   PKCE   Proof Key for Code Exchange
+
+   MITM   Man-in-the-middle
+
+   MTI    Mandatory To Implement
+
+
+
+
+
+
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 7]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+4.  Protocol
+
+4.1.  Client Creates a Code Verifier
+
+   The client first creates a code verifier, "code_verifier", for each
+   OAuth 2.0 [RFC6749] Authorization Request, in the following manner:
+
+   code_verifier = high-entropy cryptographic random STRING using the
+   unreserved characters [A-Z] / [a-z] / [0-9] / "-" / "." / "_" / "~"
+   from Section 2.3 of [RFC3986], with a minimum length of 43 characters
+   and a maximum length of 128 characters.
+
+   ABNF for "code_verifier" is as follows.
+
+   code-verifier = 43*128unreserved
+   unreserved = ALPHA / DIGIT / "-" / "." / "_" / "~"
+   ALPHA = %x41-5A / %x61-7A
+   DIGIT = %x30-39
+
+   NOTE: The code verifier SHOULD have enough entropy to make it
+   impractical to guess the value.  It is RECOMMENDED that the output of
+   a suitable random number generator be used to create a 32-octet
+   sequence.  The octet sequence is then base64url-encoded to produce a
+   43-octet URL safe string to use as the code verifier.
+
+4.2.  Client Creates the Code Challenge
+
+   The client then creates a code challenge derived from the code
+   verifier by using one of the following transformations on the code
+   verifier:
+
+   plain
+      code_challenge = code_verifier
+
+   S256
+      code_challenge = BASE64URL-ENCODE(SHA256(ASCII(code_verifier)))
+
+   If the client is capable of using "S256", it MUST use "S256", as
+   "S256" is Mandatory To Implement (MTI) on the server.  Clients are
+   permitted to use "plain" only if they cannot support "S256" for some
+   technical reason and know via out-of-band configuration that the
+   server supports "plain".
+
+   The plain transformation is for compatibility with existing
+   deployments and for constrained environments that can't use the S256
+   transformation.
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 8]
+
+RFC 7636                       OAUTH PKCE                 September 2015
+
+
+   ABNF for "code_challenge" is as follows.
+
+   code-challenge = 43*128unreserved
+   unreserved = ALPHA / DIGIT / "-" / "." / "_" / "~"
+   ALPHA = %x41-5A / %x61-7A
+   DIGIT = %x30-39
+
+4.3.  Client Sends the Code Challenge with the Authorization Request
+
+   The client sends the code challenge as part of the OAuth 2.0
+   Authorization Request (Section 4.1.1 of [RFC6749]) using the
+   following additional parameters:
+
+   code_challenge
+      REQUIRED.  Code challenge.
+
+   code_challenge_method
+      OPTIONAL, defaults to "plain" if not present in the request.  Code
+      verifier transformation method is "S256" or "plain".
+
+4.4.  Server Returns the Code
+
+   When the server issues the authorization code in the authorization
+   response, it MUST associate the "code_challenge" and
+   "code_challenge_method" values with the authorization code so it can
+   be verified later.
+
+   Typically, the "code_challenge" and "code_challenge_method" values
+   are stored in encrypted form in the "code" itself but could
+   alternatively be stored on the server associated with the code.  The
+   server MUST NOT include the "code_challenge" value in client requests
+   in a form that other entities can extract.
+
+   The exact method that the server uses to associate the
+   "code_challenge" with the issued "code" is out of scope for this
+   specification.
+
+4.4.1.  Error Response
+
+   If the server requires Proof Key for Code Exchange (PKCE) by OAuth
+   public clients and the client does not send the "code_challenge" in
+   the request, the authorization endpoint MUST return the authorization
+   error response with the "error" value set to "invalid_request".  The
+   "error_description" or the response of "error_uri" SHOULD explain the
+   nature of error, e.g., code challenge required.
+
+
+
+
+
+
+Sakimura, et al.             Standards Track                    [Page 9]
+
+RFC 7636        
 # Creación de prototipos con modelos de IA
 
 Busque y experimente gratis con modelos de IA.
