@@ -1,3 +1,666 @@
+"> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paypal.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Integrate PayPal Checkout with PayPal's JavaScript SDK v6
+
+This guide demonstrates how to integrate one-time payments using the JavaScript SDK v6 in your web application, including PayPal, Pay Later, and PayPal Credit options.
+
+<Note>Merchants with strict security or compliance requirements can use this integration in a [sandboxed iframe](/developer/how-to/sdk/js/v6/iframe).</Note>
+
+## Integration overview
+
+The PayPal one-time payment integration supports multiple payment methods:
+
+1. [PayPal](https://www.paypal.com/us/home) - Standard PayPal payments
+2. [Pay Later](https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later) - Buy now, pay later financing options
+3. [PayPal Credit](https://www.paypal.com/us/digital-wallet/ways-to-pay/credit-services/paypal-credit) - Credit-based payment option
+
+The integration consists of four main steps:
+
+1. **Initialize the SDK** with payment components
+2. **Check eligibility** for each payment method
+3. **Create payment sessions** with callback handlers
+4. **Start payment flow** with presentation mode configuration
+
+## Prerequisites
+
+* Complete the steps in [Get started](/developer/how-to/api/get-started) to get your:
+  * Personal and business sandbox account credentials
+  * PayPal client ID and secret
+* Ensure your application has permissions enabled for JavaScript SDK v6
+* In your project root folder, create a `.env` file with your PayPal credentials:
+
+```bash  theme={null}
+PAYPAL_SANDBOX_CLIENT_ID=your_client_id
+PAYPAL_SANDBOX_CLIENT_SECRET=your_client_secret
+```
+
+* [Set up the SDK](/developer/how-to/sdk/js/v6/configuration)
+
+## Set up your frontend
+
+This is the **recommended approach** for most implementations. It includes all payment methods with eligibility logic and automatic fallback handling.
+
+### Key components
+
+The following are key components of the integration.
+
+#### PayPal SDK instance
+
+* **Purpose**: Main entry point for PayPal functionality
+* **Components**: Includes `paypal-payments` component
+* **Authentication**: Requires client token from server
+
+#### Eligibility check
+
+* **Purpose**: Determines available payment methods
+* **Factors**: User location, currency, account status, device type
+* **Implementation**: Always check before showing payment buttons
+
+#### Payment sessions
+
+* **PayPal**: Standard PayPal payments
+* **Pay Later**: Financing options with specific product codes
+* **PayPal Credit**: Credit-based payments with country-specific configuration
+
+#### Web components
+
+* `<paypal-button>`: Standard PayPal payment button
+* `<paypal-pay-later-button>`: Pay Later financing button
+* `<paypal-credit-button>`: PayPal Credit button
+
+### Build an HTML page
+
+```html expandable lines theme={null}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>One-Time Payment - Recommended Integration - PayPal JavaScript SDK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>One-Time Payment Recommended Integration</h1>
+
+    <div class="buttons-container">
+      <!-- All buttons are hidden until eligibility is confirmed -->
+      <paypal-button type="pay" hidden></paypal-button>
+      <paypal-pay-later-button hidden></paypal-pay-later-button>
+      <paypal-credit-button hidden></paypal-credit-button>
+    </div>
+    
+    <script src="app.js"></script>
+
+    <!-- Load PayPal SDK -->
+    <script
+      async
+      src="https://www.sandbox.paypal.com/web-sdk/v6/core"
+      onload="onPayPalWebSdkLoaded()"
+    ></script>
+  </body>
+</html>
+```
+
+### Build the JavaScript
+
+```javascript expandable lines theme={null}
+async function onPayPalWebSdkLoaded() {
+  try {
+    // Get client token for authentication
+    const clientToken = await getBrowserSafeClientToken();
+    
+    // Create PayPal SDK instance
+    const sdkInstance = await window.paypal.createInstance({
+      clientToken,
+      components: ["paypal-payments"],
+      pageType: "checkout",
+    });
+
+    // Check eligibility for all payment methods
+    const paymentMethods = await sdkInstance.findEligibleMethods({
+      currencyCode: "USD",
+    });
+
+    // Set up PayPal button if eligible
+    if (paymentMethods.isEligible("paypal")) {
+      setUpPayPalButton(sdkInstance);
+    }
+
+    // Set up Pay Later button if eligible
+    if (paymentMethods.isEligible("paylater")) {
+      const payLaterPaymentMethodDetails = paymentMethods.getDetails("paylater");
+      setUpPayLaterButton(sdkInstance, payLaterPaymentMethodDetails);
+    }
+
+    // Set up PayPal Credit button if eligible
+    if (paymentMethods.isEligible("credit")) {
+      const paypalCreditPaymentMethodDetails = paymentMethods.getDetails("credit");
+      setUpPayPalCreditButton(sdkInstance, paypalCreditPaymentMethodDetails);
+    }
+  } catch (error) {
+    console.error("SDK initialization error:", error);
+  }
+}
+
+// Shared payment session options for all payment methods
+const paymentSessionOptions = {
+  // Called when user approves a payment 
+  async onApprove(data) {
+    console.log("Payment approved:", data);
+    try {
+      const orderData = await captureOrder({
+        orderId: data.orderId,
+      });
+      console.log("Payment captured successfully:", orderData);
+    } catch (error) {
+      console.error("Payment capture failed:", error);
+    }
+  },
+  
+  // Called when user cancels a payment
+  onCancel(data) {
+    console.log("Payment cancelled:", data);
+  },
+  
+  // Called when an error occurs during payment
+  onError(error) {
+    console.error("Payment error:", error);
+  },
+};
+
+// Set up standard PayPal button
+async function setUpPayPalButton(sdkInstance) {
+  const paypalPaymentSession = sdkInstance.createPayPalOneTimePaymentSession(
+    paymentSessionOptions,
+  );
+
+  const paypalButton = document.querySelector("paypal-button");
+  paypalButton.removeAttribute("hidden");
+
+  paypalButton.addEventListener("click", async () => {
+    try {
+      await paypalPaymentSession.start(
+        { presentationMode: "auto" }, // Auto-detects best presentation mode
+        createOrder(),
+      );
+    } catch (error) {
+      console.error("PayPal payment start error:", error);
+    }
+  });
+}
+
+// Set up Pay Later button
+async function setUpPayLaterButton(sdkInstance, payLaterPaymentMethodDetails) {
+  const payLaterPaymentSession = sdkInstance.createPayLaterOneTimePaymentSession(
+    paymentSessionOptions
+  );
+
+  const { productCode, countryCode } = payLaterPaymentMethodDetails;
+  const payLaterButton = document.querySelector("paypal-pay-later-button");
+
+  // Configure button with Pay Later specific details
+  payLaterButton.productCode = productCode;
+  payLaterButton.countryCode = countryCode;
+  payLaterButton.removeAttribute("hidden");
+
+  payLaterButton.addEventListener("click", async () => {
+    try {
+      await payLaterPaymentSession.start(
+        { presentationMode: "auto" },
+        createOrder(),
+      );
+    } catch (error) {
+      console.error("Pay Later payment start error:", error);
+    }
+  });
+}
+
+// Set up PayPal Credit button
+async function setUpPayPalCreditButton(sdkInstance, paypalCreditPaymentMethodDetails) {
+  const paypalCreditPaymentSession = sdkInstance.createPayPalCreditOneTimePaymentSession(
+    paymentSessionOptions
+  );
+
+  const { countryCode } = paypalCreditPaymentMethodDetails;
+  const paypalCreditButton = document.querySelector("paypal-credit-button");
+
+  // Configure button with PayPal Credit specific details
+  paypalCreditButton.countryCode = countryCode;
+  paypalCreditButton.removeAttribute("hidden");
+
+  paypalCreditButton.addEventListener("click", async () => {
+    try {
+      await paypalCreditPaymentSession.start(
+        { presentationMode: "auto" },
+        createOrder(),
+      );
+    } catch (error) {
+      console.error("PayPal Credit payment start error:", error);
+    }
+  });
+}
+```
+
+### Advanced
+
+For advanced use cases, you can choose specific presentation modes and implement your own fallback logic by leveraging the `isRecoverable` error property.
+
+```javascript lines expandable theme={null}
+// Alternatively, set up a standard PayPal button with a custom order of presentation modes
+async function setUpPayPalButton(sdkInstance) {
+  const paypalPaymentSession = sdkInstance.createPayPalOneTimePaymentSession(
+    paymentSessionOptions,
+  );
+
+  const paypalButton = document.querySelector("paypal-button");
+  paypalButton.removeAttribute("hidden");
+
+  paypalButton.addEventListener("click", async () => {
+    const createOrderPromiseReference = createOrder();
+    const presentationModesToTry = ["payment-handler", "popup", "modal"];
+
+    for (const presentationMode of presentationModesToTry) {
+      try {
+        await paypalPaymentSession.start(
+          { presentationMode },
+          createOrderPromiseReference,
+        );
+        // Exit early when start() successfully resolves
+        break;
+      } catch (error) {
+        // Try another presentationMode for a recoverable error
+        if (error.isRecoverable) {
+          continue;
+        }
+        throw error;
+      }
+    }
+  });
+}
+```
+
+### Key difference between v6 and previous versions
+
+For more control over order details:
+
+```javascript lines theme={null}
+// In v6, this must return an object with a signature of { orderId: "YOUR_ORDER_ID" }
+  return fetch("/paypal-api/checkout/orders/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(orderPayload),
+  })
+    .then(response => response.json())
+    .then(data => ({ orderId: data.id })); /// <-- Important! 
+}
+```
+
+### Choose a presentation mode
+
+The JavaScript SDK v6 supports multiple presentation modes:
+
+#### Auto mode (recommended)
+
+```javascript  theme={null}
+{ presentationMode: "auto" }
+```
+
+* Automatically selects the best presentation mode
+* Tries popup first, falls back to modal if popups are blocked
+* Best for most use cases
+
+#### Popup mode
+
+```javascript  theme={null}
+{ presentationMode: "popup" }
+```
+
+* Opens PayPal in a popup window
+* Provides seamless user experience
+* May be blocked by popup blockers
+
+#### Modal mode
+
+```javascript  theme={null}
+{ presentationMode: "modal" }
+```
+
+* Opens PayPal in an overlay modal
+* This is only recommended for Webview scenarios
+* Do not use in desktop web scenarios as this integration has limitations on cookies, which can affect user authentication
+
+#### Redirect mode
+
+```javascript  theme={null}
+{ presentationMode: "redirect" }
+```
+
+* Full-page redirect to PayPal
+* Best for mobile devices
+* Requires return/cancel URL configuration
+
+#### Payment handler mode (experimental)
+
+```javascript  theme={null}
+{ presentationMode: "payment-handler" }
+```
+
+* Uses the browser's Payment Handler API
+* Modern browsers only
+* Provides native payment experience
+
+## Set up your backend
+
+Make sure you [get the client token for the SDK](/developer/how-to/sdk/js/v6/configuration#get-client-token).
+
+Set up your backend to call the following endpoints for one-time checkout with PayPal.
+
+### 1. Create order
+
+Creating an order initializes a payment request and reserves the funds, but doesn't transfer money. After the buyer authorizes an order, you capture the funds.
+
+* Replace `YOUR_ACCESS_TOKEN` with your [API access token](/developer/how-to/api/get-started#2-get-an-access-token).
+
+* You can send the `id` value in the response back to the client (JavaScript) side.
+
+* The following example creates an order with 2 items and details, and includes the total amounts with shipping costs.
+
+<Info>**Endpoint:** [`/v2/checkout/orders`](/reference/api/rest/orders/create-order)</Info>
+
+```bash lines expandable theme={null}
+curl -s -X POST https://api-m.sandbox.paypal.com/v2/checkout/orders \
+  -H  "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+   "intent" : "CAPTURE",
+   "purchase_units" : [
+      {
+         "amount" : {
+            "breakdown" : {
+               "item_total" : {
+                  "currency_code" : "USD",
+                  "value" : "220.00"
+               },
+               "shipping" : {
+                  "currency_code" : "USD",
+                  "value" : "10.00"
+               }
+            },
+            "currency_code" : "USD",
+            "value" : "230.00"
+         },
+         "items" : [
+            {
+               "category" : "PHYSICAL_GOODS",
+               "description" : "Super Fresh Shirt",
+               "image_url" : "https://example.com/static/images/items/1/tshirt_green.jpg",
+               "name" : "T-Shirt",
+               "quantity" : "1",
+               "sku" : "sku01",
+               "unit_amount" : {
+                  "currency_code" : "USD",
+                  "value" : "20.00"
+               },
+               "upc" : {
+                  "code" : "123456789012",
+                  "type" : "UPC-A"
+               },
+               "url" : "https://example.com/url-to-the-item-being-purchased-1"
+            },
+            {
+               "category" : "PHYSICAL_GOODS",
+               "description" : "Running, Size 10.5",
+               "image_url" : "https://example.com/static/images/items/1/shoes_running.jpg",
+               "name" : "Shoes",
+               "quantity" : "2",
+               "sku" : "sku02",
+               "unit_amount" : {
+                  "currency_code" : "USD",
+                  "value" : "100.00"
+               },
+               "upc" : {
+                  "code" : "987654321012",
+                  "type" : "UPC-A"
+               },
+               "url" : "https://example.com/url-to-the-item-being-purchased-2"
+            }
+         ]
+      }
+   ]
+}' 
+```
+
+<Accordion title="Sample 200 response">
+  ```json lines theme={null}
+  {
+     "id" : "9N088525UW155274K",
+     "links" : [
+        {
+           "href" : "https://api.sandbox.paypal.com/v2/checkout/orders/9N088525UW155274K",
+           "method" : "GET",
+           "rel" : "self"
+        },
+        {
+           "href" : "https://www.sandbox.paypal.com/checkoutnow?token=9N088525UW155274K",
+           "method" : "GET",
+           "rel" : "approve"
+        },
+        {
+           "href" : "https://api.sandbox.paypal.com/v2/checkout/orders/9N088525UW155274K",
+           "method" : "PATCH",
+           "rel" : "update"
+        },
+        {
+           "href" : "https://api.sandbox.paypal.com/v2/checkout/orders/9N088525UW155274K/capture",
+           "method" : "POST",
+           "rel" : "capture"
+        }
+     ],
+     "status" : "CREATED"
+  }
+  ```
+</Accordion>
+
+Call your server endpoint from the client side.
+
+```javascript lines expandable theme={null}
+async function createOrder() {
+  const response = await fetch("/paypal-api/checkout/orders/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      cart: [{
+        id: "YOUR_PRODUCT_ID_1",
+        quantity: "YOUR_PRODUCT_QUANTITY",
+      }, {
+        id: "YOUR_PRODUCT_ID_2",
+        quantity: "YOUR_PRODUCT_QUANTITY",
+      }],
+    }),
+  });
+  const {
+    id
+  } = await response.json();
+  return {
+    orderId: id
+  };
+}
+```
+
+### 2. Capture order
+
+After a buyer authorizes payment, capture an order to transfer funds from the buyer to the merchant account.
+
+Replace `YOUR_ACCESS_TOKEN` with your API access token.
+
+* For more details on order captures, see the [Capture order endpoint](/reference/api/rest/orders/capture-payment-for-order).
+
+```bash lines theme={null}
+curl -X POST https://api-m.sandbox.paypal.com/v2/checkout/orders/{ORDER_ID}/capture \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -d '{}'
+```
+
+<Accordion title="Sample 200 response">
+  ```json lines theme={null}
+  {
+    "id": "9N088525UW155274K",
+    "links": [{
+      "href": "https://api.sandbox.paypal.com/v2/checkout/orders/9N088525UW155274K",
+      "method": "GET",
+      "rel": "self"
+    }],
+    "payer": {
+      "address": {
+        "country_code": "US"
+      },
+      "email_address": "test-buyer@yahoo.com",
+      "name": {
+        "given_name": "test",
+        "surname": "buyer"
+      },
+      "payer_id": "3XSHM8HDUW9QC"
+    },
+    "payment_source": {
+      "paypal": {
+        "account_id": "3XSHM8HDUW9QC",
+        "account_status": "VERIFIED",
+        "address": {
+          "country_code": "US"
+        },
+        "email_address": "test-buyer@yahoo.com",
+        "name": {
+          "given_name": "test",
+          "surname": "buyer"
+        }
+      }
+    },
+    "purchase_units": [{
+      "payments": {
+        "captures": [{
+          "amount": {
+            "currency_code": "USD",
+            "value": "230.00"
+          },
+          "create_time": "2025-10-22T22:32:27Z",
+          "final_capture": true,
+          "id": "05C30509S82176912",
+          "links": [{
+            "href": "https://api.sandbox.paypal.com/v2/payments/captures/05C30509S82176912",
+            "method": "GET",
+            "rel": "self"
+          }, {
+            "href": "https://api.sandbox.paypal.com/v2/payments/captures/05C30509S82176912/refund",
+            "method": "POST",
+            "rel": "refund"
+          }, {
+            "href": "https://api.sandbox.paypal.com/v2/checkout/orders/9N088525UW155274K",
+            "method": "GET",
+            "rel": "up"
+          }],
+          "seller_protection": {
+            "dispute_categories": ["ITEM_NOT_RECEIVED", "UNAUTHORIZED_TRANSACTION"],
+            "status": "ELIGIBLE"
+          },
+          "seller_receivable_breakdown": {
+            "gross_amount": {
+              "currency_code": "USD",
+              "value": "230.00"
+            },
+            "net_amount": {
+              "currency_code": "USD",
+              "value": "221.48"
+            },
+            "paypal_fee": {
+              "currency_code": "USD",
+              "value": "8.52"
+            }
+          },
+          "status": "COMPLETED",
+          "update_time": "2025-10-22T22:32:27Z"
+        }]
+      },
+      "reference_id": "default",
+      "shipping": {
+        "address": {
+          "address_line_1": "1 Main St",
+          "admin_area_1": "CA",
+          "admin_area_2": "San Jose",
+          "country_code": "US",
+          "postal_code": "95131"
+        },
+        "name": {
+          "full_name": "test buyer"
+        }
+      }
+    }],
+    "status": "COMPLETED"
+  }
+  ```
+</Accordion>
+
+Then, call your server endpoint from the client side to capture the order:
+
+```javascript lines theme={null}
+async function captureOrder({ orderId }) {
+  const response = await fetch(
+    `/paypal-api/checkout/orders/${orderId}/capture`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  const data = await response.json();
+  return data;
+}
+```
+
+## Best practices
+
+Keep sensitive operations server-side and validate all payment data. Provide clear feedback to users throughout the payment flow.
+
+### Security
+
+* Obtain client tokens from your secure server
+* Never expose PayPal client secrets in frontend code
+* All payment processing happens through PayPal's secure servers
+* Never pass up item total from browser - this can be manipulated
+* Validate order details on your server before capture
+
+### User experience
+
+* Always check eligibility before showing payment buttons
+* Provide clear loading states during payment processing
+* Handle popup blockers gracefully with `{ presentationMode:auto }`
+* Show appropriate error messages for different failure scenarios
+
+### Performance
+
+* Initialize the SDK early, but avoid blocking page load
+* Cache client tokens appropriately
+* Use presentation mode fallback strategies
+
+## Testing
+
+* Test across different browsers and devices
+* Verify popup blocker handling
+* Test all callback scenarios (approve, cancel, error)
+* Validate eligibilit
 # api credenciales Paypal edgarplasticos3@hotmail.com
 ARTh1JcgB4texLdbwWliMcjMNR_ljfg-yODyHKcjwlAdR4K8YAhLV3Pm1mwzXKbkEKTHDQSn1Qt0XJhO
 AUkLH8bV5AwJU6bfzKviRlWcPZFzuM2UqxBad5-qWiWAJp068W-MeKHAOA8W_BNlN0PZr9jfJ884UCWh
