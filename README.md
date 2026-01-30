@@ -1,3 +1,383 @@
+# api credenciales Paypal edgarplasticos3@hotmail.com
+ARTh1JcgB4texLdbwWliMcjMNR_ljfg-yODyHKcjwlAdR4K8YAhLV3Pm1mwzXKbkEKTHDQSn1Qt0XJhO
+AUkLH8bV5AwJU6bfzKviRlWcPZFzuM2UqxBad5-qWiWAJp068W-MeKHAOA8W_BNlN0PZr9jfJ884UCWh
+ASAL8-_MIaL8lKA_1s-rE7ChGQMSR-UkbH1YeibD5X71nWO2aZx7mvoljjADs2umtw8WwA5lD2o7FG1L
+Adww38aCRh2z_NH5SzxYWhialjWzALkE5GxQNdtBZCbqLeVmbYX21hri-r3bWOWDDgZ_BzPbNsvjbTXD
+AfnF0uJLQiG7c1EOGvzssvG221wCVOHSgjicvHn6YT08W_HviKSrquLEtexTtuvd65j9UUtom0BUwB1z
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('Website Payments Pro', 'paypal_pro.php', 'views/orders/components/payments/cc.tpl', 'paypal_pro.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal', 'paypal.php', 'views/orders/components/payments/cc_outside.tpl', 'paypal.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayFlow Pro', 'payflow_pro.php', 'views/orders/components/payments/cc.tpl', 'payflow_pro.tpl', 'Y', 'P', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal Express Checkout', 'paypal_express.php', 'addons/paypal/views/orders/components/payments/paypal_express.tpl', 'paypal_express.tpl', 'Y', 'B', 'paypal');
+INSERT INTO ?:payment_processors (processor, processor_script, processor_template, admin_template, callback, type, addon) VALUES ('PayPal Advanced', 'paypal_advanced.php', 'views/orders/components/payments/cc_outside.tpl', 'paypal_advanced.tpl', 'N', 'P', 'paypal');
+<?php
+/***************************************************************************
+ *                                                                          *
+ *   (c) 2004 Vladimir V. Kalynyak, Alexey V. Vinokurov, Ilya M. Shalnev    *
+ *                                                                          *
+ * This  is  commercial  software,  only  users  who have purchased a valid *
+ * license  and  accept  to the terms of the  License Agreement can install *
+ * and use this program.                                                    *
+ *                                                                          *
+ ****************************************************************************
+ * PLEASE READ THE FULL TEXT  OF THE SOFTWARE  LICENSE   AGREEMENT  IN  THE *
+ * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
+ ****************************************************************************/
+
+use Tygh\Addons\PaypalCheckout\Enum\WebhookEventType;
+use Tygh\Addons\PaypalCheckout\Payments\PaypalCheckout;
+use Tygh\Addons\PaypalCheckout\ServiceProvider;
+use Tygh\Addons\PaypalCheckout\Webhook\PaymentFinishedEvent;
+
+defined('BOOTSTRAP') or die('Access denied');
+
+if ($mode === 'webhook') {
+    $payload_body = file_get_contents('php://input');
+
+    fn_log_event(
+        'general',
+        'runtime',
+        [
+            'message' => __('paypal_checkout.webhook', ['[payload]' => $payload_body]),
+        ]
+    );
+
+    $event = json_decode($payload_body, false);
+    if (
+        !isset($event->event_type)
+        || !in_array($event->event_type, WebhookEventType::getCaptureTypes(), true)
+    ) {
+        die('err_event');
+    }
+
+    if ($event->event_type !== WebhookEventType::PAYMENT_CAPTURE_REFUNDED) {
+        $event = new PaymentFinishedEvent($event);
+    } else {
+        die('handler not implemented');
+    }
+    $order_info = $event->getCapture()->getOrderInfo();
+    if (!$order_info) {
+        die('err_order');
+    }
+
+    if ($event->isProcessed()) {
+        die('err_processed');
+    }
+
+    $capture = $event->getCapture();
+
+    if (!fn_check_payment_script(PaypalCheckout::getScriptName(), $capture->getOrderId())) {
+        die('err_order');
+    }
+
+    $processor = ServiceProvider::getProcessorFactory()->getByPaymentId(
+        $order_info['payment_id'],
+        $order_info['payment_method']['processor_params']
+    );
+    $pp_response = $event->handle($processor);
+
+    fn_update_order_payment_info($capture->getOrderId(), $pp_response);
+    fn_change_order_status($capture->getOrderId(), $pp_response['order_status']);
+}
+
+return [CONTROLLER_STATUS_NO_CONTENT];
+
+<?php
+
+namespace PayPal\Core;
+
+use PayPal\Log\PayPalLogFactory;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Simple Logging Manager.
+ * This does an error_log for now
+ * Potential frameworks to use are PEAR logger, log4php from Apache
+ */
+class PayPalLoggingManager
+{
+    /**
+     * @var array of logging manager instances with class name as key
+     */
+    private static $instances = array();
+
+    /**
+     * The logger to be used for all messages
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * Logger Name
+     *
+     * @var string
+     */
+    private $loggerName;
+
+    /**
+     * Returns the singleton object
+     *
+     * @param string $loggerName
+     * @return $this
+     */
+    public static function getInstance($loggerName = __CLASS__)
+    {
+        if (array_key_exists($loggerName, PayPalLoggingManager::$instances)) {
+            return PayPalLoggingManager::$instances[$loggerName];
+        }
+        $instance = new self($loggerName);
+        PayPalLoggingManager::$instances[$loggerName] = $instance;
+        return $instance;
+    }
+
+    /**
+     * Default Constructor
+     *
+     * @param string $loggerName Generally represents the class name.
+     */
+    private function __construct($loggerName)
+    {
+        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
+        // Checks if custom factory defined, and is it an implementation of @PayPalLogFactory
+        $factory = array_key_exists('log.AdapterFactory', $config) && in_array('PayPal\Log\PayPalLogFactory', class_implements($config['log.AdapterFactory'])) ? $config['log.AdapterFactory'] : '\PayPal\Log\PayPalDefaultLogFactory';
+        /** @var PayPalLogFactory $factoryInstance */
+        $factoryInstance = new $factory();
+        $this->logger = $factoryInstance->getLogger($loggerName);
+        $this->loggerName = $loggerName;
+    }
+
+    /**
+     * Log Error
+     *
+     * @param string $message
+     */
+    public function error($message)
+    {
+        $this->logger->error($message);
+    }
+
+    /**
+     * Log Warning
+     *
+     * @param string $message
+     */
+    public function warning($message)
+    {
+        $this->logger->warning($message);
+    }
+
+    /**
+     * Log Info
+     *
+     * @param string $message
+     */
+    public function info($message)
+    {
+        $this->logger->info($message);
+    }
+
+    /**
+     * Log Fine
+     *
+     * @param string $message
+     */
+    public function fine($message)
+    {
+        $this->info($message);
+    }
+
+    /**
+     * Log Debug
+     *
+     * @param string $message
+     */
+    public function debug($message)
+    {
+        $config = PayPalConfigManager::getInstance()->getConfigHashmap();
+        // Disable debug in live mode.
+        if (array_key_exists('mode', $config) && $config['mode'] != 'live') {
+            $this->logger->debug($message);
+        }
+    }
+}
+ <?php
+namespace PayPal\Transport;
+
+use PayPal\Core\PayPalHttpConfig;
+use PayPal\Core\PayPalHttpConnection;
+use PayPal\Core\PayPalLoggingManager;
+use PayPal\Rest\ApiContext;
+
+/**
+ * Class PayPalRestCall
+ *
+ * @package PayPal\Transport
+ */
+class PayPalRestCall
+{
+
+
+    /**
+     * Paypal Logger
+     *
+     * @var PayPalLoggingManager logger interface
+     */
+    private $logger;
+
+    /**
+     * API Context
+     *
+     * @var ApiContext
+     */
+    private $apiContext;
+
+
+    /**
+     * Default Constructor
+     *
+     * @param ApiContext $apiContext
+     */
+    public function __construct(ApiContext $apiContext)
+    {
+        $this->apiContext = $apiContext;
+        $this->logger = PayPalLoggingManager::getInstance(__CLASS__);
+    }
+
+    /**
+     * @param array  $handlers Array of handlers
+     * @param string $path     Resource path relative to base service endpoint
+     * @param string $method   HTTP method - one of GET, POST, PUT, DELETE, PATCH etc
+     * @param string $data     Request payload
+     * @param array  $headers  HTTP headers
+     * @return mixed
+     * @throws \PayPal\Exception\PayPalConnectionException
+     */
+    public function execute($handlers = array(), $path, $method, $data = '', $headers = array())
+    {
+        $config = $this->apiContext->getConfig();
+        $httpConfig = new PayPalHttpConfig(null, $method, $config);
+        $headers = $headers ? $headers : array();
+        $httpConfig->setHeaders($headers +
+            array(
+                'Content-Type' => 'application/json'
+            )
+        );
+
+        // if proxy set via config, add it
+        if (!empty($config['http.Proxy'])) {
+            $httpConfig->setHttpProxy($config['http.Proxy']);
+        }
+
+        /** @var \Paypal\Handler\IPayPalHandler $handler */
+        foreach ($handlers as $handler) {
+            if (!is_object($handler)) {
+                $fullHandler = "\\" . (string)$handler;
+                $handler = new $fullHandler($this->apiContext);
+            }
+            $handler->handle($httpConfig, $data, array('path' => $path, 'apiContext' => $this->apiContext));
+        }
+        $connection = new PayPalHttpConnection($httpConfig, $config);
+        $response = $connection->execute($data);
+
+        return $response;
+    }
+
+RUN edgarplasticos3@hotmail.com}
+
+
+# PayPal Developer Docs Example Code
+
+Examples from the official [PayPal Developer Docs](https://developer.paypal.com/).
+
+## Introduction and Overview
+
+This repository contains two directories:
+
+- [Standard integration](./standard-integration/)
+  - Set up standard payments on your checkout page for your buyers.
+- [Advanced integration](./advanced-integration/)
+  - Build and customize a card payment form to accept debit and credit cards.
+
+**Not sure where to start?** Choose the [standard integration](./standard-integration/).
+
+### The PayPal JavaScript SDK
+
+These examples use the [PayPal JavaScript SDK](https://developer.paypal.com/sdk/js/) to display PayPal supported payment methods and provide a seamless checkout experience for your buyers.
+
+The SDK has several [configuration options](https://developer.paypal.com/sdk/js/configuration/) available. The examples in this repository provide the most minimal example possible to complete a successful transaction.
+
+## Know before you code
+
+### Setup a PayPal Account
+
+To get started with standard checkout, you'll need a developer, personal, or business account.
+
+[Sign Up](https://www.paypal.com/signin/client?flow=provisionUser) or [Log In](https://www.paypal.com/signin?returnUri=https%253A%252F%252Fdeveloper.paypal.com%252Fdeveloper%252Fapplications&intent=developer)
+
+You'll then need to visit the [Developer Dashboard](https://developer.paypal.com/dashboard/) to obtain credentials and to
+make sandbox accounts.
+
+### Create an Application
+
+Once you've setup a PayPal account, you'll need to obtain a **Client ID** and **Secret**. [Create a sandbox application](https://developer.paypal.com/dashboard/applications/sandbox/create).
+
+### Have Node.js installed
+
+These examples will ask you to run commands like `npm install` and `npm start`.
+
+You'll need a version of node >= 16 which can be downloaded from the [Node.js website](https://nodejs.org/en/download/).
+
+
+## PayPal Codespaces 
+
+PayPal codespaces require a client ID and client secret for your app. 
+
+### Link to codespaces 
+
+| Application | Codespaces Link |
+| ---- | ---- |
+| Advanced Integration v2 | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fadvanced-integration-v2%2Fdevcontainer.json)|
+| Advanced Integration v1 | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fadvanced-integration-v1%2Fdevcontainer.json)|
+| Standard Integration | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/paypal-examples/docs-examples?devcontainer_path=.devcontainer%2Fstandard-integration%2Fdevcontainer.json)|
+
+### Learn more 
+
+You can read more about codespaces in the [PayPal Developer Docs](https://developer.paypal.com/api/rest/sandbox/codespaces).
+
+### Feedback
+
+* To report a bug or suggest a new feature, create an [issue in GitHub](https://github.com/paypal-examples/paypaldevsupport/issues/new/choose). 
+* To submit feedback, go to [PayPal Developer Docs](https://developer.paypal.com/api/rest/sandbox/codespaces) and select the "Feedback" tab.
+by Edgar Manuel Ruiz Arias 
+"EX-10.1 2 d538539dex101.htm EX-10.1
+Exhibit 10.1
+
+
+
+
+
+December 21, 2023
+
+Gabrielle Rabinovitch
+
+Dear Gabrielle:
+
+This letter agreement (“Transition Agreement” or “Agreement”) sets forth the transition benefits for which you are eligible if you timely sign and do not timely revoke, (i) this Transition Agreement within the time frame provided in Section 25 of this Agreement, (ii) a waiver and general release of claims, in the form provided by the Company (the “Release”), on or within forty-five (45) days after the Transition End Date (as defined herein) and (iii) attestation(s), to the extent applicable pursuant to the terms of this Transition Agreement. Please note that the Transition Agreement and the Release each contain a waiver and release of claims against PayPal, Inc., PayPal Holdings, Inc. and their respective subsidiaries and affiliates (collectively, “PayPal” or the “Company”). The “Parties” collectively refers to you and the Company. Your last date of employment as a Senior Vice President with the Company is December 31, 2023 (“Transition Start Date”), subject to Section 6 herein. For our mutual benefit, to promote a smooth transition for both you and the Company and to permit you to maintain certain benefits of continued employment, you will transition from full- to part-time employment with the Company on January 1, 2024 and provide transition services to the Company in accordance with Section 2 during the period commencing on January 1, 2024 until and inclusive of January 31, 2024 (such period, the “Transition Period” and the last day of the Transition Period, the “Transition End Date”) and your employment with the Company shall terminate effective as of the Transition End Date. This letter confirms the details of your employment from the Transition Start Date through the Transition Period and other matters relating to your termination of employment.
+
+
+
+1.        
+TRANSITION BENEFITS. As good and valuable consideration in exchange for your timely execution and non-revocation of the general release of claims set forth in Sections 17 and 18 of this Agreement in accordance with Section 25 herein, the Company will (a) pay you a lump sum of $100, within seven calendar days following the date that the release of claims in this Agreement becomes fully effective pursuant to Section 25 herein, (b) continue to employ you with your regular salary and benefits through the Transition Start Date, except as so limited by Section 6 herein, during which time you will perform such duties as are given to you by the Company and (c) engage you to provide certain transition services during the Transition Period in accordance with Section 2 herein. Further, in exchange for timely signing and not timely revoking each of this Agreement and the Release and contingent upon (a) you complying with the policies and responsibilities of your position as a Senior Vice President through the Transition Start Date in all material respects, as determined by the Company, (b) you complying with your obligations set forth in this Agreement, and (c) your continued employment with the Company through the Transition Start Date and transition services to the Company during the Transition Period in accordance with Section 2, following the Transition End Date, you will be eligible for the benefits set forth in Sections 3 and 4. You understand and agree that the compensation and benefits provided under this Agreement constitute all the compensation and benefits to which you are entitled, and you agree to waive any and all rights, benefits and privileges to severance or transition benefits you might otherwise be entitled to receive under any other Company policy, plan, agreement or arrangement, including, without limitation, the Company’s Executive Change in Control and Severance Plan, as amended and restated, effective as of September 27, 2021 and as may be further amended from time to time (the “Severance Plan”). You understand that the payments and benefits described in this Agreement are not for wages the Company concedes it owes you and are consideration for you timely signing and not timely revoking this Agreement or the Release. All payments under this Agreement will be subject to applicable taxes and withholdings.
+
+2.        
+TRANSITION SERVICES. Provided you timely sign and do not timely revoke this Transition Agreement, during the Transition Period, the Company agrees to retain you as an officer on a part-time basis to provide transition assistance, to complete projects, and to provide such advice, expertise or knowledge with respect to your former duties prior to the Transition Start Date or other matters in which you were involved (collectively, the “Transition Services”) as may be reasonably requested in writing by the Company’s Chief Financial Officer. As a continuing officer, you will be covered by such directors and officers’ insurance coverage as in place for other directors and officers of the Company during the Transition Period. Except to the extent otherwise reasonably requested by the Company, the services you provide during the Transition Period shall be provided offsite. If you provide satisfactory Transition Services during the Transition Period, as reasonably determined by the Company in good faith, the Company will compensate you for the Transition Services by paying you a lump sum cash amount equal to $150,000 no later than sixty (60) days following the Transition End Date. During the Transition Period, to the extent the Company determines it necessary to your performance of the Transition Services, you will retain access to your Company email account and other Company electronic communications system accounts and retain use of Company Property.
+
+
+
+3.        
+ADDITIONAL LUMP SUM PAYMENT. Provided you timely sign and do not timely revoke this Transition Agreement and timely execute and do not timely revoke the Release, and contingent upon complying with the policies and responsibilities of your position in all material respects as reasonably determined by the Company in good faith through the Transition End Date, the Company will make the following lump sum payment to you: $234,375, which is the cash portion of your 2023 bonus incentive under the 2023 PayPal Annual Incentive Plan (“AIP”) with your individual performance deemed achieved at the target level. You will receive this payment at the later of (x) at or around the time that other participants of the 2023 AIP receive their 2023 AIP payout and (y) when the Release becomes effective in accordance with its terms. In addition, your AIP performance-based restricted stock units (“AIP PBRSUs”) granted on February 15, 2023 shall remain outstanding and shall vest on February 15, 2024 on the same basis and to the same extent as determined for the Company’s executive officers and shall settle at or around the same time that 2023 AIP PBRSUs settle with respect to other participants in the 2023 AIP, provided that the Release becomes effective in accordance with its terms.
+
+You understand that the payment described in this Section is not for wages the Company concedes it owes you and is consideration for you signing and not re
 PK�����!�4a›\��*���[Content_Types].xml ¢( ���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������´”ËNÃ0E÷Hüƒå-JÜ²@5í‚Ç*Q>Àµ'­…c[öôõ÷LÒ6B¨4ˆ¶›HÉÌ½÷Œ•ñ`´®,[BLÆ»‚÷ógà”×ÆÍ
 þ1yÉî9K(–Ö;(ø
 ¯¯“M€ÄHíRÁçˆáAˆ¤æPÉ”û�Ž*¥•Dz3¤ú”3·½ÞPÞ!8Ì°öàÃÁ”ra‘=¯éó–$‚Mœ=në¬‚Ë¬Q©.–NÿHÉv	9)›ž47!ÝPgâ`DSú5a/|£Ã‰FËˆ¯²¢6±òQíÕ¢"i~Üç�©/K£ Õ×n!z)Ñ©W6o+•4®àW„éü[ß?ä").A°sîfXÁôýbßÌ»IJ
