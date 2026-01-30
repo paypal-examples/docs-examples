@@ -1,3 +1,11 @@
+country_code,account_type,primary_email_alias,password,first_name,last_name,ppBalance,addBank,ccType,payment_card
+US,BUSINESS,bulk-sb-1@business.example.com,J0nhD03!,John,Doe,1001,Y,VISA,PAYPAL
+US,BUSINESS,bulk-sb-2@business.example.com,J0nhD03!,John,Doe,1002,N,VISA,DISCOVER
+US,BUSINESS,bulk-sb-3@business.example.com,J0nhD03!,John,Doe,1003,Y,AMEX,PAYPAL
+US,BUSINESS,bulk-sb-4@business.example.com,J0nhD03!,John,Doe,1004,N,MASTERCARD,PAYPAL
+country_code,account_type,primary_email_alias,password,first_name,last_name,ppBalance,addBank,ccType,payment_card
+US,BUSINESS,test-business@account.com,R1ckN0v4k,Rick,Novak,1001,Y,VISA,PAYPAL   
+GB,PERSONAL,test-personal@account.com,S4r4C0nn0!,Sara,Connor,1002,N,MASTERCARD,DISCOVER
 Homepage
 DomainsProtocolsNumbersAbout
 Example Domains
