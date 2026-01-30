@@ -1,5 +1,17 @@
 <?php
 
+namespace PayPal\Rest;
+
+/**
+ * Interface IResource
+ *
+ * @package PayPal\Rest
+ */
+interface IResource
+{
+}
+<?php
+
 /*
  * This file is part of Twig.
  *
