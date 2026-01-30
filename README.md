@@ -1,3 +1,446 @@
+# Creación de prototipos con modelos de IA
+
+Busque y experimente gratis con modelos de IA.
+
+Si desea desarrollar una aplicación de IA generativa, puede utilizar GitHub Models para buscar y experimentar gratis con modelos de inteligencia artificial. Una vez que estés a punto para llevar la aplicación a producción, [opta por el uso de pago](/es/billing/managing-billing-for-your-products/about-billing-for-github-models) para tu empresa.
+
+Los propietarios de la organización pueden integrar sus modelos personalizados preferidos en GitHub Models, mediante claves de API de LLM propias de una organización. Consulta [Uso de tus propias claves de API en modelos de GitHub](/es/github-models/github-models-at-scale/set-up-custom-model-integration-models-byok).
+
+Consulta también [Utilización responsable de los modelos de GitHub](/es/github-models/responsible-use-of-github-models).
+
+## Búsqueda de modelos de IA
+
+Para buscar un modelo de IA:
+
+1. Ve a [github.com/marketplace/models](https://github.com/marketplace/models).
+2. Haz clic en **Model: Select a Model** en la parte superior izquierda de la página.
+3. Elige un modelo en el menú desplegable.
+
+   Como alternativa, en el menú desplegable, haz clic en **View all models**, haz clic en un modelo en Marketplace y, a continuación, en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-command-palette" aria-label="command-palette" role="img"><path d="m6.354 8.04-4.773 4.773a.75.75 0 1 0 1.061 1.06L7.945 8.57a.75.75 0 0 0 0-1.06L2.642 2.206a.75.75 0 0 0-1.06 1.061L6.353 8.04ZM8.75 11.5a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5h-5.5Z"></path></svg> Playground**.
+
+El modelo se abre en el sitio de prueba del modelo. Los detalles del modelo se muestran en la barra lateral de la derecha. Si no se muestra la barra lateral, expándela haciendo clic en el icono **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-sidebar-expand" aria-label="Show parameters setting" role="img"><path d="m4.177 7.823 2.396-2.396A.25.25 0 0 1 7 5.604v4.792a.25.25 0 0 1-.427.177L4.177 8.177a.25.25 0 0 1 0-.354Z"></path><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25H9.5v-13Zm12.5 13a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25H11v13Z"></path></svg>** situado a la derecha del sitio de prueba.
+
+> \[!NOTE] El acceso a los modelos de  de OpenAI está actualmente en versión preliminar pública y está sujetos a cambios.
+
+## Experimentos con modelos de IA en el área de juegos
+
+El sitio de prueba del modelo de IA es un recurso gratuito que permite ajustar los parámetros del modelo y enviar indicaciones para ver cómo responde un modelo.
+
+> \[!NOTE]
+>
+> * El sitio de prueba está en versión preliminar pública y está sujeto a cambios.
+> * El volumen del área de juegos es limitado. Consulte la [limitación de volumen](#rate-limits) a continuación.
+
+Para ajustar los parámetros del modelo en el sitio de prueba, selecciona la pestaña **Parameters** en la barra lateral.
+
+Para ver el código que corresponde a los parámetros que haya seleccionado, cambie de la pestaña **Chat** a la pestaña **Código**.
+
+![Captura de pantalla del botón de la pestaña "Code", resaltado con un contorno naranja oscuro, en la parte superior izquierda del sitio de prueba.](/assets/images/help/models/model-playground-code-tab.png)
+
+### Comparación de modelos
+
+Puedes enviar una solicitud a dos modelos al mismo tiempo y comparar las respuestas.
+
+Con un modelo abierto en el sitio de prueba, haz clic en **Compare** y, a continuación, en el menú desplegable, selecciona un modelo para la comparación. El modelo seleccionado se abre en una segunda ventana de chat. Al escribir una pregunta en cualquier ventana de chat, se refleja en la otra. Las solicitudes se envían simultáneamente para poder comparar las respuestas de cada modelo.
+
+Todos los parámetros que establezcas se usan para ambos modelos.
+
+## Evaluación de modelos de IA
+
+Una vez que hayas iniciado las solicitudes de prueba en el área de juegos, puedes evaluar el rendimiento del modelo mediante métricas estructuradas. Las evaluaciones te ayudan a comparar varias configuraciones de indicaciones en distintos modelos y determinar qué configuración funciona mejor.
+
+En la vista Comparaciones, puedes aplicar evaluadores como similitud, relevancia y base para medir el grado de cumplimiento de cada salida. También puedes definir tus propios criterios de evaluación con un evaluador de mensajes personalizado.
+
+Para obtener instrucciones paso a paso, consulta [Evaluación de salidas](/es/github-models/use-github-models/evaluating-ai-models#evaluating-outputs).
+
+## Experimentos con modelos de IA mediante la API
+
+> \[!NOTE]
+>
+> El uso de API gratuito está en versión preliminar pública y está sujeto a cambios.
+
+GitHub proporciona una utilización gratis de la API para que pueda experimentar con modelos de IA en su propia aplicación.
+
+Los pasos para utilizar cada modelo son similares. En general, son los siguientes:
+
+1. Ve a [github.com/marketplace/models](https://github.com/marketplace/models).
+
+2. Haz clic en **Model: Select a Model** en la parte superior izquierda de la página.
+
+3. Elige un modelo en el menú desplegable.
+
+   Como alternativa, en el menú desplegable, haz clic en **View all models**, haz clic en un modelo en Marketplace y, a continuación, en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-command-palette" aria-label="command-palette" role="img"><path d="m6.354 8.04-4.773 4.773a.75.75 0 1 0 1.061 1.06L7.945 8.57a.75.75 0 0 0 0-1.06L2.642 2.206a.75.75 0 0 0-1.06 1.061L6.353 8.04ZM8.75 11.5a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5h-5.5Z"></path></svg> Playground**.
+
+   El modelo se abre en el sitio de prueba del modelo.
+
+4. Haz clic en la pestaña **Code**.
+
+5. De manera opcional, puede utilizar una lista desplegable para seleccionar el lenguaje de programación.
+
+6. De forma igualmente opcional, utilice la lista desplegable SDK para seleccionar qué SDK se va a usar.
+
+   Todos los modelos se pueden usar con el SDK de inferencia de Azure AI y algunos modelos admiten SDK adicionales. Si quieres cambiar fácilmente entre modelos, debes seleccionar "Azure AI Inference SDK". Si seleccionó "REST" como lenguaje, no utilizará un SDK. En su lugar, usará el punto de conexión de API directamente.  Consulta [API de REST de GitHub Models](/es/rest/models?apiVersion=2022-11-28).
+
+7. Abra un codespace o configure el entorno local:
+   * Para ejecutarse en un codespace, haz clic en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-codespaces" aria-label="codespaces" role="img"><path d="M0 11.25c0-.966.784-1.75 1.75-1.75h12.5c.966 0 1.75.784 1.75 1.75v3A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm2-9.5C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v5a1.75 1.75 0 0 1-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 6.75Zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25Zm-2 9.5a.25.25 0 0 0-.25.25v3c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-3a.25.25 0 0 0-.25-.25Z"></path><path d="M7 12.75a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm-4 0a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75Z"></path></svg> Run codespace** y, a continuación, haz clic en **Create new codespace**.
+   * Ejecución en modo local:
+     * Cree un GitHub personal access token. El token debe tener permisos de `models:read`. Consulta [Administración de tokens de acceso personal](/es/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).
+     * Guarde el token como una variable de entorno.
+     * Instale las dependencias del SDK, si es necesario.
+
+8. Utilice el código de ejemplo para realizar una solicitud al modelo.
+
+La utilización gratis de la API tiene limitación de volumen. Consulte la [limitación de volumen](#rate-limits) a continuación.
+
+## Almacenamiento y uso compartido de los experimentos del área de juegos
+
+Puedes guardar y compartir tu progreso en el área de juegos con valores preestablecidos. Los valores preestablecidos guardan:
+
+* Tu estado actual
+* Tus parámetros
+* Tu historial de chat (opcional)
+
+Para crear un valor preestablecido para el contexto actual, selecciona **Preset: PRESET-NAME** <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-triangle-down" aria-label="triangle-down" role="img"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg>en la parte superior del sitio de prueba y, a continuación, haz clic en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-plus" aria-label="plus" role="img"><path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"></path></svg> Create new preset**. Debes asignar un nombre al valor preestablecido y también puedes optar por proporcionar una descripción del mismo, incluir el historial de chat y permitir que el valor preestablecido se comparta.
+
+Hay dos maneras de cargar un valor preestablecido:
+
+* Selecciona el menú preestablecido **Preset: PRESET-NAME** <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-triangle-down" aria-label="triangle-down" role="img"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg> y, a continuación, haz clic en el valor preestablecido que deseas cargar.
+* Apertura de una dirección URL del valor preestablecido compartido
+
+Después de cargar un valor preestablecido, puedes editarlo, compartirlo o eliminarlo:
+
+* Para editar el valor preestablecido, cambia los parámetros y pregunta al modelo. Una vez que estés satisfecho con los cambios, selecciona el menú desplegable **Preset: PRESET-NAME** <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-triangle-down" aria-label="triangle-down" role="img"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg> y, a continuación, haz clic en <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-pencil" aria-label="pencil" role="img"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path></svg> **Edit preset** y guarda las actualizaciones.
+* Para compartir el valor preestablecido, selecciona el menú desplegable **Preset: PRESET-NAME** <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-triangle-down" aria-label="triangle-down" role="img"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg> y, a continuación, haz clic en <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-share" aria-label="share" role="img"><path d="M3.75 6.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-6.5a.25.25 0 0 0-.25-.25h-1a.75.75 0 0 1 0-1.5h1c.966 0 1.75.784 1.75 1.75v6.5A1.75 1.75 0 0 1 12.25 15h-8.5A1.75 1.75 0 0 1 2 13.25v-6.5C2 5.784 2.784 5 3.75 5h1a.75.75 0 0 1 0 1.5ZM7.823.177a.25.25 0 0 1 .354 0l2.896 2.896a.25.25 0 0 1-.177.427H8.75v5.75a.75.75 0 0 1-1.5 0V3.5H5.104a.25.25 0 0 1-.177-.427Z"></path></svg> **Share preset** para obtener una dirección URL que se pueda compartir.
+* Para eliminar el valor preestablecido, selecciona el menú desplegable **Preset: PRESET-NAME** <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-triangle-down" aria-label="triangle-down" role="img"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg> y, a continuación, haz clic en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-trash" aria-label="trash" role="img"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path></svg> Delete preset** y confirma la eliminación.
+
+## Uso del editor de solicitudes
+
+El editor de mensajes de GitHub Models está diseñado para ayudarte a iterar, refinar y perfeccionar las solicitudes. Esta vista dedicada proporciona una experiencia centrada e intuitiva para crear y probar entradas, lo que le permite lo siguiente:
+
+* Probar y refinar rápidamente las solicitudes sin la complejidad de las interacciones de varios turnos.
+* Ajustar la precisión y la relevancia de las solicitudes en los proyectos.
+* Use un espacio especializado para escenarios de un solo turno para garantizar resultados coherentes y optimizados.
+
+Para acceder al editor de solicitudes, haz clic en **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-stack" aria-label="stack" role="img"><path d="M7.122.392a1.75 1.75 0 0 1 1.756 0l5.003 2.902c.83.481.83 1.68 0 2.162L8.878 8.358a1.75 1.75 0 0 1-1.756 0L2.119 5.456a1.251 1.251 0 0 1 0-2.162ZM8.125 1.69a.248.248 0 0 0-.25 0l-4.63 2.685 4.63 2.685a.248.248 0 0 0 .25 0l4.63-2.685ZM1.601 7.789a.75.75 0 0 1 1.025-.273l5.249 3.044a.248.248 0 0 0 .25 0l5.249-3.044a.75.75 0 0 1 .752 1.298l-5.248 3.044a1.75 1.75 0 0 1-1.756 0L1.874 8.814A.75.75 0 0 1 1.6 7.789Zm0 3.5a.75.75 0 0 1 1.025-.273l5.249 3.044a.248.248 0 0 0 .25 0l5.249-3.044a.75.75 0 0 1 .752 1.298l-5.248 3.044a1.75 1.75 0 0 1-1.756 0l-5.248-3.044a.75.75 0 0 1-.273-1.025Z"></path></svg> Prompt editor** en la parte superior derecha del área de juegos.
+
+![Captura de pantalla del botón "Prompt editor", resaltado con un contorno naranja oscuro, en la parte superior derecha del sitio de prueba.](/assets/images/help/models/model-playground-prompt-editor.png)
+
+## Experimentación con modelos de IA en Visual Studio Code
+
+> \[!NOTE] La extensión del kit de herramientas de IA para Visual Studio Code se encuentra en versión preliminar pública y está sujeta a cambios.
+
+Si prefieres experimentar con modelos de IA en el IDE, puedes instalar la extensión del kit de herramientas de IA para Visual Studio Code y, a continuación, probar modelos con parámetros ajustables y contexto.
+
+1. En Visual Studio Code, instala la versión preliminar del [kit de herramientas de AI para Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-windows-ai-studio.windows-ai-studio).
+
+2. Para abrir la extensión, haz clic en el icono del kit de herramientas de IA en la barra de actividades.
+
+3. Autoriza al kit de herramientas de IA a conectarse a tu cuenta de GitHub.
+
+4. En la sección "Mis modelos" del panel Kit de herramientas de IA, haz clic en **Open Model Catalog** y, a continuación, busca un modelo con el que experimentar.
+   * Para usar un modelo hospedado de forma remota a través de GitHub Models, en la tarjeta de modelo, haz clic en **Try in playground**.
+   * Para descargar y usar un modelo localmente, en la tarjeta de modelo, haz clic en **Download**. Una vez completada la descarga, en la misma tarjeta de modelo, haz clic en **Load in playground**.
+
+5. En la barra lateral, proporciona las instrucciones de contexto y los parámetros de inferencia para el modelo y, a continuación, envía un mensaje.
+
+## Ir a la producción
+
+Los límites de tarifas gratuitas proporcionados en el área de juegos y el uso de la API están diseñados para ayudarte a empezar a experimentar. Cuando estés a punto para ir más allá de la oferta gratuita, tienes dos opciones para acceder a los modelos de IA diferentes de los límites gratuitos:
+
+* Puedes optar por el uso de pago para GitHub Models, lo que permite a tu organización acceder a mayores límites de frecuencia, ventanas de contexto más grandes y características adicionales. Consulta [Facturación de modelos de GitHub](/es/billing/managing-billing-for-your-products/about-billing-for-github-models).
+* Si tienes una suscripción de OpenAI o Azure existente, puedes traer tus propias claves de API (BYOK) para acceder a modelos personalizados. La facturación y el uso se administran directamente mediante tu cuenta de proveedor, como el id. de suscripción de Azure. Consulta [Uso de tus propias claves de API en modelos de GitHub](/es/github-models/github-models-at-scale/set-up-custom-model-integration-models-byok).
+
+## Límites de frecuencia
+
+> \[!NOTE] Una vez que optes por el uso de pago, tendrás acceso a los límites de tasa de nivel de producción y se te facturará por todo el uso a partir de entonces. Para más información sobre estos límites de velocidad, consulte [Cuotas y límites de modelos de Microsoft Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/quotas-limits) en la documentación de Azure.
+
+La utilización del área de juegos y el uso gratis de la API llevan una limitación de volumen que se aplica por solicitudes y minuto, solicitudes y día, tokens por solicitud y solicitudes simultáneas. Si obtiene una limitación de volumen, tendrá que esperar a alcanzar dicha limitación de volumen para restablecer el área de juegos o la API antes de poder realizar más solicitudes.
+
+Los modelos de inserción, y los modelos altos o bajos tienen diferentes límites de volumen. Para averiguar qué tipo de modelo está utilizando, consulte la información del modelo en GitHub Marketplace.
+
+Para los modelos personalizados a los que se accede con tus propias claves de API, el proveedor de modelos establece y aplica los límites de velocidad.
+
+<table>
+  <tr>
+    <th scope="col" style="width:15%"><b>Niveles de la limitación de volumen</b></th>
+    <th scope="col" style="width:25%"><b>Límites de frecuencia</b></th>
+    <th scope="col" style="width:15%"><b>Copilot Free</b></th>
+    <th scope="col" style="width:15%"><b>Copilot Pro</b></th>
+    <th scope="col" style="width:15%"><b>Copilot Business</b></th>
+    <th scope="col" style="width:15%"><b>Copilot Enterprise</b></th>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Baja</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>15</td>
+    <td>15</td>
+    <td>15</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>150</td>
+    <td>150</td>
+    <td>300</td>
+    <td>450</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>8000 entrada, 4000 salida</td>
+    <td>8000 entrada, 4000 salida</td>
+    <td>8000 entrada, 4000 salida</td>
+    <td>8000 entrada, 8000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>5</td>
+    <td>5</td>
+    <td>5</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Alta</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>10</td>
+    <td>10</td>
+    <td>10</td>
+    <td>15</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>50</td>
+    <td>50</td>
+    <td>100</td>
+    <td>150</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>8000 entrada, 4000 salida</td>
+    <td>8000 entrada, 4000 salida</td>
+    <td>8000 entrada, 4000 salida</td>
+    <td>16 000 entrada, 8000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>2</td>
+    <td>2</td>
+    <td>2</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Embedding</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>15</td>
+    <td>15</td>
+    <td>15</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>150</td>
+    <td>150</td>
+    <td>300</td>
+    <td>450</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>64000</td>
+    <td>64000</td>
+    <td>64000</td>
+    <td>64000</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>5</td>
+    <td>5</td>
+    <td>5</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Versión preliminar o1 de Azure OpenAI</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>No aplicable</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>No aplicable</td>
+    <td>8</td>
+    <td>10</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>No aplicable</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 8000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>No aplicable</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Azure OpenAI o1, o3 y gpt-5</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>No aplicable</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>No aplicable</td>
+    <td>8</td>
+    <td>10</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>No aplicable</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 8000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>No aplicable</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>Azure OpenAI o1-mini, o3-mini, o4-mini, gpt-5-mini, gpt-5-nano y gpt-5-chat</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>No aplicable</td>
+    <td>2
+          </td>
+    <td>3</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>No aplicable</td>
+    <td>12</td>
+    <td>15</td>
+    <td>20</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>No aplicable</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>No aplicable</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>DeepSeek-R1, DeepSeek-R1-0528 y MAI-DS-R1</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>8</td>
+    <td>8</td>
+    <td>10</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup"><b>xAI Grok-3</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>15</td>
+    <td>15</td>
+    <td>20</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 4000 salida</td>
+    <td>4000 entrada, 8000 salida</td>
+    <td>4000 entrada, 16000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <th rowspan="4" scope="rowgroup" style="box-shadow: none"><b>xAI Grok-3-Mini</b></th>
+    <th style="padding-left: 0"><b>Solicitudes por minuto</b></th>
+    <td>2</td>
+    <td>2</td>
+    <td>3</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes por día</b></th>
+    <td>30</td>
+    <td>30</td>
+    <td>40</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <th><b>Tokens por solicitud</b></th>
+    <td>4000 entrada, 8000 salida</td>
+    <td>4000 entrada, 8000 salida</td>
+    <td>4000 entrada, 12000 salida</td>
+    <td>4000 entrada, 12000 salida</td>
+  </tr>
+  <tr>
+    <th><b>Solicitudes simultáneas</b></th>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+</table>
+
+Estos límites están sujetos a cambios sin previo aviso.
+
+## Escribir comentarios
+
+Para formular preguntas y compartir comentarios, consulta [esta entrada de debate sobre Modelos de GitHub](https://github.com/orgs/community/discussions/159087).
+Para obtener información sobre cómo otros usan GitHub Models, visita los [debates de la comunidad de GitHub para Modelos](https://github.com/orgs/community/discussions/categories/models).
+
+
 # Change Log
 
 
