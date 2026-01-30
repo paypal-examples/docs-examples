@@ -1,3 +1,167 @@
+2025-09-07T19:46:37.5605496Z ##[group]Run mise r csskit-acceptance
+2025-09-07T19:46:37.5605863Z [36;1mmise r csskit-acceptance[0m
+2025-09-07T19:46:37.5664921Z shell: /usr/bin/bash -e {0}
+2025-09-07T19:46:37.5665174Z env:
+2025-09-07T19:46:37.5665451Z   CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+2025-09-07T19:46:37.5665797Z   MISE_LOG_LEVEL: info
+2025-09-07T19:46:37.5666237Z   GITHUB_TOKEN: ***
+2025-09-07T19:46:37.5666498Z   MISE_TRUSTED_CONFIG_PATHS: /home/runner/work/csskit/csskit
+2025-09-07T19:46:37.5666794Z   MISE_YES: 1
+2025-09-07T19:46:37.5666971Z   CARGO_HOME: /home/runner/.cargo
+2025-09-07T19:46:37.5667309Z   DENO_INSTALL_ROOT: /home/runner/.local/share/mise/installs/deno/2.4.5/.deno
+2025-09-07T19:46:37.5670023Z   PATH: /home/runner/.cargo/bin:/home/runner/.local/share/mise/installs/deno/2.4.5/bin:/home/runner/.local/share/mise/installs/deno/2.4.5/.deno/bin:/home/runner/.local/share/mise/installs/node/24.7.0/bin:/home/runner/.local/share/mise/installs/cargo-cargo-insta/1.43.1/bin:/home/runner/.local/share/mise/installs/cargo-cargo-expand/1.0.114/bin:/home/runner/.local/share/mise/installs/cargo-cargo-edit/0.13.6/bin:/home/runner/.local/share/mise/installs/cargo-samply/0.13.1/bin:/home/runner/.local/share/mise/bin:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+2025-09-07T19:46:37.5672660Z   RUSTUP_HOME: /home/runner/.rustup
+2025-09-07T19:46:37.5672896Z   RUSTUP_TOOLCHAIN: 1.88.0
+2025-09-07T19:46:37.5673110Z   CACHE_ON_FAILURE: false
+2025-09-07T19:46:37.5673518Z   CARGO_INCREMENTAL: 0
+2025-09-07T19:46:37.5673706Z ##[endgroup]
+2025-09-07T19:46:37.5984208Z [0m[34m[build][0m [1m$ cargo build --all-features[0m
+2025-09-07T19:46:37.7173270Z     Updating crates.io index
+2025-09-07T19:46:38.4132866Z    Compiling unicode-ident v1.0.18
+2025-09-07T19:46:38.4133542Z    Compiling proc-macro2 v1.0.101
+2025-09-07T19:46:38.4134078Z    Compiling cfg-if v1.0.1
+2025-09-07T19:46:38.4134508Z    Compiling memchr v2.7.5
+2025-09-07T19:46:38.4429732Z    Compiling libc v0.2.174
+2025-09-07T19:46:38.4722261Z    Compiling serde v1.0.219
+2025-09-07T19:46:38.7767984Z    Compiling once_cell v1.21.3
+2025-09-07T19:46:38.9581917Z    Compiling log v0.4.27
+2025-09-07T19:46:39.0777483Z    Compiling autocfg v1.5.0
+2025-09-07T19:46:39.1290253Z    Compiling aho-corasick v1.1.3
+2025-09-07T19:46:39.3966957Z    Compiling quote v1.0.40
+2025-09-07T19:46:39.4929764Z    Compiling heck v0.5.0
+2025-09-07T19:46:39.5910570Z    Compiling syn v2.0.106
+2025-09-07T19:46:39.6735435Z    Compiling regex-syntax v0.8.5
+2025-09-07T19:46:39.6976123Z    Compiling bumpalo v3.19.0
+2025-09-07T19:46:40.1996153Z    Compiling grep-matcher v0.1.7
+2025-09-07T19:46:40.3301015Z    Compiling encoding_rs v0.8.35
+2025-09-07T19:46:41.8481753Z    Compiling regex-automata v0.4.9
+2025-09-07T19:46:42.3108340Z    Compiling serde_json v1.0.143
+2025-09-07T19:46:42.4616576Z    Compiling siphasher v1.0.1
+2025-09-07T19:46:42.5989780Z    Compiling object v0.36.7
+2025-09-07T19:46:42.8334800Z    Compiling encoding_rs_io v0.1.7
+2025-09-07T19:46:42.9397481Z    Compiling memmap2 v0.9.7
+2025-09-07T19:46:43.0269465Z    Compiling num-traits v0.2.19
+2025-09-07T19:46:43.0888614Z    Compiling zerocopy v0.8.26
+2025-09-07T19:46:43.1952000Z    Compiling rustix v1.0.7
+2025-09-07T19:46:43.4153272Z    Compiling adler2 v2.0.1
+2025-09-07T19:46:43.4746179Z    Compiling ryu v1.0.20
+2025-09-07T19:46:43.4831468Z    Compiling getrandom v0.3.3
+2025-09-07T19:46:43.6062718Z    Compiling itoa v1.0.15
+2025-09-07T19:46:43.6854996Z    Compiling version_check v0.9.5
+2025-09-07T19:46:43.7371519Z    Compiling gimli v0.31.1
+2025-09-07T19:46:43.9141353Z    Compiling rustversion v1.0.21
+2025-09-07T19:46:44.2273609Z    Compiling ahash v0.8.12
+2025-09-07T19:46:44.4363957Z    Compiling miniz_oxide v0.8.9
+2025-09-07T19:46:44.5613538Z    Compiling serde_derive v1.0.219
+2025-09-07T19:46:44.7476463Z    Compiling bstr v1.12.0
+2025-09-07T19:46:46.0223285Z    Compiling addr2line v0.24.2
+2025-09-07T19:46:46.3216234Z    Compiling phf_shared v0.13.1
+2025-09-07T19:46:46.5311877Z    Compiling owo-colors v4.2.2
+2025-09-07T19:46:46.7692554Z    Compiling fastrand v2.3.0
+2025-09-07T19:46:46.8698005Z    Compiling rustc-demangle v0.1.25
+2025-09-07T19:46:47.2755887Z    Compiling linux-raw-sys v0.9.4
+2025-09-07T19:46:47.6989390Z    Compiling bitflags v2.9.1
+2025-09-07T19:46:47.7392002Z    Compiling phf_generator v0.13.1
+2025-09-07T19:46:48.6428309Z    Compiling bitmask-enum v2.2.5
+2025-09-07T19:46:49.0440298Z    Compiling backtrace v0.3.75
+2025-09-07T19:46:50.0679382Z    Compiling glob v0.3.3
+2025-09-07T19:46:50.0928896Z    Compiling either v1.15.0
+2025-09-07T19:46:50.2540087Z    Compiling anstyle v1.0.11
+2025-09-07T19:46:50.4772359Z    Compiling smallvec v1.15.1
+2025-09-07T19:46:50.5253606Z    Compiling unicode-width v0.2.1
+2025-09-07T19:46:50.6590955Z    Compiling iana-time-zone v0.1.63
+2025-09-07T19:46:50.7071743Z    Compiling unicode-linebreak v0.1.5
+2025-09-07T19:46:50.7974220Z    Compiling is_ci v1.2.0
+2025-09-07T19:46:50.8655650Z    Compiling wasm-bindgen-shared v0.2.100
+2025-09-07T19:46:50.8714468Z    Compiling thiserror v1.0.69
+2025-09-07T19:46:50.8962482Z    Compiling textwrap v0.16.2
+2025-09-07T19:46:51.0829939Z    Compiling supports-color v3.0.2
+2025-09-07T19:46:51.1487431Z    Compiling chrono v0.4.41
+2025-09-07T19:46:51.3340204Z    Compiling backtrace-ext v0.2.1
+2025-09-07T19:46:51.3540414Z    Compiling terminal_size v0.4.2
+2025-09-07T19:46:51.4403316Z    Compiling phf_macros v0.13.1
+2025-09-07T19:46:51.6891752Z    Compiling grep-regex v0.1.13
+2025-09-07T19:46:52.1203721Z    Compiling grep-searcher v0.1.14
+2025-09-07T19:46:52.3457401Z    Compiling thiserror-impl v1.0.69
+2025-09-07T19:46:52.3480855Z    Compiling miette-derive v7.6.0
+2025-09-07T19:46:52.6706663Z    Compiling supports-unicode v3.0.0
+2025-09-07T19:46:52.8263751Z    Compiling minimal-lexical v0.2.1
+2025-09-07T19:46:52.9025620Z    Compiling unicode-width v0.1.14
+2025-09-07T19:46:53.0342964Z    Compiling thiserror v2.0.16
+2025-09-07T19:46:53.0804297Z    Compiling supports-hyperlinks v3.1.0
+2025-09-07T19:46:53.1640791Z    Compiling nom v7.1.3
+2025-09-07T19:46:53.3326050Z    Compiling itertools v0.14.0
+2025-09-07T19:46:53.6582020Z    Compiling miette v7.6.0
+2025-09-07T19:46:53.7259462Z    Compiling phf v0.13.1
+2025-09-07T19:46:53.8305740Z    Compiling csskit_source_finder v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_source_finder)
+2025-09-07T19:46:54.2041617Z    Compiling browserslist-data v0.1.4
+2025-09-07T19:46:54.8064989Z    Compiling itertools v0.13.0
+2025-09-07T19:46:54.8137889Z    Compiling thiserror-impl v2.0.16
+2025-09-07T19:46:55.3135023Z    Compiling css_lexer v0.0.1 (/home/runner/work/csskit/csskit/crates/css_lexer)
+2025-09-07T19:46:55.3274490Z    Compiling wasm-bindgen-backend v0.2.100
+2025-09-07T19:46:55.8731078Z    Compiling css_ast v0.0.0 (/home/runner/work/csskit/csskit/crates/css_ast)
+2025-09-07T19:46:56.1837031Z    Compiling browserslist-rs v0.19.0
+2025-09-07T19:46:56.9173786Z    Compiling csskit_proc_macro v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_proc_macro)
+2025-09-07T19:46:57.0410090Z    Compiling css_feature_data v0.0.1 (/home/runner/work/csskit/csskit/crates/css_feature_data)
+2025-09-07T19:46:57.6125669Z warning: css_ast@0.0.0: Constructring css_node_kind.rs
+2025-09-07T19:46:57.6140524Z warning: css_ast@0.0.0: Constructring css_apply_visit_methods.rs
+2025-09-07T19:46:57.6141199Z warning: css_ast@0.0.0: Constructring css_apply_properties.rs
+2025-09-07T19:46:57.6141748Z warning: css_ast@0.0.0: Built in 495.458642ms
+2025-09-07T19:46:57.6142238Z    Compiling wasm-bindgen-macro-support v0.2.100
+2025-09-07T19:46:58.3375285Z    Compiling css_parse v0.0.1 (/home/runner/work/csskit/csskit/crates/css_parse)
+2025-09-07T19:46:58.3617360Z    Compiling csskit_derives v0.0.1 (/home/runner/work/csskit/csskit/crates/csskit_derives)
+2025-09-07T19:46:58.6828584Z    Compiling chromashift v0.0.1 (/home/runner/work/csskit/csskit/crates/chromashift)
+2025-09-07T19:46:59.0543547Z    Compiling crossbeam-utils v0.8.21
+2025-09-07T19:46:59.2667228Z    Compiling wasm-bindgen v0.2.100
+2025-09-07T19:46:59.4165298Z    Compiling wasm-bindgen-macro v0.2.100
+2025-09-07T19:46:59.9735357Z    Compiling lock_api v0.4.13
+2025-09-07T19:47:00.1297869Z    Compiling tracing-core v0.1.34
+2025-09-07T19:47:00.2138840Z    Compiling utf8parse v0.2.2
+2025-09-07T19:47:00.2625047Z    Compiling parking_lot_core v0.9.11
+2025-09-07T19:47:00.4556857Z    Compiling anstyle-parse v0.2.7
+2025-09-07T19:47:01.0388707Z    Compiling strum_macros v0.27.1
+2025-09-07T19:47:01.2727541Z    Compiling colorchoice v1.0.4
+2025-09-07T19:47:01.3177411Z    Compiling lazy_static v1.5.0
+2025-09-07T19:47:01.3566686Z    Compiling httparse v1.10.1
+2025-09-07T19:47:01.4460534Z    Compiling anstyle-query v1.1.3
+2025-09-07T19:47:01.4926163Z    Compiling is_terminal_polyfill v1.70.1
+2025-09-07T19:47:01.5298092Z    Compiling scopeguard v1.2.0
+2025-09-07T19:47:01.5726945Z    Compiling bitflags v1.3.2
+2025-09-07T19:47:01.6029845Z    Compiling fluent-uri v0.1.4
+2025-09-07T19:47:01.8259371Z    Compiling anstream v0.6.19
+2025-09-07T19:47:01.9684134Z    Compiling sharded-slab v0.1.7
+2025-09-07T19:47:02.3133282Z    Compiling tracing-log v0.2.0
+2025-09-07T19:47:02.4796811Z    Compiling tracing-attributes v0.1.30
+2025-09-07T19:47:02.5213599Z    Compiling serde_repr v0.1.20
+2025-09-07T19:47:03.0833801Z    Compiling thread_local v1.1.9
+2025-09-07T19:47:03.2408287Z    Compiling nu-ansi-term v0.50.1
+2025-09-07T19:47:03.3166251Z    Compiling strum v0.27.2
+2025-09-07T19:47:03.3691519Z    Compiling clap_lex v0.7.5
+2025-09-07T19:47:03.5071155Z    Compiling pin-project-lite v0.2.16
+2025-09-07T19:47:03.5340250Z    Compiling str_indices v0.4.4
+2025-09-07T19:47:03.5445028Z    Compiling strsim v0.11.1
+2025-09-07T19:47:03.6511345Z    Compiling hashbrown v0.14.5
+2025-09-07T19:47:03.8885069Z    Compiling clap_builder v4.5.46
+2025-09-07T19:47:03.9902324Z    Compiling tracing v0.1.41
+2025-09-07T19:47:04.1586343Z    Compiling ropey v1.6.1
+2025-09-07T19:47:04.2012781Z    Compiling dashmap v6.1.0
+2025-09-07T19:47:04.5604271Z    Compiling tracing-subscriber v0.3.20
+2025-09-07T19:47:05.1381560Z    Compiling lsp-types v0.97.0
+2025-09-07T19:47:06.5106196Z    Compiling js-sys v0.3.77
+2025-09-07T19:47:08.0324209Z    Compiling crossbeam-channel v0.5.15
+2025-09-07T19:47:09.8911904Z    Compiling clap_derive v4.5.45
+2025-09-07T19:47:10.1480922Z    Compiling serde-wasm-bindgen v0.6.5
+2025-09-07T19:47:10.5065704Z    Compiling console_error_panic_hook v0.1.7
+2025-09-07T19:47:11.9639837Z    Compiling clap v4.5.46
+2025-09-07T19:47:22.2330173Z    Compiling csskit_highlight v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_highlight)
+2025-09-07T19:47:22.2331825Z    Compiling csskit_transform v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_transform)
+2025-09-07T19:47:22.3523560Z    Compiling csskit_lsp v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_lsp)
+2025-09-07T19:47:25.1539788Z    Compiling csskit_wasm v0.0.0 (/home/runner/work/csskit/csskit/crates/csskit_wasm)
+2025-09-07T19:47:25.1540774Z    Compiling csskit v0.0.1 (/home/runner/work/csskit/csskit/crates/csskit)
+2025-09-07T19:47:31.4852341Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 53.84s
+2025-09-07T19:47:31.5097249Z [0m[31m[csskit-acceptance][0m [1m$ ~/work/csskit/csskit/.mise-tasks/csskit-acceptance[0m
+2025-09-07T19:47:31.5117141Z Results: 0 passed, 0 failed
+2025-09-07T19:47:31.5119610Z [2mFinished in 53.92s[0m
 ## edgarplasticos3@hotmail.com
 
 country_code,account_type,primary_email_alias,password,first_name,last_name,ppBalance,addBank,ccType,payment_card
