@@ -1,3 +1,38 @@
+{
+  "sys": {
+    "links": {
+      "jsBaseUrl": "https://www.sandbox.paypal.com/js",
+      "cssBaseUrl": "https://www.sandbox.paypal.com/css",
+      "templateBaseUrl": "https://www.sandbox.paypal.com/templates",
+      "resourceBaseUrl": "https://www.sandbox.paypal.com"
+    },
+    "pageInfo": {
+      "date": "Jan 30, 2026 13:52:42 -08:00",
+      "hostName": "rZJvnqaaQhLn/nmWT8cSUjOx898qoYZ0gJ/s7uf3ja3cxVS+f5P7uA",
+      "rlogId": "rZJvnqaaQhLn%2FnmWT8cSUmDP%2Bhip7g49eFYVqbGPqtrcf3YgDr9DRBZmxdhAyNCB%2F0y%2Bmbdj4aY_19c10e4e662",
+      "script": "node",
+      "debug": null
+    },
+    "locality": {
+      "timezone": {
+        "determiner": "viaCowPrimary",
+        "value": "America/New_York"
+      },
+      "country": "US",
+      "locale": "en_US",
+      "language": "en",
+      "directionality": "ltr"
+    },
+    "tracking": {
+      "fpti": {
+        "name": "pta",
+        "jsURL": "https://www.paypalobjects.com",
+        "serverURL": "https://t.paypal.com/ts",
+        "dataString": "pgrp=loggernodeweb%2F.dust&page=loggernodeweb%2F.dust&pgst=1769809962594&calc=f432649b7cb78&pgtf=Nodejs&env=sandbox&s=ci&csci=7720c93f60c040bbbae3cffa9b76e9be&comp=loggernodeweb&tsrce=cspreportnodeweb&cu=1&gacook=10667333.1768120349&ef_policy=ccpa&c_prefs=T%3D1%2CP%3D1%2CF%3D1%2Ctype%3Dexplicit_banner"
+      }
+    }
+  }
+}
 <?php
 
 namespace PayPal\Rest;
