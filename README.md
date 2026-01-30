@@ -1,3 +1,24 @@
+Homepage
+DomainsProtocolsNumbersAbout
+Example Domains
+As described in RFC 2606 and RFC 6761, a number of domains such as example.com and example.org are maintained for documentation purposes. These domains may be used as illustrative examples in documents without prior coordination with us. They are not available for registration or transfer.
+
+We provide a web service on the example domain hosts to provide basic information on the purpose of the domain. These web services are provided as best effort, but are not designed to support production applications. While incidental traffic for incorrectly configured applications is expected, please do not design applications that require the example domains to have operating HTTP service.
+
+Further Reading
+IANA-managed Reserved Domains
+Last revised 2017-05-13.
+Domain Names	
+Root Zone Registry.INT Registry.ARPA RegistryIDN Repository
+Number Resources	
+Abuse Information
+Protocols	
+Protocol RegistriesTime Zone Database
+About Us	
+NewsPerformanceExcellenceArchiveContact Us
+The IANA functions coordinate the Internet’s globally unique identifiers, and are provided by Public Technical Identifiers, an affiliate of ICANN.
+
+Privacy PolicyTerms of Service
 {
   "sys": {
     "links": {
