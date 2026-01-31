@@ -1,3 +1,12 @@
+import sys, os
+
+# Append the top level directory of the docs, so we can import from the config dir.
+sys.path.insert(0, os.path.abspath('..'))
+
+# Pull in all the configuration options defined in the global config file..
+from config.all import *
+
+language = 'en'
 /* MaxMind, Inc., licenses this file to you under the Apache License, Version
  * 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
