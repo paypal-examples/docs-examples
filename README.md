@@ -1,3 +1,5 @@
+https://www.sandbox.paypal.com/myaccount/money/flow/cards/CC-LCJMGYP2XEXHL?flow=cmV0dXJuVXJsPS9mdW5kc21hbmFnZW1lbnQvbW9uZXkmY2FuY2VsVXJsPS9mdW5kc21hbmFnZW1lbnQvbW9uZXk%3D
+
 # Prereleases
 
 > Warning! Prereleases are very complicated! Using them requires a thorough understanding of all parts of npm publishes. Mistakes can lead to repository and publish states that are very hard to fix.
