@@ -1,3 +1,77 @@
+Homepage
+DomainsProtocolsNumbersAbout
+IANA-managed Reserved Domains
+Certain domains are set aside, and nominally registered to “IANA”, for specific policy or technical purposes.
+
+Example domains
+As described in RFC 2606 and RFC 6761, a number of domains such as example.com and example.org are maintained for documentation purposes. These domains may be used as illustrative examples in documents without prior coordination with us. They are not available for registration or transfer.
+
+Test IDN top-level domains
+These domains were temporarily delegated by IANA for the IDN Evaluation being conducted by ICANN.
+
+إختبار
+XN--KGBECHTV
+Arabic
+Arabic
+آزمایشی
+XN--HGBK6AJ7F53BBA
+Persian
+Arabic
+测试
+XN--0ZWM56D
+Chinese
+Han (Simplified variant)
+測試
+XN--G6W251D
+Chinese
+Han (Traditional variant)
+испытание
+XN--80AKHBYKNJ4F
+Russian
+Cyrillic
+परीक्षा
+XN--11B5BS3A9AJ6G
+Hindi
+Devanagari (Nagari)
+δοκιμή
+XN--JXALPDLP
+Greek, Modern (1453-)
+Greek
+테스트
+XN--9T4B11YI5A
+Korean
+Hangul (Hangŭl, Hangeul)
+טעסט
+XN--DEBA0AD
+Yiddish
+Hebrew
+テスト
+XN--ZCKZAH
+Japanese
+Katakana
+பரிட்சை
+XN--HLCJ6AYA9ESC7A
+Tamil
+Tamil
+Policy-reserved domains
+We act as both the registrant and registrar for a select number of domains which have been reserved under policy grounds. These exclusions are typically indicated in either technical standards (RFC documents), or contractual limitations.
+
+Domains which are described as registered to IANA or ICANN on policy grounds are not available for registration or transfer, with the exception of country-name.info domains. These domains are available for release by the ICANN Governmental Advisory Committee Secretariat.
+
+Other Special-Use Domains
+There is additionally a Special-Use Domain Names registry documenting special-use domains designated by technical standards. For further information, see Special-Use Domain Names (RFC 6761).
+
+Domain Names	
+Root Zone Registry.INT Registry.ARPA RegistryIDN Repository
+Number Resources	
+Abuse Information
+Protocols	
+Protocol RegistriesTime Zone Database
+About Us	
+NewsPerformanceExcellenceArchiveContact Us
+The IANA functions coordinate the Internet’s globally unique identifiers, and are provided by Public Technical Identifiers, an affiliate of ICANN.
+
+Privacy PolicyTerms of Service
 traslación mensaje title by:Edgar Manuel Ruiz Arias , edgarplasticos3@hotmail.com 
 Translations:2021-12 security release/FAQ/Page display title/en 
 Translations:2021-12 security release/FAQ/1/en 
