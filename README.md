@@ -1,3 +1,314 @@
+<?php
+
+// File generated from our OpenAPI spec
+
+namespace Stripe;
+
+/**
+ * A Quote is a way to model prices that you'd like to provide to a customer. Once
+ * accepted, it will automatically create an invoice, subscription or subscription
+ * schedule.
+ *
+ * @property string $id Unique identifier for the object.
+ * @property string $object String representing the object's type. Objects of the same type share the same value.
+ * @property int $amount_subtotal Total before any discounts or taxes are applied.
+ * @property int $amount_total Total after discounts and taxes are applied.
+ * @property null|int $application_fee_amount The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Only applicable if there are no line items with recurring prices on the quote.
+ * @property null|float $application_fee_percent A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
+ * @property \Stripe\StripeObject $automatic_tax
+ * @property string $collection_method Either <code>charge_automatically</code>, or <code>send_invoice</code>. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions. Defaults to <code>charge_automatically</code>.
+ * @property \Stripe\StripeObject $computed
+ * @property int $created Time at which the object was created. Measured in seconds since the Unix epoch.
+ * @property null|string $currency Three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html">ISO currency code</a>, in lowercase. Must be a <a href="https://stripe.com/docs/currencies">supported currency</a>.
+ * @property null|string|\Stripe\Customer $customer The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+ * @property (string|\Stripe\TaxRate)[] $default_tax_rates The tax rates applied to this quote.
+ * @property null|string $description A description that will be displayed on the quote PDF.
+ * @property (string|\Stripe\Discount)[] $discounts The discounts applied to this quote.
+ * @property int $expires_at The date on which the quote will be canceled if in <code>open</code> or <code>draft</code> status. Measured in seconds since the Unix epoch.
+ * @property null|string $footer A footer that will be displayed on the quote PDF.
+ * @property null|\Stripe\StripeObject $from_quote Details of the quote that was cloned. See the <a href="https://stripe.com/docs/quotes/clone">cloning documentation</a> for more details.
+ * @property null|string $header A header that will be displayed on the quote PDF.
+ * @property null|string|\Stripe\Invoice $invoice The invoice that was created from this quote.
+ * @property null|\Stripe\StripeObject $invoice_settings All invoices will be billed using the specified settings.
+ * @property \Stripe\Collection $line_items A list of items the customer is being quoted for.
+ * @property bool $livemode Has the value <code>true</code> if the object exists in live mode or the value <code>false</code> if the object exists in test mode.
+ * @property \Stripe\StripeObject $metadata Set of <a href="https://stripe.com/docs/api/metadata">key-value pairs</a> that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+ * @property null|string $number A unique number that identifies this particular quote. This number is assigned once the quote is <a href="https://stripe.com/docs/quotes/overview#finalize">finalized</a>.
+ * @property null|string|\Stripe\Account $on_behalf_of The account on behalf of which to charge. See the <a href="https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts">Connect documentation</a> for details.
+ * @property string $status The status of the quote.
+ * @property \Stripe\StripeObject $status_transitions
+ * @property null|string|\Stripe\Subscription $subscription The subscription that was created or updated from this quote.
+ * @property \Stripe\StripeObject $subscription_data
+ * @property null|string|\Stripe\SubscriptionSchedule $subscription_schedule The subscription schedule that was created or updated from this quote.
+ * @property \Stripe\StripeObject $total_details
+ * @property null|\Stripe\StripeObject $transfer_data The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices.
+ */
+class Quote extends ApiResource
+{
+    const OBJECT_NAME = 'quote';
+
+    use ApiOperations\All;
+    use ApiOperations\Create;
+    use ApiOperations\Retrieve;
+    use ApiOperations\Update;
+
+    const COLLECTION_METHOD_CHARGE_AUTOMATICALLY = 'charge_automatically';
+    const COLLECTION_METHOD_SEND_INVOICE = 'send_invoice';
+
+    const STATUS_ACCEPTED = 'accepted';
+    const STATUS_CANCELED = 'canceled';
+    const STATUS_DRAFT = 'draft';
+    const STATUS_OPEN = 'open';
+
+    /**
+     * @param callable $readBodyChunkCallable
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     */
+    public function pdf($readBodyChunkCallable, $params = null, $opts = null)
+    {
+        $opts = \Stripe\Util\RequestOptions::parse($opts);
+        if (null === $opts->apiBase) {
+            $opts->apiBase = Stripe::$apiUploadBase;
+        }
+
+        $url = $this->instanceUrl() . '/pdf';
+        $this->_requestStream('get', $url, $readBodyChunkCallable, $params, $opts);
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Quote the accepted quote
+     */
+    public function accept($params = null, $opts = null)
+    {
+        $url = $this->instanceUrl() . '/accept';
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
+        $this->refreshFrom($response, $opts);
+
+        return $this;
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Quote the canceled quote
+     */
+    public function cancel($params = null, $opts = null)
+    {
+        $url = $this->instanceUrl() . '/cancel';
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
+        $this->refreshFrom($response, $opts);
+
+        return $this;
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Quote the finalized quote
+     */
+    public function finalizeQuote($params = null, $opts = null)
+    {
+        $url = $this->instanceUrl() . '/finalize';
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
+        $this->refreshFrom($response, $opts);
+
+        return $this;
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     * @param mixed $id
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Collection list of LineItems
+     */
+    public static function allComputedUpfrontLineItems($id, $params = null, $opts = null)
+    {
+        $url = static::resourceUrl($id) . '/computed_upfront_line_items';
+        list($response, $opts) = static::_staticRequest('get', $url, $params, $opts);
+        $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
+        $obj->setLastResponse($response);
+
+        return $obj;
+    }
+
+    /**
+     * @param null|array $params
+     * @param null|array|string $opts
+     * @param mixed $id
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Collection list of LineItems
+     */
+    public static function allLineItems($id, $params = null, $opts = null)
+    {
+        $url = static::resourceUrl($id) . '/line_items';
+        list($response, $opts) = static::_staticRequest('get', $url, $params, $opts);
+        $obj = \Stripe\Util\Util::convertToStripeObject($response->json, $opts);
+        $obj->setLastResponse($response);
+
+        return $obj;
+    }
+}
+# Apache License
+Version 2.0, January 2004
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+## 1. Definitions.
+
+"License" shall mean the terms and conditions for use, reproduction, and distribution as defined by Sections 1
+through 9 of this document.
+
+"Licensor" shall mean the copyright owner or entity authorized by the copyright owner that is granting the
+License.
+
+"Legal Entity" shall mean the union of the acting entity and all other entities that control, are controlled
+by, or are under common control with that entity. For the purposes of this definition, "control" means
+(i) the power, direct or indirect, to cause the direction or management of such entity, whether by contract
+or otherwise, or (ii) ownership of fifty percent (50%) or more of the outstanding shares, or (iii) beneficial
+ownership of such entity.
+
+"You" (or "Your") shall mean an individual or Legal Entity exercising permissions granted by this License.
+
+"Source" form shall mean the preferred form for making modifications, including but not limited to software
+source code, documentation source, and configuration files.
+
+"Object" form shall mean any form resulting from mechanical transformation or translation of a Source form,
+including but not limited to compiled object code, generated documentation, and conversions to other media
+types.
+
+"Work" shall mean the work of authorship, whether in Source or Object form, made available under the License,
+as indicated by a copyright notice that is included in or attached to the work (an example is provided in the
+Appendix below).
+
+"Derivative Works" shall mean any work, whether in Source or Object form, that is based on (or derived from)
+the Work and for which the editorial revisions, annotations, elaborations, or other modifications represent,
+as a whole, an original work of authorship. For the purposes of this License, Derivative Works shall not
+include works that remain separable from, or merely link (or bind by name) to the interfaces of, the Work
+and Derivative Works thereof.
+
+"Contribution" shall mean any work of authorship, including the original version of the Work and any
+modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to
+Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to
+submit on behalf of the copyright owner. For the purposes of this definition, "submitted" means any form of
+electronic, verbal, or written communication sent to the Licensor or its representatives, including but not
+limited to communication on electronic mailing lists, source code control systems, and issue tracking systems
+that are managed by, or on behalf of, the Licensor for the purpose of discussing and improving the Work, but
+excluding communication that is conspicuously marked or otherwise designated in writing by the copyright
+owner as "Not a Contribution."
+
+"Contributor" shall mean Licensor and any individual or Legal Entity on behalf of whom a Contribution has been
+received by Licensor and subsequently incorporated within the Work.
+
+## 2. Grant of Copyright License.
+
+Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual,
+worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare
+Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such
+Derivative Works in Source or Object form.
+
+## 3. Grant of Patent License.
+
+Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual,
+worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) patent
+license to make, have made, use, offer to sell, sell, import, and otherwise transfer the Work, where such
+license applies only to those patent claims licensable by such Contributor that are necessarily infringed by
+their Contribution(s) alone or by combination of their Contribution(s) with the Work to which such
+Contribution(s) was submitted. If You institute patent litigation against any entity (including a cross-claim
+or counterclaim in a lawsuit) alleging that the Work or a Contribution incorporated within the Work
+constitutes direct or contributory patent infringement, then any patent licenses granted to You under this
+License for that Work shall terminate as of the date such litigation is filed.
+
+## 4. Redistribution.
+
+You may reproduce and distribute copies of the Work or Derivative Works thereof in any medium, with or without
+modifications, and in Source or Object form, provided that You meet the following conditions:
+
+   1. You must give any other recipients of the Work or Derivative Works a copy of this License; and
+
+   2. You must cause any modified files to carry prominent notices stating that You changed the files; and
+
+   3. You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent,
+	  trademark, and attribution notices from the Source form of the Work, excluding those notices that do
+	  not pertain to any part of the Derivative Works; and
+
+   4. If the Work includes a "NOTICE" text file as part of its distribution, then any Derivative Works that
+	  You distribute must include a readable copy of the attribution notices contained within such NOTICE
+	  file, excluding those notices that do not pertain to any part of the Derivative Works, in at least one
+	  of the following places: within a NOTICE text file distributed as part of the Derivative Works; within
+	  the Source form or documentation, if provided along with the Derivative Works; or, within a display
+	  generated by the Derivative Works, if and wherever such third-party notices normally appear. The
+	  contents of the NOTICE file are for informational purposes only and do not modify the License. You may
+	  add Your own attribution notices within Derivative Works that You distribute, alongside or as an
+	  addendum to the NOTICE text from the Work, provided that such additional attribution notices cannot be
+	  construed as modifying the License.
+
+You may add Your own copyright statement to Your modifications and may provide additional or different license
+terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative
+Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the
+conditions stated in this License.
+
+## 5. Submission of Contributions.
+
+Unless You explicitly state otherwise, any Contribution intentionally submitted for inclusion in the Work by
+You to the Licensor shall be under the terms and conditions of this License, without any additional terms or
+conditions. Notwithstanding the above, nothing herein shall supersede or modify the terms of any separate
+license agreement you may have executed with Licensor regarding such Contributions.
+
+## 6. Trademarks.
+
+This License does not grant permission to use the trade names, trademarks, service marks, or product names of
+the Licensor, except as required for reasonable and customary use in describing the origin of the Work and
+reproducing the content of the NOTICE file.
+
+## 7. Disclaimer of Warranty.
+
+Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor
+provides its Contributions) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT,
+MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining the
+appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of
+permissions under this License.
+
+## 8. Limitation of Liability.
+
+In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless
+required by applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall any
+Contributor be liable to You for damages, including any direct, indirect, special, incidental, or consequential
+damages of any character arising as a result of this License or out of the use or inability to use the Work
+(including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or
+any and all other commercial damages or losses), even if such Contributor has been advised of the possibility
+of such damages.
+
+## 9. Accepting Warranty or Additional Liability.
+
+While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for,
+acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this
+License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole
+responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold
+each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason
+of your accepting any such warranty or additional liability.
+
+END OF TERMS AND CONDITIONS
+
 https://www.sandbox.paypal.com/myaccount/money/flow/cards/CC-LCJMGYP2XEXHL?flow=cmV0dXJuVXJsPS9mdW5kc21hbmFnZW1lbnQvbW9uZXkmY2FuY2VsVXJsPS9mdW5kc21hbmFnZW1lbnQvbW9uZXk%3D
 
 # Prereleases
