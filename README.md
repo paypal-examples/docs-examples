@@ -1,3 +1,1066 @@
+# Security Policy
+
+This documentation was last updated December 2019. The latest version can
+always be found at: 
+https://github.com/atheme/atheme/blob/master/SECURITY.md
+
+## Supported Versions
+
+Currently, the latest minor release will receive security and bugfix
+updates as new point releases. This is currently the 7.2 release series,
+with 7.2.10-r2 being the currently supported stable release.
+
+For the lifetime of the upcoming 7.3 release series, we are planning to keep
+supporting the 7.2 series with security updates as needed.
+
+Older releases are not officially supported. We may provide updates for
+severe security vulnerabilities affecting them on a best-effort basis,
+however we cannot recommend relying on this and strongly urge users to
+update to an officially supported release instead.
+
+If you are using Atheme as distributed by a third party (such as an OS
+package repository), they may have backported security fixes to an earlier
+release. In such a case, please consult your distributor's packaging
+policy for details.
+
+## Reporting a Vulnerability
+
+Our security contacts are, in alphabetical order:
+
+| GitHub username | freenode account name |
+| --------------- | --------------------- |
+| @aaronmdjones   | `amdj`                |
+| @ilbelkyr       | `ilbelkyr`            |
+
+If circumstances permit, you can contact us via IRC by sending us a private
+message on the freenode IRC network. Please double-check you are actually
+talking to the right people; we are generally opped in the `#atheme` channel.
+
+Otherwise, you may prefer to contact us via email at `security@atheme.org`
+instead. If you use PGP, please encrypt your mail for *all* of these keys:
+
+- [`6E7C348A716E59FAC9E6D1A04B3896ABA96B3085`][pgp-ilbelkyr]
+- [`97D58E607188C8C986481CB76A2F898000519052`][pgp-amdj]
+
+We will look into the issue as quickly as possible. To avoid us having to
+request further clarification, please try to include all relevant details,
+especially whether the vulnerability has already been disclosed to third
+parties.
+
+## Vulnerability Disclosure
+
+We aim to ensure the security of Atheme installations and their users. To
+this end, we follow a coordinated disclosure model under which we provide
+administrators of major Atheme installations with advance notice of security
+vulnerabilities and their corresponding fixes before sharing the details
+with the general public. Where possible, we will also publish mitigation
+instructions before releasing the details. Outside extraordinary circumstances,
+we will release full details at most two weeks after learning about the
+vulnerability.
+
+Security-related announcements will be found in our Git repository's
+`NEWS.md` file, as well as in the release notes for applicable releases.
+
+[pgp-ilbelkyr]: https://keys.openpgp.org/vks/v1/by-fingerprint/6E7C348A716E59FAC9E6D1A04B3896ABA96B3085
+[pgp-amdj]: https://keys.openpgp.org/vks/v1/by-fingerprint/97D58E607188C8C986481CB76A2F898000519052
+## Atheme IRC Services
+
+Atheme is a set of services for IRC networks designed for large IRC networks
+with high scalability requirements. It is relatively mature software, with
+some code and design derived from another package called Shrike.
+
+Atheme's behavior is tunable using modules and a highly detailed configuration
+file. Almost all behavior can be changed at deployment time just by editing
+the configuration.
+
+
+
+## Obtaining Atheme
+
+If you have a modern version of Git (1.6.5 or newer), you can recursively
+clone the repository:
+
+    $ git clone --branch 'release/7.2' --recursive 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+
+If you have an older version of Git, you must clone the repository, and then
+fetch its submodules:
+
+    $ git clone 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+    $ git checkout release/7.2
+    $ git submodule init
+    $ git submodule update
+
+If you don't have Git, you can download a package archive from our website at
+<https://atheme.github.io/>.
+
+If you are browsing our GitHub repository, please do NOT click the "Download
+ZIP" button or the "Source code" links there, as they will give you an archive
+that lacks the required submodules. There are proper `.tar.bz2` or `.tar.xz`
+archives attached to each release under "Assets", which is what the "Download"
+button on our website will take you to.
+
+
+
+## Basic build instructions for the impatient
+
+Obtain the source code repository and change into its directory (using the
+commands given above).
+
+If you are building Atheme on a GNU/Linux system, or something which can
+sufficiently emulate that (like WSL 2 on Windows 10), execute the following
+commands:
+
+    $ ./configure
+    $ make
+    $ make install
+
+If you are building Atheme on an OpenBSD (or similar) system, execute the
+following commands instead:
+
+    # pkg_add gmake
+    $ ./configure
+    $ gmake
+    $ gmake install
+
+
+
+## Getting More Help
+
+If you're still lost, read the [INSTALL](INSTALL) file or check out our wiki
+for more hints.
+
+- [Our Website](https://atheme.github.io/)
+- [Our GitHub Repository](https://github.com/atheme/atheme/)
+- [The Atheme Wiki](https://github.com/atheme/atheme/wiki/)
+- [The #atheme channel on freenode](ircs://chat.freenode.net:6697/#atheme)
+Downloading the Git repository
+------------------------------
+
+Atheme's Git repository is available at the following address:
+<https://github.com/atheme/atheme/>
+
+If you have a modern version of Git (1.6.5 or newer), you can recursively
+clone the repository:
+
+    $ git clone --branch 'release/7.2' --recursive 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+
+If you have an older version of Git, you must clone the repository, and then
+fetch its submodules:
+
+    $ git clone 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+    $ git checkout release/7.2
+    $ git submodule init
+    $ git submodule update
+
+
+
+Building from the Git repository
+--------------------------------
+
+If you have already checked out the Atheme Git repository, but you have
+been instructed to read this file when configuring Atheme, then you did not
+follow the advice above. Use the following commands to resolve the error:
+
+    $ git submodule init
+    $ git submodule update
+
+
+
+Building from release tarballs
+------------------------------
+
+If you did not obtain this software via Git, but received the GIT-Access.txt
+error when configuring Atheme anyway, this means you downloaded the wrong
+source archive.
+
+When downloading releases from GitHub, you MUST use the *attached* archive:
+
+    atheme-7.x.x.tar.bz2    (or .tar.xz)
+
+DO NOT use the "Download ZIP" button or the "Source code" links, as they are
+missing the required submodules.
+#include "atheme.h"
+
+int main(int argc, const char *argv)
+{
+        char b64[] = "Q2hyaXNUZXN0AENocmlzVGVzdABwbXpqZ3VseGF5ZWJjcGJ3cXFkaA==";
+        char b64out[BUFSIZE];
+        char b64pristine[] = "ChrisTest\0ChrisTest\0pmzjgulxayebcpbwqqdh";
+        int rc;
+
+        rc = base64_decode(b64, b64out, BUFSIZE);
+
+        printf("decode: %d sz: %zu\n", rc, sizeof(b64pristine));
+        printf("b64pri: %s:%s:%s\n", b64pristine, b64pristine + 10, b64pristine + 20);
+        printf("b64out: %s:%s:%s\n", b64out, b64out + 10, b64out + 20);
+
+        if (memcmp(b64out, b64pristine, sizeof(b64pristine)))
+        {
+                printf("FAIL.\n");
+        }
+        else
+        {
+                printf("PASS.\n");
+        }
+}/*
+ * Copyright (c) 2012 William Pitcock <nenolod@dereferenced.org>.
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#include "atheme.h"
+#include "libathemecore.h"
+
+static unsigned int verify_entity_uids(void)
+{
+        unsigned int errcnt = 0;
+        mowgli_patricia_t *known = mowgli_patricia_create(strcasecanon);
+        myentity_iteration_state_t state;
+        myentity_t *mt;
+
+        MYENTITY_FOREACH_T(mt, &state, ENT_ANY)
+        {
+                myentity_t *mt2;
+
+                if ((mt2 = mowgli_patricia_retrieve(known, mt->id)) != NULL)
+                {
+                        mowgli_strlcpy(mt->id, myentity_alloc_uid(), sizeof mt->id);
+
+                        slog(LG_INFO, "*** phase 4: entity '%s' has duplicate EID '%s' (belonging to '%s'); regenerating as '%s'",
+                                        mt->name, mt2->id, mt2->name, mt->id);
+
+                        errcnt++;
+                        continue;
+                }
+
+                mowgli_patricia_add(known, mt->id, mt);
+        }
+
+        mowgli_patricia_destroy(known, NULL, NULL);
+        return errcnt;
+}
+
+static void verify_channel_registrations(void)
+{
+        mowgli_patricia_iteration_state_t state;
+        mychan_t *mc;
+
+        MOWGLI_PATRICIA_FOREACH(mc, &state, mclist)
+        {
+                mowgli_node_t *n, *tn;
+                mowgli_patricia_t *known = mowgli_patricia_create(strcasecanon);
+
+                slog(LG_INFO, "*** phase 3: checking %s for consistency", mc->name);
+
+                MOWGLI_ITER_FOREACH_SAFE(n, tn, mc->chanacs.head)
+                {
+                        chanacs_t *ca = n->data, *ca2;
+                        stringref key = ca->entity != NULL ? ca->entity->name : ca->host;
+
+                        if (key == NULL)
+                        {
+                                slog(LG_INFO, "*** phase 3: %s: chanacs entry %p is dangling; unlinking from object store", mc->name, ca);
+                                mowgli_node_delete(&ca->cnode, &mc->chanacs);
+                                continue;
+                        }
+
+                        if ((ca2 = mowgli_patricia_retrieve(known, key)) != NULL)
+                        {
+                                slog(LG_INFO, "*** phase 3: %s: chanacs entry '%s' (%p) duplicates chanacs entry %p", mc->name, ca->entity != NULL ? ca->entity->name : ca->host, ca, ca2);
+                                mowgli_node_delete(&ca->cnode, &mc->chanacs);
+                                continue;
+                        }
+
+                        if ((ca->level & CA_AKICK) && ca->level != CA_AKICK)
+                        {
+                                unsigned int flags = ca->level & ~CA_AKICK;
+
+                                ca->level = CA_AKICK;
+                                slog(LG_INFO, "*** phase 3: %s: chanacs entry '%s' (%p) is an AKICK but has other flags -- removing %s from it",
+                                     mc->name, ca->entity != NULL ? ca->entity->name : ca->host, ca, bitmask_to_flags(flags));
+                        }
+
+                        mowgli_patricia_add(known, key, ca);
+                }
+
+                mowgli_patricia_destroy(known, NULL, NULL);
+        }
+}
+
+static void handle_mdep(database_handle_t *db, const char *type)
+{
+        const char *modname = db_sread_word(db);
+
+        module_load(modname);
+}
+
+int main(int argc, char *argv[])
+{
+        atheme_bootstrap();
+        atheme_init(argv[0], LOGDIR "/dbverify.log");
+        atheme_setup();
+        module_t *m;
+        unsigned int errcnt;
+        char *filename = argv[1] ? argv[1] : "services.db";
+
+        runflags = RF_LIVE;
+        datadir = DATADIR;
+        strict_mode = false;
+        offline_mode = true;
+
+        slog(LG_INFO, "dbverify is operating on %s", filename);
+
+        m = module_load("backend/opensex");
+
+        db_unregister_type_handler("MDEP");
+        db_register_type_handler("MDEP", handle_mdep);
+
+        slog(LG_INFO, "*** phase 1: demarshaling objects from opensex datastore");
+
+        runflags &= ~RF_LIVE;
+        db_load(filename);
+        runflags |= RF_LIVE;
+
+        slog(LG_INFO, "*** phase 2: doing basic atheme database consistency check");
+
+        db_check();
+
+        slog(LG_INFO, "*** phase 3: verifying channel registration integrity");
+
+        verify_channel_registrations();
+
+        slog(LG_INFO, "*** phase 4: verifying entity UID integrity");
+
+        while ((errcnt = verify_entity_uids()) != 0)
+                slog(LG_INFO, "*** phase 4: %u error(s) were found; running another pass", errcnt);
+
+        slog(LG_INFO, "*** phase 5: writing  state to object store");
+
+        db_save(filename);
+
+        return EXIT_SUCCESS;
+}/*
+ * Copyright (c) 2013 William Pitcock <nenolod@dereferenced.org>.
+ *
+ * Permission to use, copy, modify, and/or distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+ * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#include "atheme.h"
+#include "libathemecore.h"
+
+#if defined HAVE_OPENSSL && defined HAVE_OPENSSL_EC_H
+
+#include <openssl/ec.h>
+#include <openssl/ecdsa.h>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
+#include <openssl/sha.h>
+
+int main(int argc, const char **argv)
+{
+        BIO *in;
+        EC_KEY *eckey;
+        char challenge[BUFSIZE];
+        const unsigned char *workbuf_p;
+        unsigned char *sig_buf, *sig_buf_p;
+        size_t len;
+        unsigned int buf_len, i;
+
+        if (argv[1] == NULL || argv[2] == NULL)
+        {
+                fprintf(stderr, "usage: %s [keyfile] [base64challenge]\n", argv[0]);
+                return EXIT_FAILURE;
+        }
+
+        in = BIO_new(BIO_s_file());
+        BIO_read_filename(in, argv[1]);
+        eckey = PEM_read_bio_ECPrivateKey(in, NULL, NULL, NULL);
+        BIO_free(in);
+
+        if (!EC_KEY_check_key(eckey))
+        {
+                fprintf(stderr, "Key data for %s is inconsistent.\n", argv[1]);
+                return EXIT_FAILURE;
+        }
+
+        memset(challenge, '\0', sizeof challenge);
+        len = base64_decode(argv[2], challenge, BUFSIZE);
+        workbuf_p = (unsigned char *) challenge;
+
+        buf_len = ECDSA_size(eckey);
+        sig_buf = mowgli_alloc(buf_len);
+        sig_buf_p = sig_buf;
+
+        if (!ECDSA_sign(0, challenge, len, sig_buf_p, &buf_len, eckey))
+        {
+                fprintf(stderr, "Failed to sign challenge!\n");
+                return EXIT_FAILURE;
+        }
+
+        base64_encode(sig_buf, buf_len, challenge, BUFSIZE);
+        printf("%s\n", challenge);
+
+        mowgli_free(sig_buf);
+
+        return EXIT_SUCCESS;
+}
+
+#else
+
+int main(int argc, const char **argv)
+{
+        printf("I'm sorry, you didn't compile Atheme with OpenSSL support.\n");
+        return EXIT_SUCCESS;
+}
+
+#endif
+"        index : doc        
+
+main
+
+FreeBSD documentation tree        
+aboutsummaryrefslogtreecommitdiff        
+
+log msg
+
+path: root/documentation/content/en/books/faq/_index.adoc
+blob: 7ca37afd5b2f26203c69e46603350bc5372aaa08 (plain) (blame)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+---
+title: Frequently Asked Questions for FreeBSD
+authors:
+  - author: The FreeBSD Documentation Project
+copyright: 1995-2023 The FreeBSD Documentation Project
+description: Frequently Asked Questions for FreeBSD
+trademarks: ["freebsd", "ieee", "linux", "microsoft", "openbsd", "netbsd", "general"]
+bookOrder: 5
+tags: ["FAQ", "FreeBSD FAQ"]
+layout: single
+---
+
+= Frequently Asked Questions for FreeBSD
+:doctype: book
+:toc: macro
+:toclevels: 1
+:icons: font
+:sectnums:
+:sectnumlevels: 6
+:partnums:
+:source-highlighter: rouge
+:experimental:
+:images-path: books/faq/
+
+ifdef::env-beastie[]
+ifdef::backend-html5[]
+include::shared/authors.adoc[]
+include::shared/mirrors.adoc[]
+include::shared/releases.adoc[]
+include::shared/attributes/attributes-{{% lang %}}.adoc[]
+include::shared/{{% lang %}}/teams.adoc[]
+include::shared/{{% lang %}}/mailing-lists.adoc[]
+include::shared/{{% lang %}}/urls.adoc[]
+endif::[]
+ifdef::backend-pdf,backend-epub3[]
+include::../../../../../shared/asciidoctor.adoc[]
+endif::[]
+endif::[]
+
+ifndef::env-beastie[]
+include::../../../../../shared/asciidoctor.adoc[]
+endif::[]
+
+[.abstract-title]
+Abstract
+
+This is the Frequently Asked Questions (FAQ) for FreeBSD.
+Every effort has been made to make this FAQ as informative as possible.
+
+'''
+
+toc::[]
+
+[[introduction]]
+== Introduction
+
+Welcome to the world of FreeBSD!
+In this section, we provide a comprehensive overview of what FreeBSD is, its origins, goals, use cases, and the community behind it.
+
+Discover the reasons behind its name, learn how to contribute to this project, and explore the rich ecosystem of FreeBSD within the context of open-source operating systems.
+
+[[what-is-FreeBSD]]
+=== What is FreeBSD?
+
+FreeBSD is a versatile and open-source UNIX(R)-like operating system known for its exceptional stability, security, and performance.
+Developed by a dedicated community of volunteers, i
 Skip site navigation (1)Skip section navigation (2)
 FreeBSD
 Donate to FreeBSD
