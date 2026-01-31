@@ -1,3 +1,98 @@
+[![CI](https://github.com/sindresorhus/boxen/actions/workflows/main.yml/badge.svg)](https://github.com/sindresorhus/boxen/actions/workflows/main.yml)
+# cli-boxes [![Build Status](https://travis-ci.org/sindresorhus/cli-boxes.svg?branch=master)](https://travis-ci.org/sindresorhus/cli-boxes)
+
+> Boxes for use in the terminal
+
+The list of boxes is just a [JSON file](boxes.json) and can be used wherever.
+
+
+## Install
+
+```
+$ npm install --save cli-boxes
+```
+
+
+## Usage
+
+```js
+const cliBoxes = require('cli-boxes');
+
+console.log(cliBoxes.single);
+/*
+{
+    "topLeft": "┌",
+    "topRight": "┐",
+    "bottomRight": "┘",
+    "bottomLeft": "└",
+    "vertical": "│",
+    "horizontal": "─"
+}
+*/
+```
+
+
+## API
+
+### cliBoxes
+
+#### `single`
+
+```
+┌────┐
+│    │
+└────┘
+```
+
+#### `double`
+
+```
+╔════╗
+║    ║
+╚════╝
+```
+
+#### `round`
+
+```
+╭────╮
+│    │
+╰────╯
+```
+
+#### `single-double`
+
+```
+╓────╖
+║    ║
+╙────╜
+```
+
+#### `double-single`
+
+```
+╒════╕
+│    │
+╘════╛
+```
+
+#### `classic`
+
+```
++----+
+|    |
++----+
+```
+
+
+## Related
+
+- [boxen](https://github.com/sindresorhus/boxen) - Create boxes in the terminal
+
+
+## License
+
+MIT © [Sindre Sorhus](http://sindresorhus.com)
 d41b45afb922d3bd828d168ef2c1e380  ./dists/jammy/main/binary-amd64/Release
 2bc7d436cca143b52d9f5d443a8b3948  ./dists/jammy/main/binary-amd64/Packages.gz
 d3b3df717bf7edcb5b6b9299e4c8011a  ./dists/jammy/main/binary-i386/Release
