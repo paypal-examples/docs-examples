@@ -1,4 +1,588 @@
 <?php
+
+/**
+ * Base class for elFinder volume.
+ * Provide 2 layers:
+ *  1. Public API (commands)
+ *  2. abstract fs API
+ * All abstract methods begin with "_"
+ *
+ * @author Dmitry (dio) Levashov
+ * @author Troex Nevelin
+ * @author Alexey Sukhotin
+ * @method netmountPrepare(array $options)
+ * @method postNetmount(array $options)
+ */
+abstract class elFinderVolumeDriver
+{
+
+    /**
+     * Net mount key
+     *
+     * @var string
+     **/
+    public $netMountKey = '';
+
+    /**
+     * Request args
+     * $_POST or $_GET values
+     *
+     * @var array
+     */
+    protected $ARGS = array();
+
+    /**
+     * Driver id
+     * Must be started from letter and contains [a-z0-9]
+     * Used as part of volume id
+     *
+     * @var string
+     **/
+    protected $driverId = 'a';
+
+    /**
+     * Volume id - used as prefix for files hashes
+     *
+     * @var string
+     **/
+    protected $id = '';
+
+    /**
+     * Flag - volume "mounted" and available
+     *
+     * @var bool
+     **/
+    protected $mounted = false;
+
+    /**
+     * Root directory path
+     *
+     * @var string
+     **/
+    protected $root = '';
+
+    /**
+     * Root basename | alias
+     *
+     * @var string
+     **/
+    protected $rootName = '';
+
+    /**
+     * Default directory to open
+     *
+     * @var string
+     **/
+    protected $startPath = '';
+
+    /**
+     * Base URL
+     *
+     * @var string
+     **/
+    protected $URL = '';
+
+    /**
+     * Path to temporary directory
+     *
+     * @var string
+     */
+    protected $tmp;
+
+    /**
+     * A file save destination path when a temporary content URL is required
+     * on a network volume or the like
+     * If not specified, it tries to use "Connector Path/../files/.tmb".
+     *
+     * @var string
+     */
+    protected $tmpLinkPath = '';
+
+    /**
+     * A file save destination URL when a temporary content URL is required
+     * on a network volume or the like
+     * If not specified, it tries to use "Connector URL/../files/.tmb".
+     *
+     * @var string
+     */
+    protected $tmpLinkUrl = '';
+
+    /**
+     * Thumbnails dir path
+     *
+     * @var string
+     **/
+    protected $tmbPath = '';
+
+    /**
+     * Is thumbnails dir writable
+     *
+     * @var bool
+     **/
+    protected $tmbPathWritable = false;
+
+    /**
+     * Thumbnails base URL
+     *
+     * @var string
+     **/
+    protected $tmbURL = '';
+
+    /**
+     * Thumbnails size in px
+     *
+     * @var int
+     **/
+    protected $tmbSize = 48;
+
+    /**
+     * Image manipulation lib name
+     * auto|imagick|gd|convert
+     *
+     * @var string
+     **/
+    protected $imgLib = 'auto';
+
+    /**
+     * Video to Image converter
+     *
+     * @var array
+     */
+    protected $imgConverter = array();
+
+    /**
+     * Library to crypt files name
+     *
+     * @var string
+     **/
+    protected $cryptLib = '';
+
+    /**
+     * Archivers config
+     *
+     * @var array
+     **/
+    protected $archivers = array(
+        'create' => array(),
+        'extract' => array()
+    );
+
+    /**
+     * Static var of $this->options['maxArcFilesSize']
+     * 
+     * @var int|string
+     */
+    protected static $maxArcFilesSize;
+
+    /**
+     * Server character encoding
+     *
+     * @var string or null
+     **/
+    protected $encoding = null;
+
+    /**
+     * How many subdirs levels return for tree
+     *
+     * @var int
+     **/
+    protected $treeDeep = 1;
+
+    /**
+     * Errors from last failed action
+     *
+     * @var array
+     **/
+    protected $error = array();
+
+    /**
+     * Today 24:00 timestamp
+     *
+     * @var int
+     **/
+    protected $today = 0;
+
+    /**
+     * Yesterday 24:00 timestamp
+     *
+     * @var int
+     **/
+    protected $yesterday = 0;
+
+    /**
+     * Force make dirctory on extract
+     *
+     * @var int
+     **/
+    protected $extractToNewdir = 'auto';
+
+    /**
+     * Object configuration
+     *
+     * @var array
+     **/
+    protected $options = array(
+        // Driver ID (Prefix of volume ID), Normally, the value specified for each volume driver is used.
+        'driverId' => '',
+        // Id (Suffix of volume ID), Normally, the number incremented according to the specified number of volumes is used.
+        'id' => '',
+        // revision id of root directory that uses for caching control of root stat
+        'rootRev' => '',
+        // driver type it uses volume root's CSS class name. e.g. 'group' -> Adds 'elfinder-group' to CSS class name.
+        'type' => '',
+        // root directory path
+        'path' => '',
+        // Folder hash value on elFinder to be the parent of this volume
+        'phash' => '',
+        // Folder hash value on elFinder to trash bin of this volume, it require 'copyJoin' to true
+        'trashHash' => '',
+        // open this path on initial request instead of root path
+        'startPath' => '',
+        // how many subdirs levels return per request
+        'treeDeep' => 1,
+        // root url, not set to URL via the connector. If you want to hide the file URL, do not set this value. (replacement for old "fileURL" option)
+        'URL' => '',
+        // enable onetime URL to a file - (true, false, 'auto' (true if a temporary directory is available) or callable (A function that return onetime URL))
+        'onetimeUrl' => 'auto',
+        // directory link url to own manager url with folder hash (`true`, `false`, `'hide'`(No show) or default `'auto'`: URL is empty then `true` else `false`)
+        'dirUrlOwn' => 'auto',
+        // directory separator. required by client to show paths correctly
+        'separator' => DIRECTORY_SEPARATOR,
+        // Use '/' as directory separator when the path hash encode/decode on the Windows server too
+        'winHashFix' => false,
+        // Server character encoding (default is '': UTF-8)
+        'encoding' => '',
+        // for convert character encoding (default is '': Not change locale)
+        'locale' => '',
+        // URL of volume icon image
+        'icon' => '',
+        // CSS Class of volume root in tree
+        'rootCssClass' => '',
+        // Items to disable session caching
+        'noSessionCache' => array(),
+        // enable i18n folder name that convert name to elFinderInstance.messages['folder_'+name]
+        'i18nFolderName' => false,
+        // Search timeout (sec)
+        'searchTimeout' => 30,
+        // Search exclusion directory regex pattern (require demiliter e.g. '#/path/to/exclude_directory#i')
+        'searchExDirReg' => '',
+        // library to crypt/uncrypt files names (not implemented)
+        'cryptLib' => '',
+        // how to detect files mimetypes. (auto/internal/finfo/mime_content_type)
+        'mimeDetect' => 'auto',
+        // mime.types file path (for mimeDetect==internal)
+        'mimefile' => '',
+        // Static extension/MIME of general server side scripts to security issues
+        'staticMineMap' => array(
+            'php:*' => 'text/x-php',
+            'pht:*' => 'text/x-php',
+            'php3:*' => 'text/x-php',
+            'php4:*' => 'text/x-php',
+            'php5:*' => 'text/x-php',
+            'php7:*' => 'text/x-php',
+            'phtml:*' => 'text/x-php',
+            'cgi:*' => 'text/x-httpd-cgi',
+            'pl:*' => 'text/x-perl',
+            'asp:*' => 'text/x-asap',
+            'aspx:*' => 'text/x-asap',
+            'py:*' => 'text/x-python',
+            'rb:*' => 'text/x-ruby',
+            'jsp:*' => 'text/x-jsp'
+        ),
+        // mime type normalize map : Array '[ext]:[detected mime type]' => '[normalized mime]'
+        'mimeMap' => array(
+            'md:application/x-genesis-rom' => 'text/x-markdown',
+            'md:text/plain' => 'text/x-markdown',
+            'markdown:text/plain' => 'text/x-markdown',
+            'css:text/x-asm' => 'text/css',
+            'css:text/plain' => 'text/css',
+            'csv:text/plain' => 'text/csv',
+            'java:text/x-c' => 'text/x-java-source',
+            'json:text/plain' => 'application/json',
+            'sql:text/plain' => 'text/x-sql',
+            'rtf:text/rtf' => 'application/rtf',
+            'rtfd:text/rtfd' => 'application/rtfd',
+            'ico:image/vnd.microsoft.icon' => 'image/x-icon',
+            'svg:text/plain' => 'image/svg+xml',
+            'pxd:application/octet-stream' => 'image/x-pixlr-data',
+            'dng:image/tiff' => 'image/x-adobe-dng',
+            'sketch:application/zip' => 'image/x-sketch',
+            'sketch:application/octet-stream' => 'image/x-sketch',
+            'xcf:application/octet-stream' => 'image/x-xcf',
+            'amr:application/octet-stream' => 'audio/amr',
+            'm4a:video/mp4' => 'audio/mp4',
+            'oga:application/ogg' => 'audio/ogg',
+            'ogv:application/ogg' => 'video/ogg',
+            'zip:application/x-zip' => 'application/zip',
+            'm3u8:text/plain' => 'application/x-mpegURL',
+            'mpd:text/plain' => 'application/dash+xml',
+            'mpd:application/xml' => 'application/dash+xml',
+            '*:application/x-dosexec' => 'application/x-executable',
+            'doc:application/vnd.ms-office' => 'application/msword',
+            'xls:application/vnd.ms-office' => 'application/vnd.ms-excel',
+            'ppt:application/vnd.ms-office' => 'application/vnd.ms-powerpoint',
+            'yml:text/plain' => 'text/x-yaml',
+            'ai:application/pdf' => 'application/postscript',
+            'cgm:text/plain' => 'image/cgm',
+            'dxf:text/plain' => 'image/vnd.dxf',
+            'dds:application/octet-stream' => 'image/vnd-ms.dds',
+            'hpgl:text/plain' => 'application/vnd.hp-hpgl',
+            'igs:text/plain' => 'model/iges',
+            'iges:text/plain' => 'model/iges',
+            'plt:application/octet-stream' => 'application/plt',
+            'plt:text/plain' => 'application/plt',
+            'sat:text/plain' => 'application/sat',
+            'step:text/plain' => 'application/step',
+            'stp:text/plain' => 'application/step'
+        ),
+        // An option to add MimeMap to the `mimeMap` option
+        // Array '[ext]:[detected mime type]' => '[normalized mime]'
+        'additionalMimeMap' => array(),
+        // MIME-Type of filetype detected as unknown
+        'mimeTypeUnknown' => 'application/octet-stream',
+        // MIME regex of send HTTP header "Content-Disposition: inline" or allow preview in quicklook
+        // '.' is allow inline of all of MIME types
+        // '$^' is not allow inline of all of MIME types
+        'dispInlineRegex' => '^(?:(?:video|audio)|image/(?!.+\+xml)|application/(?:ogg|x-mpegURL|dash\+xml)|(?:text/plain|application/pdf)$)',
+        // temporary content URL's base path
+        'tmpLinkPath' => '',
+        // temporary content URL's base URL
+        'tmpLinkUrl' => '',
+        // directory for thumbnails
+        'tmbPath' => '.tmb',
+        // mode to create thumbnails dir
+        'tmbPathMode' => 0777,
+        // thumbnails dir URL. Set it if store thumbnails outside root directory
+        'tmbURL' => '',
+        // thumbnails size (px)
+        'tmbSize' => 48,
+        // thumbnails crop (true - crop, false - scale image to fit thumbnail size)
+        'tmbCrop' => true,
+        // thumbnail URL require custom data as the GET query
+        'tmbReqCustomData' => false,
+        // thumbnails background color (hex #rrggbb or 'transparent')
+        'tmbBgColor' => 'transparent',
+        // image rotate fallback background color (hex #rrggbb)
+        'bgColorFb' => '#ffffff',
+        // image manipulations library (imagick|gd|convert|auto|none, none - Does not check the image library at all.)
+        'imgLib' => 'auto',
+        // Fallback self image to thumbnail (nothing imgLib)
+        'tmbFbSelf' => true,
+        // Video to Image converters ['TYPE or MIME' => ['func' => function($file){ /* Converts $file to Image */ return true; }, 'maxlen' => (int)TransferLength]]
+        'imgConverter' => array(),
+        // Max length of transfer to image converter
+        'tmbVideoConvLen' => 10000000,
+        // Captre point seccond
+        'tmbVideoConvSec' => 6,
+        // Life time (hour) for thumbnail garbage collection ("0" means no GC)
+        'tmbGcMaxlifeHour' => 0,
+        // Percentage of garbage collection executed for thumbnail creation command ("1" means "1%")
+        'tmbGcPercentage' => 1,
+        // Resource path of fallback icon images defailt: php/resouces
+        'resourcePath' => '',
+        // Jpeg image saveing quality
+        'jpgQuality' => 100,
+        // Save as progressive JPEG on image editing
+        'jpgProgressive' => true,
+        // enable to get substitute image with command `dim`
+        'substituteImg' => true,
+        // on paste file -  if true - old file will be replaced with new one, if false new file get name - original_name-number.ext
+        'copyOverwrite' => true,
+        // if true - join new and old directories content on paste
+        'copyJoin' => true,
+        // on upload -  if true - old file will be replaced with new one, if false new file get name - original_name-number.ext
+        'uploadOverwrite' => true,
+        // mimetypes allowed to upload
+        'uploadAllow' => array(),
+        // mimetypes not allowed to upload
+        'uploadDeny' => array(),
+        // order to process uploadAllow and uploadDeny options
+        'uploadOrder' => array('deny', 'allow'),
+        // maximum upload file size. NOTE - this is size for every uploaded files
+        'uploadMaxSize' => 0,
+        // maximum number of chunked upload connection. `-1` to disable chunked upload
+        'uploadMaxConn' => 3,
+        // maximum get file size. NOTE - Maximum value is 50% of PHP memory_limit
+        'getMaxSize' => 0,
+        // files dates format
+        'dateFormat' => 'j M Y H:i',
+        // files time format
+        'timeFormat' => 'H:i',
+        // if true - every folder will be check for children folders, -1 - every folder will be check asynchronously, false -  all folders will be marked as having subfolders
+        'checkSubfolders' => true, // true, false or -1
+        // allow to copy from this volume to other ones?
+        'copyFrom' => true,
+        // allow to copy from other volumes to this one?
+        'copyTo' => true,
+        // cmd duplicate suffix format e.g. '_%s_' to without spaces
+        'duplicateSuffix' => ' %s ',
+        // unique name numbar format e.g. '(%d)' to (1), (2)...
+        'uniqueNumFormat' => '%d',
+        // list of commands disabled on this root
+        'disabled' => array(),
+        // enable file owner, group & mode info, `false` to inactivate "chmod" command.
+        'statOwner' => false,
+        // allow exec chmod of read-only files
+        'allowChmodReadOnly' => false,
+        // regexp or function name to validate new file name
+        'acceptedName' => '/^[^\.].*/', // Notice: overwritten it in some volume drivers contractor
+        // regexp or function name to validate new directory name
+        'acceptedDirname' => '', // used `acceptedName` if empty value
+        // function/class method to control files permissions
+        'accessControl' => null,
+        // some data required by access control
+        'accessControlData' => null,
+        // root stat that return without asking the system when mounted and not the current volume. Query to the system with false. array|false
+        'rapidRootStat' => array(
+            'read' => true,
+            'write' => true,
+            'locked' => false,
+            'hidden' => false,
+            'size' => 0,  // Unknown
+            'ts' => 0,    // Unknown
+            'dirs' => -1, // Check on demand for subdirectories
+            'mime' => 'directory'
+        ),
+        // default permissions.
+        'defaults' => array(
+            'read' => true,
+            'write' => true,
+            'locked' => false,
+            'hidden' => false
+        ),
+        // files attributes
+        'attributes' => array(),
+        // max allowed archive files size (0 - no limit)
+        'maxArcFilesSize' => '2G',
+        // Allowed archive's mimetypes to create. Leave empty for all available types.
+        'archiveMimes' => array(),
+        // Manual config for archivers. See example below. Leave empty for auto detect
+        'archivers' => array(),
+        // Use Archive function for remote volume
+        'useRemoteArchive' => false,
+        // plugin settings
+        'plugin' => array(),
+        // Is support parent directory time stamp update on add|remove|rename item
+        // Default `null` is auto detection that is LocalFileSystem, FTP or Dropbox are `true`
+        'syncChkAsTs' => null,
+        // Long pooling sync checker function for syncChkAsTs is true
+        // Calls with args (TARGET DIRCTORY PATH, STAND-BY(sec), OLD TIMESTAMP, VOLUME DRIVER INSTANCE, ELFINDER INSTANCE)
+        // This function must return the following values. Changed: New Timestamp or Same: Old Timestamp or Error: false
+        // Default `null` is try use elFinderVolumeLocalFileSystem::localFileSystemInotify() on LocalFileSystem driver
+        // another driver use elFinder stat() checker
+        'syncCheckFunc' => null,
+        // Long polling sync stand-by time (sec)
+        'plStandby' => 30,
+        // Sleep time (sec) for elFinder stat() checker (syncChkAsTs is true)
+        'tsPlSleep' => 10,
+        // Sleep time (sec) for elFinder ls() checker (syncChkAsTs is false)
+        'lsPlSleep' => 30,
+        // Client side sync interval minimum (ms)
+        // Default `null` is auto set to ('tsPlSleep' or 'lsPlSleep') * 1000
+        // `0` to disable auto sync
+        'syncMinMs' => null,
+        // required to fix bug on macos
+        // However, we recommend to use the Normalizer plugin instead this option
+        'utf8fix' => false,
+        //                           й                 ё              Й               Ё              Ø         Å
+        'utf8patterns' => array("\u0438\u0306", "\u0435\u0308", "\u0418\u0306", "\u0415\u0308", "\u00d8A", "\u030a"),
+        'utf8replace' => array("\u0439", "\u0451", "\u0419", "\u0401", "\u00d8", "\u00c5"),
+        // cache control HTTP headers for commands `file` and  `get`
+        'cacheHeaders' => array(
+            'Cache-Control: max-age=3600',
+            'Expires:',
+            'Pragma:'
+        ),
+        // Header to use to accelerate sending local files to clients (e.g. 'X-Sendfile', 'X-Accel-Redirect')
+        'xsendfile' => '',
+        // Root path to xsendfile target. Probably, this is required for 'X-Accel-Redirect' on Nginx.
+        'xsendfilePath' => ''
+    );
+
+    /**
+     * Defaults permissions
+     *
+     * @var array
+     **/
+    protected $defaults = array(
+        'read' => true,
+        'write' => true,
+        'locked' => false,
+        'hidden' => false
+    );
+
+    /**
+     * Access control function/class
+     *
+     * @var mixed
+     **/
+    protected $attributes = array();
+
+    /**
+     * Access control function/class
+     *
+     * @var mixed
+     **/
+    protected $access = null;
+
+    /**
+     * Mime types allowed to upload
+     *
+     * @var array
+     **/
+    protected $uploadAllow = array();
+
+    /**
+     * Mime types denied to upload
+     *
+     * @var array
+     **/
+    protected $uploadDeny = array();
+
+    /**
+     * Order to validate uploadAllow and uploadDeny
+     *
+     * @var array
+     **/
+    protected $uploadOrder = array();
+
+    /**
+     * Maximum allowed upload file size.
+     * Set as number or string with unit - "10M", "500K", "1G"
+     *
+     * @var int|string
+     **/
+    protected $uploadMaxSize = 0;
+
+    /**
+     * Run time setting of overwrite items on upload
+     *
+     * @var string
+     */
+    protected $uploadOverwrite = true;
+
+    /**
+     * Maximum allowed get file size.
+     * Set as number or string with unit - "10M", "500K", "1G"
+     *
+     * @var int|string
+     **/
+    protected $getMaxSize = -1;
+
+    /**
+     * Mimetype detect method
+     *
+     * @var string
+     **/
+    protected $mimeDetect = 'auto';
+
+    /**
+     * Flag - mimetypes from externail file was loaded
+     *
+     * @var bool
+     **/
+    private static $mimetypesLoaded = false
+<?php
 /***************************************************************************
 *                                                                          *
 *   (c) 2004 Vladimir V. Kalynyak, Alexey V. Vinokurov, Ilya M. Shalnev    *
