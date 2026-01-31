@@ -1,3 +1,396 @@
+<?php
+
+/**
+ * PuTTY Formatted DSA Key Handler
+ *
+ * puttygen does not generate DSA keys with an N of anything other than 160, however,
+ * it can still load them and convert them. PuTTY will load them, too, but SSH servers
+ * won't accept them. Since PuTTY formatted keys are primarily used with SSH this makes
+ * keys with N > 160 kinda useless, hence this handlers not supporting such keys.
+ *
+ * PHP version 5
+ *
+ * @category  Crypt
+ * @package   DSA
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2015 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
+ */
+
+namespace phpseclib3\Crypt\DSA\Formats\Keys;
+
+use phpseclib3\Common\Functions\Strings;
+use phpseclib3\Crypt\Common\Formats\Keys\PuTTY as Progenitor;
+use phpseclib3\Math\BigInteger;
+
+/**
+ * PuTTY Formatted DSA Key Handler
+ *
+ * @package DSA
+ * @author  Jim Wigginton <terrafrost@php.net>
+ * @access  public
+ */
+abstract class PuTTY extends Progenitor
+{
+    /**
+     * Public Handler
+     *
+     * @var string
+     * @access private
+     */
+    const PUBLIC_HANDLER = 'phpseclib3\Crypt\DSA\Formats\Keys\OpenSSH';
+
+    /**
+     * Algorithm Identifier
+     *
+     * @var array
+     * @access private
+     */
+    protected static $types = ['ssh-dss'];
+
+    /**
+     * Break a public or private key down into its constituent components
+     *
+     * @access public
+     * @param string $key
+     * @param string $password optional
+     * @return array
+     */
+    public static function load($key, $password = '')
+    {
+        $components = parent::load($key, $password);
+        if (!isset($components['private'])) {
+            return $components;
+        }
+        extract($components);
+        unset($components['public'], $components['private']);
+
+        list($p, $q, $g, $y) = Strings::unpackSSH2('iiii', $public);
+        list($x) = Strings::unpackSSH2('i', $private);
+
+        return compact('p', 'q', 'g', 'y', 'x', 'comment');
+    }
+
+    /**
+     * Convert a private key to the appropriate format.
+     *
+     * @access public
+     * @param \phpseclib3\Math\BigInteger $p
+     * @param \phpseclib3\Math\BigInteger $q
+     * @param \phpseclib3\Math\BigInteger $g
+     * @param \phpseclib3\Math\BigInteger $y
+     * @param \phpseclib3\Math\BigInteger $x
+     * @param string $password optional
+     * @param array $options optional
+     * @return string
+     */
+    public static function savePrivateKey(BigInteger $p, BigInteger $q, BigInteger $g, BigInteger $y, BigInteger $x, $password = false, array $options = [])
+    {
+        if ($q->getLength() != 160) {
+            throw new \InvalidArgumentException('SSH only supports keys with an N (length of Group Order q) of 160');
+        }
+
+        $public = Strings::packSSH2('iiii', $p, $q, $g, $y);
+        $private = Strings::packSSH2('i', $x);
+
+        return self::wrapPrivateKey($public, $private, 'ssh-dsa', $password, $options);
+    }
+
+    /**
+     * Convert a public key to the appropriate format
+     *
+     * @access public
+     * @param \phpseclib3\Math\BigInteger $p
+     * @param \phpseclib3\Math\BigInteger $q
+     * @param \phpseclib3\Math\BigInteger $g
+     * @param \phpseclib3\Math\BigInteger $y
+     * @return string
+     */
+    public static function savePublicKey(BigInteger $p, BigInteger $q, BigInteger $g, BigInteger $y)
+    {
+        if ($q->getLength() != 160) {
+            throw new \InvalidArgumentException('SSH only supports keys with an N (length of Group Order q) of 160');
+        }
+
+        return self::wrapPublicKey(Strings::packSSH2('iiii', $p, $q, $g, $y), 'ssh-dsa');
+    }
+}
+<?php
+
+/**
+ * PuTTY Formatted EC Key Handler
+ *
+ * PHP version 5
+ *
+ * @category  Crypt
+ * @package   EC
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2015 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
+ */
+
+namespace phpseclib3\Crypt\EC\Formats\Keys;
+
+use ParagonIE\ConstantTime\Base64;
+use phpseclib3\Common\Functions\Strings;
+use phpseclib3\Crypt\Common\Formats\Keys\PuTTY as Progenitor;
+use phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
+use phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards as TwistedEdwardsCurve;
+use phpseclib3\Math\BigInteger;
+
+/**
+ * PuTTY Formatted EC Key Handler
+ *
+ * @package EC
+ * @author  Jim Wigginton <terrafrost@php.net>
+ * @access  public
+ */
+abstract class PuTTY extends Progenitor
+{
+    use Common;
+
+    /**
+     * Public Handler
+     *
+     * @var string
+     * @access private
+     */
+    const PUBLIC_HANDLER = 'phpseclib3\Crypt\EC\Formats\Keys\OpenSSH';
+
+    /**
+     * Supported Key Types
+     *
+     * @var array
+     * @access private
+     */
+    protected static $types = [
+        'ecdsa-sha2-nistp256',
+        'ecdsa-sha2-nistp384',
+        'ecdsa-sha2-nistp521',
+        'ssh-ed25519'
+    ];
+
+    /**
+     * Break a public or private key down into its constituent components
+     *
+     * @access public
+     * @param string $key
+     * @param string $password optional
+     * @return array
+     */
+    public static function load($key, $password = '')
+    {
+        $components = parent::load($key, $password);
+        if (!isset($components['private'])) {
+            return $components;
+        }
+
+        $private = $components['private'];
+
+        $temp = Base64::encode(Strings::packSSH2('s', $components['type']) . $components['public']);
+        $components = OpenSSH::load($components['type'] . ' ' . $temp . ' ' . $components['comment']);
+
+        if ($components['curve'] instanceof TwistedEdwardsCurve) {
+            if (Strings::shift($private, 4) != "\0\0\0\x20") {
+                throw new \RuntimeException('Length of ssh-ed25519 key should be 32');
+            }
+            $components['dA'] = $components['curve']->extractSecret($private);
+        } else {
+            list($components['dA']) = Strings::unpackSSH2('i', $private);
+            $components['curve']->rangeCheck($components['dA']);
+        }
+
+        return $components;
+    }
+
+    /**
+     * Convert a private key to the appropriate format.
+     *
+     * @access public
+     * @param \phpseclib3\Math\BigInteger $privateKey
+     * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
+     * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
+     * @param string $password optional
+     * @param array $options optional
+     * @return string
+     */
+    public static function savePrivateKey(BigInteger $privateKey, BaseCurve $curve, array $publicKey, $password = false, array $options = [])
+    {
+        self::initialize_static_variables();
+
+        $public = explode(' ', OpenSSH::savePublicKey($curve, $publicKey));
+        $name = $public[0];
+        $public = Base64::decode($public[1]);
+        list(, $length) = unpack('N', Strings::shift($public, 4));
+        Strings::shift($public, $length);
+
+        // PuTTY pads private keys with a null byte per the following:
+        // https://github.com/github/putty/blob/a3d14d77f566a41fc61dfdc5c2e0e384c9e6ae8b/sshecc.c#L1926
+        if (!$curve instanceof TwistedEdwardsCurve) {
+            $private = $privateKey->toBytes();
+            if (!(strlen($privateKey->toBits()) & 7)) {
+                $private = "\0$private";
+            }
+        }
+
+        $private = $curve instanceof TwistedEdwardsCurve ?
+            Strings::packSSH2('s', $privateKey->secret) :
+            Strings::packSSH2('s', $private);
+
+        return self::wrapPrivateKey($public, $private, $name, $password, $options);
+    }
+
+    /**
+     * Convert an EC public key to the appropriate format
+     *
+     * @access public
+     * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
+     * @param \phpseclib3\Math\Common\FiniteField[] $publicKey
+     * @return string
+     */
+    public static function savePublicKey(BaseCurve $curve, array $publicKey)
+    {
+        $public = explode(' ', OpenSSH::savePublicKey($curve, $publicKey));
+        $type = $public[0];
+        $public = Base64::decode($public[1]);
+        list(, $length) = unpack('N', Strings::shift($public, 4));
+        Strings::shift($public, $length);
+
+        return self::wrapPublicKey($public, $type);
+    }
+}
+<?php
+
+/**
+ * PuTTY Formatted RSA Key Handler
+ *
+ * PHP version 5
+ *
+ * @category  Crypt
+ * @package   RSA
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2015 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
+ */
+
+namespace phpseclib3\Crypt\RSA\Formats\Keys;
+
+use phpseclib3\Common\Functions\Strings;
+use phpseclib3\Crypt\Common\Formats\Keys\PuTTY as Progenitor;
+use phpseclib3\Math\BigInteger;
+
+/**
+ * PuTTY Formatted RSA Key Handler
+ *
+ * @package RSA
+ * @author  Jim Wigginton <terrafrost@php.net>
+ * @access  public
+ */
+abstract class PuTTY extends Progenitor
+{
+    /**
+     * Public Handler
+     *
+     * @var string
+     * @access private
+     */
+    const PUBLIC_HANDLER = 'phpseclib3\Crypt\RSA\Formats\Keys\OpenSSH';
+
+    /**
+     * Algorithm Identifier
+     *
+     * @var array
+     * @access private
+     */
+    protected static $types = ['ssh-rsa'];
+
+    /**
+     * Break a public or private key down into its constituent components
+     *
+     * @access public
+     * @param string $key
+     * @param string $password optional
+     * @return array
+     */
+    public static function load($key, $password = '')
+    {
+        static $one;
+        if (!isset($one)) {
+            $one = new BigInteger(1);
+        }
+
+        $components = parent::load($key, $password);
+        if (!isset($components['private'])) {
+            return $components;
+        }
+        extract($components);
+        unset($components['public'], $components['private']);
+
+        $isPublicKey = false;
+
+        $result = Strings::unpackSSH2('ii', $public);
+        if ($result === false) {
+            throw new \UnexpectedValueException('Key appears to be malformed');
+        }
+        list($publicExponent, $modulus) = $result;
+
+        $result = Strings::unpackSSH2('iiii', $private);
+        if ($result === false) {
+            throw new \UnexpectedValueException('Key appears to be malformed');
+        }
+        $primes = $coefficients = [];
+        list($privateExponent, $primes[1], $primes[2], $coefficients[2]) = $result;
+
+        $temp = $primes[1]->subtract($one);
+        $exponents = [1 => $publicExponent->modInverse($temp)];
+        $temp = $primes[2]->subtract($one);
+        $exponents[] = $publicExponent->modInverse($temp);
+
+        return compact('publicExponent', 'modulus', 'privateExponent', 'primes', 'coefficients', 'exponents', 'comment', 'isPublicKey');
+    }
+
+    /**
+     * Convert a private key to the appropriate format.
+     *
+     * @access public
+     * @param \phpseclib3\Math\BigInteger $n
+     * @param \phpseclib3\Math\BigInteger $e
+     * @param \phpseclib3\Math\BigInteger $d
+     * @param array $primes
+     * @param array $exponents
+     * @param array $coefficients
+     * @param string $password optional
+     * @param array $options optional
+     * @return string
+     */
+    public static function savePrivateKey(BigInteger $n, BigInteger $e, BigInteger $d, array $primes, array $exponents, array $coefficients, $password = '', array $options = [])
+    {
+        if (count($primes) != 2) {
+            throw new \InvalidArgumentException('PuTTY does not support multi-prime RSA keys');
+        }
+
+        $public =  Strings::packSSH2('ii', $e, $n);
+        $private = Strings::packSSH2('iiii', $d, $primes[1], $primes[2], $coefficients[2]);
+
+        return self::wrapPrivateKey($public, $private, 'ssh-rsa', $password, $options);
+    }
+
+    /**
+     * Convert a public key to the appropriate format
+     *
+     * @access public
+     * @param \phpseclib3\Math\BigInteger $n
+     * @param \phpseclib3\Math\BigInteger $e
+     * @return string
+     */
+    public static function savePublicKey(BigInteger $n, BigInteger $e)
+    {
+        return self::wrapPublicKey(Strings::packSSH2('ii', $e, $n), 'ssh-rsa');
+    }
+}
 Homepage
 DomainsProtocolsNumbersAbout
 IANA-managed Reserved Domains
