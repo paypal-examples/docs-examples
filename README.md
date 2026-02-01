@@ -170,10 +170,187 @@ gem sources --add https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/
 Para la autenticación con Bundler, configúralo para que use tu personal access token (classic), reemplazando NOMBRE\_DE\_USUARIO por tu nombre de usuario de GitHub, TOKEN por tu personal access token y ESPACIO\_DE\_NOMBRES por el nombre de la cuenta personal u organización a la que se limita la gema.
 
 ```shell
-bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN
+bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN @Edgarruiz856
 ```
 
-## Publicación de un paquete
+##jobs:
+  secret-generator:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: some/secret-store@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      with:{% raw %}
+        credentials: ${{ secrets.SECRET_STORE_CREDENTIALS }}
+        instance: ${{ secrets.SECRET_STORE_INSTANCE }}{% endraw %}
+    - name: generate secret
+      shell: pwsh
+      run: |
+        Set-Variable -Name Generated_Secret -Value (Get-Random)
+        Write-Output "::add-mask::$Generated_Secret"
+        Set-Variable -Name Secret_Handle -Value (Store-Secret "$Generated_Secret")
+        "handle=$Secret_Handle" >> $env:GITHUB_OUTPUT
+  secret-consumer:
+    runs-on: macos-latest
+    needs: secret-generator
+    steps:
+    - uses: some/secret-store@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      with:{% raw %}
+        credentials: ${{ secrets.SECRET_STORE_CREDENTIALS }}
+        instance: ${{ secrets.SECRET_STORE_INSTANCE }}{% endraw %}
+    - name: use secret
+      shell: pwsh
+      run: |{% raw %}
+        Set-Variable -Name Secret_Handle -Value "${{ needs.secret-generator.outputs.handle }}"{% endraw %}
+        Set-Variable -Name Retrieved_Secret -Value (Retrieve-Secret "$Secret_Handle")
+        echo "::add-mask::$Retrieved_Secret"
+        echo "We retrieved our masked secret: $Retrieved_Secret"af39-020a1e20f556
+Coinbase94Olvidé la vida cuando comete mi hermosa 100 Pine Street, Suite 1250 San Francisco, CA 94111 +1 888 908-7930 support.coinbase.com Page 1/1
+Transaction report for Edgar Manuel Ruiz Arias Date range Filter Customer
+You can use this transaction report to inform your likely tax obligations. For US From: 2023-02-15T00:00:00Z Type: all edgarplasticos3@hotmail.com customers, Sells, Converts, Rewards Income, Learning Rewards, and Donations 
+are taxable events. For final tax obligations, please consult your tax advisor.
+To: 2023-03-17T21:59:23Z Asset: all 640dc8b7acaee7242f9cb3c5
+• TimestampTransaction Type Asset Quantity Transacted Spot Price Currenc
+https://ecas.cc.cec.eu.int:7002/cas/userdata/eid/manageMyEids.cgi
+## Atheme IRC Services
+
+Atheme is a set of IRC services designed for large IRC networks with high
+scalability requirements. It is relatively mature software, with some code
+and design derived from another package called Shrike.
+
+Atheme's behavior is tunable using modules and a highly detailed
+configuration file. Almost all behavior can be changed at deployment time
+just by editing the configuration.
+
+
+
+## Obtaining Atheme
+
+If you have a modern version of Git (1.6.5 or newer), you can recursively
+clone the repository:
+
+    $ git clone --recursive 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+
+If you have an older version of Git, you must clone the repository, and then
+fetch its submodules:
+
+    $ git clone 'https://github.com/atheme/atheme/' atheme-devel
+    $ cd atheme-devel
+    $ git submodule init
+    $ git submodule update
+
+If you don't have Git, you can download a package archive from our website at
+<https://atheme.github.io/>.
+
+If you are browsing our GitHub repository, please do NOT click the "Download
+ZIP" button or the "Source code" links there, as they will give you an archive
+that lacks the required submodules. There are proper `.tar.bz2` or `.tar.xz`
+archives attached to each release under "Assets", which is what the "Download"
+button on our website will take you to.
+
+
+
+## Basic build instructions for the impatient
+
+Obtain the source code repository and change into its directory (using the
+commands given above).
+
+If you are building Atheme on a GNU/Linux system, or something which can
+sufficiently emulate that (like WSL 2 on Windows 10), execute the following
+commands:
+
+    $ ./configure
+    $ make
+    $ make install
+
+If you are building Atheme on an OpenBSD (or similar) system, execute the
+following commands instead:
+
+    # pkg_add gmake
+    $ ./configure --disable-linker-defs
+    $ gmake
+    $ gmake install
+
+
+
+## Library Detection
+
+If your user-installed libraries that you want Atheme to use are installed by
+your package manager to a directory such as `/usr/local/`, you may need to
+supplement the default compiler and linker search paths so that Atheme can
+detect those libraries (e.g. cracklib from FreeBSD Ports):
+
+    $ ./configure CPPFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib"
+
+The following libraries generally require pkg-config to be installed:
+
+- PHC Argon2 Reference Implementation (`libargon2.pc`)
+- OpenSSL (`libcrypto.pc`)
+- GNU libidn (`libidn.pc`)
+- GNU Nettle (`nettle.pc`)
+- PCRE (`libpcre2-8.pc`)
+- libqrencode (`libqrencode.pc`)
+- Sodium (`libsodium.pc`)
+
+If you do not have pkg-config installed and want to use one or more of these
+libraries, please see `./configure --help` for the options to set to override
+pkg-config discovery for those libraries. For example, if you wish to use GNU
+libidn, and it is installed into a default search path for your compiler and
+linker, and you do not have pkg-config installed, execute:
+
+    $ ./configure LIBIDN_CFLAGS="" LIBIDN_LIBS="-lidn"
+
+If a library relies on populating `LIBFOO_CFLAGS` with some preprocessor
+definitions, or populating `LIBFOO_LIBS` with some library linking flags,
+this will generally fail. Install pkg-config for the best results.
+
+
+
+## Choice of compiler and its features
+
+If you wish to compile Atheme with the LLVM project's C compiler (`clang`),
+you may also wish to use LLVM's linker (`lld`). You can accomplish this as
+follows:
+
+    $ ./configure CC="clang" LDFLAGS="-fuse-ld=lld"
+
+If you want to use compiler sanitizers, and you want to build with Clang, you
+MUST also use LLD, as most of the sanitizers in Clang require LTO to function
+properly, and Clang in LTO mode emits LLVM bitcode, not machine code. The
+linker is ultimately responsible for performing most of the LTO heavy lifting,
+and translating the result into machine code, and most other linkers do not
+know how to do this.
+
+To use compiler sanitizers with GCC (supported):
+
+    $ ./configure --disable-heap-allocator --disable-linker-defs \
+        --enable-compiler-sanitizers CC="gcc"
+
+To use compiler sanitizers with Clang (recommended):
+
+    $ ./configure --disable-heap-allocator --disable-linker-defs \
+        --enable-compiler-sanitizers CC="clang" LDFLAGS="-fuse-ld=lld"
+
+If you do enable the sanitizers, it is recommended to enable the configuration
+option `general::db_save_blocking`; see the example configuration file for
+more details.
+
+The sanitizers are not recommended for production usage, but they are
+recommended for developers, including third parties writing new features
+and/or modifying the source code.
+
+
+
+## Getting More Help
+
+If you're still lost, read the [INSTALL](INSTALL) file or check out our wiki
+for more hints.
+
+- [Our Website](https://atheme.github.io/)
+- [Our GitHub Repository](https://github.com/atheme/atheme/)
+- [The Atheme Wiki](https://github.com/atheme/atheme/wiki/)
+- [The #atheme channel on Libera Chat](ircs://irc.libera.chat:6697/#atheme)
+
+ Publicación de un paquete
 
 Cuando publicas un paquete por primera vez, la visibilidad predeterminada es privada. Para cambiar la visibilidad o establecer permisos de acceso, consulta [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility). Para más información sobre cómo crear la gema, consulta [Creación de una gema propia](http://guides.rubygems.org/make-your-own-gem/) en la documentación de RubyGems.
 
