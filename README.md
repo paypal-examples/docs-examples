@@ -1,4 +1,4 @@
-by: Edgar Manuel Ruiz Arias 
+
 
 <?php
 
