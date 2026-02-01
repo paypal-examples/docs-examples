@@ -1,4 +1,162 @@
-# core.js
+
+
+# Trabajar con el registro de RubyGems
+
+Puedes configurar RubyGems para publicar un paquete para GitHub Packages y utilizar paquetes almacenados en GitHub Packages como dependencias en un proyecto Ruby con Bundler.
+
+<!-- 2148AF7B-5FF8-4B28-A808-D692FEE2225A -->
+
+## Requisitos previos
+
+* Debes contar con RubyGems 2.4.1 o superior. Para encontrar tu versión de RubyGems:
+
+  ```shell
+  gem --version
+  ```
+
+* Debes tener Bundler 1.6.4 o superiores. Para encontrar tu versión Bundler:
+
+  ```shell
+  $ bundle --version
+  Bundler version 1.13.7
+  ```
+
+## Autenticar a GitHub Packages
+
+> \[!NOTE]
+> GitHub Packages solo admite la autenticación mediante un personal access token (classic). Para más información, consulta [Administración de tokens de acceso personal](/es/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+Necesitas un token de acceso para publicar, instalar y eliminar paquetes privados, internos y públicos.
+
+Puedes utilizar un personal access token (classic) para autenticarte en el GitHub Packages o en la API de GitHub. Cuando creas un personal access token (classic), puedes asignar al token diferentes ámbitos en función de tus necesidades. Para más información sobre los ámbitos relacionados con paquetes para un personal access token (classic), consulta [Acerca de los permisos para los Paquetes de GitHub](/es/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries).
+
+Para autenticarte en un registro del GitHub Packages dentro de un flujo de trabajo de GitHub Actions, puedes utilizar:
+
+* `GITHUB_TOKEN` para publicar los paquetes asociados con el repositorio del flujo de trabajo.
+* Un personal access token (classic) con al menos alcance `read:packages` para instalar los paquetes asociados con otros repositorios privados (`GITHUB_TOKEN` puede utilizarse si el repositorio tiene acceso de lectura al paquete. Consulta [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)).
+
+### Autenticación en un flujo de trabajo de GitHub Actions
+
+Este registro admite permisos granulares. Para los registros que admiten permisos detallados, si en el flujo de trabajo de GitHub Actions se usa un personal access token para autenticarse en un registro, se recomienda encarecidamente actualizar el flujo de trabajo para usar `GITHUB_TOKEN`. Para obtener orientación sobre la actualización de tus flujos de trabajo que se autentican en un registro con un personal access token, consulta [Publicar e instalar un paquete con GitHub Actions](/es/packages/managing-github-packages-using-github-actions-workflows/publishing-and-installing-a-package-with-github-actions#upgrading-a-workflow-that-accesses-a-registry-using-a-personal-access-token).
+
+> \[!NOTE]
+> La capacidad de que los flujos de trabajo de GitHub Actions eliminen y restauren paquetes mediante la API de REST se encuentra actualmente en versión preliminar pública y está sujeta a cambios.
+
+Puede usar un `GITHUB_TOKEN` en un flujo de trabajo de GitHub Actions para eliminar o restaurar un paquete mediante la API de REST, si el token tiene el permiso `admin` para el paquete. A los repositorios que publican paquetes mediante un flujo de trabajo y a los repositorios que se han conectado explícitamente a los paquetes se les concede automáticamente el permiso `admin` para los paquetes del repositorio.
+
+Para obtener más información sobre `GITHUB_TOKEN`, consulta [Uso de GITHUB\\\_TOKEN para la autenticación en flujos de trabajo](/es/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow). Para obtener más información sobre los procedimientos recomendados al usar un registro en acciones, consulta [Referencia de uso seguro](/es/actions/security-guides/security-hardening-for-github-actions#considering-cross-repository-access).
+
+También puedes optar por conceder permisos de acceso a paquetes de forma independiente para  GitHub Codespaces y GitHub Actions. Para más información, consulta [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-codespaces-access-to-your-package) y [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#ensuring-workflow-access-to-your-package).
+
+### Autenticación con un personal access token
+
+Debes utilizar un personal access token (classic) con los ámbitos adecuados para publicar e instalar paquetes en GitHub Packages. Para más información, consulta [Introducción a los paquetes de GitHub](/es/packages/learn-github-packages/introduction-to-github-packages#authenticating-to-github-packages).
+
+Si quieres publicar e instalar gems, puedes configurar RubyGems o Bundler para autenticarse en GitHub Packages con tu personal access token.
+
+Para publicar gems nuevos, debes autenticarte en GitHub Packages con RubyGems editando el archivo *\~/.gem/credentials* para incluir tu personal access token (classic). Cree un nuevo archivo *\~/.gem/credentials* si este archivo no existe.
+
+Por ejemplo, puedes crear o editar un archivo *\~/.gem/credentials* para incluir lo siguiente, reemplazando TOKEN por tu personal access token.
+
+```shell
+---
+:github: Bearer TOKEN
+```
+
+Para instalar gems, debes autenticarte en GitHub Packages actualizando tus orígenes de gems para incluir `https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/`. Debes reemplazar:
+
+* `USERNAME` por su nombre de usuario de GitHub.
+* `TOKEN` por tu personal access token (classic).
+* `NAMESPACE` por el nombre de la cuenta personal u organización a la que se limita la gema.
+
+Si quieres que el paquete esté disponible globalmente, puedes ejecutar el siguiente comando para agregar el registro como origen.
+
+```shell
+gem sources --add https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/
+```
+
+Para la autenticación con Bundler, configúralo para que use tu personal access token (classic), reemplazando NOMBRE\_DE\_USUARIO por tu nombre de usuario de GitHub, TOKEN por tu personal access token y ESPACIO\_DE\_NOMBRES por el nombre de la cuenta personal u organización a la que se limita la gema.
+
+```shell
+bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN
+```
+
+## Publicación de un paquete
+
+Cuando publicas un paquete por primera vez, la visibilidad predeterminada es privada. Para cambiar la visibilidad o establecer permisos de acceso, consulta [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility). Para más información sobre cómo crear la gema, consulta [Creación de una gema propia](http://guides.rubygems.org/make-your-own-gem/) en la documentación de RubyGems.
+
+> \[!NOTE]
+> Si publicas un paquete vinculado a un repositorio, el paquete hereda automáticamente los permisos de acceso del repositorio vinculado y los flujos de trabajo de GitHub Actions en el repositorio vinculado automáticamente obtienen acceso al paquete, a menos que la organización haya deshabilitado la herencia automática de los permisos de acceso. Para más información, consulta [Configurar la visibilidad y el control de accesos de un paquete](/es/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility#about-inheritance-of-access-permissions).
+
+1. Autentícate en GitHub Packages. Para obtener más información, consulta [Autenticación en GitHub Packages](#authenticating-to-github-packages).
+
+2. Compile el paquete a partir de *gemspec* para crear el paquete *.gem*. Reemplace `GEM_NAME` por el nombre de su gem.
+
+   ```shell
+   gem build GEM_NAME.gemspec
+   ```
+
+3. Publica un paquete en GitHub Packages, y reemplaza `NAMESPACE` por el nombre de la cuenta personal u organización a la que se limita el paquete y `GEM_NAME` por el nombre del paquete de gemas.
+
+   > \[!NOTE]
+   > El tamaño máximo sin comprimir del archivo `metadata.gz` de una gema debe ser menor que 2 MB. Se producirá un error en las solicitudes para insertar gemas que superen ese límite.
+
+   ```shell
+   $ gem push --key github \
+   --host https://rubygems.pkg.github.com/NAMESPACE \
+   GEM_NAME-0.0.1.gem
+   ```
+
+## Conexión de un paquete a un repositorio
+
+En el registro de RubyGems se almacenan paquetes de la cuenta personal o de la organización, y permite asociar los paquetes a un repositorio. Puedes elegir si quieres heredar permisos desde un repositorio o si quieres configurar permisos granulares independientemente de un repositorio.
+
+Puedes asegurarte de que las gemas se vincularán a un repositorio tan pronto como se publiquen si incluyes la dirección URL del repositorio GitHub en el campo `github_repo` de `gem.metadata`. Puedes vincular varias gemas al mismo repositorio.
+
+```ruby
+gem.metadata = { "github_repo" => "ssh://github.com/OWNER/REPOSITORY" }
+```
+
+Para obtener más información sobre la vinculación de un paquete publicado con un repositorio, consulta [Conectar un repositorio a un paquete](/es/packages/learn-github-packages/connecting-a-repository-to-a-package).
+
+## Instalación de un paquete
+
+Puede usar gemas de GitHub Packages de forma muy similar a las gemas de *rubygems.org*. Debe autenticarse en GitHub Packages agregando su usuario u organización de GitHub como origen en el archivo *\~/.gemrc* o mediante Bundler, editando el archivo *Gemfile*.
+
+1. Autentícate en GitHub Packages. Para obtener más información, consulta [Autenticación en GitHub Packages](#authenticating-to-github-packages).
+
+2. Para Bundler, agregue su usuario u organización de GitHub como origen en el archivo *Gemfile* para extraer gemas de este nuevo origen. Por ejemplo, puedes agregar un nuevo bloque `source` al archivo *Gemfile* que use GitHub Packages solo para los paquetes que especifiques, y reemplazar `GEM_NAME` por el paquete que quieras instalar desde GitHub Packages y `NAMESPACE` por la cuenta personal u organización a la que se limita la gema que quieres instalar.
+
+   ```ruby
+   source "https://rubygems.org"
+
+   gem "rails"
+
+   source "https://rubygems.pkg.github.com/NAMESPACE" do
+     gem "GEM_NAME"
+   end
+   ```
+
+3. En el caso de las versiones de Bundler anteriores a la 1.7.0, debe agregar un nuevo `source` global. Para obtener más información sobre el uso de Bundler, consulte la [documentación de bundler.io](https://bundler.io/gemfile.html).
+
+   ```ruby
+   source "https://rubygems.pkg.github.com/NAMESPACE"
+   source "https://rubygems.org"
+
+   gem "rails"
+   gem "GEM_NAME"
+   ```
+
+4. Instala el paquete:
+
+   ```shell
+   gem install GEM_NAME --version "0.1.1"
+   ```
+
+## Información adicional
+
+* [Borrar y restablecer un paquete](/es/packages/learn-github-packages/deleting-and-restoring-a-package)
+* # core.js
 
 > Extendable client for GitHub's REST & GraphQL APIs
 
