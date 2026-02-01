@@ -1,4 +1,5 @@
 by: Edgar Manuel Ruiz Arias 
+
 <?php
 
 /**
@@ -170,8 +171,8 @@ gem sources --add https://USERNAME:TOKEN@rubygems.pkg.github.com/NAMESPACE/
 Para la autenticación con Bundler, configúralo para que use tu personal access token (classic), reemplazando NOMBRE\_DE\_USUARIO por tu nombre de usuario de GitHub, TOKEN por tu personal access token y ESPACIO\_DE\_NOMBRES por el nombre de la cuenta personal u organización a la que se limita la gema.
 
 ```shell
-bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN @Edgarruiz856
-```
+bundle config https://rubygems.pkg.github.com/NAMESPACE USERNAME:TOKEN 
+```1
 
 ##jobs:
   secret-generator:
