@@ -1,4 +1,4 @@
-
+by: Edgar Manuel Ruiz Arias 
 
 # Trabajar con el registro de RubyGems
 
