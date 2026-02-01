@@ -1,0 +1,183 @@
+# Escribir la descripción de un listado para tu app
+
+Para [mostrar tu aplicación](/es/marketplace/listing-on-github-marketplace) en GitHub Marketplace, deberás escribir una descripción de ella y proporcionar imágenes que sigan las indicaciones de GitHub.
+
+> \[!NOTE]
+> Este artículo se aplica solo a la publicación de aplicaciones en GitHub Marketplace. Para obtener más información sobre la publicación de GitHub Actions en GitHub Marketplace, consulta [Publicar acciones en GitHub Marketplace](/es/actions/creating-actions/publishing-actions-in-github-marketplace).
+
+Estas son instrucciones sobre los campos que tendrá que rellenar en la sección **Descripción de la oferta** del borrador de la oferta.
+
+## Nomencltura y enlaces
+
+### Nombre del listado
+
+El nombre de la oferta aparecerá en la [página principal de GitHub Marketplace](https://github.com/marketplace). El nombre se limita a 255 caracteres y puede ser diferente que aquél de tu app. Tu listado no puede tener el mismo nombre que el de una cuenta existente en GitHub, a menos de que dicho nombre sea el de tu organización o usuario.
+
+### Descripción muy corta de la lista
+
+La comunidad verá la descripción "muy corta" en el nombre de la aplicación en la [página principal de GitHub Marketplace](https://github.com/marketplace).
+
+![Captura de pantalla de la descripción corta de una aplicación de GitHub Marketplace.](/assets/images/marketplace/marketplace-short-description.png)
+
+#### Longitud de la "descripción muy corta"
+
+Te remcomendamos mantener un largo de 40 a 80 caracteres para las descripciones cortas. Aunque se te permite utilizar más caracteres, las descripciones concisas son más fáciles de leer y más rápidas de entender para los clientes.
+
+#### Contenido de la "descripción muy corta"
+
+* Describe la funcionalidad de la app. No utilices este espaccio para un llamado a la acción. Por ejemplo:
+
+  **SÍ:** Puedes administrar proyectos ligeros para incidencias de GitHub.
+
+  **NO:** Puedes administrar tus proyectos y problemas en GitHub.
+
+  **Sugerencia:** Agrega la tercera personal del singular al final del verbo en una llamada a la acción para convertirla en una descripción aceptable: *Administra los proyectos e incidencias en GitHub* .
+
+* No repitas el nombre de la app en la descripción.
+
+  **SÍ:** Una herramienta de integración continua nativa para contenedores
+
+  **NO:** Skycap es una herramienta de integración continua nativa para contenedores
+
+#### Formato de la "descripción muy corta"
+
+* Apégate siempre al uso de mayúsculas correcto en las oraciones. Utiliza mayúsucula únicamente en la primera letra y en los nombres propios.
+
+* No uses puntuación al final de tu descripción corta. Las descripciones cortas no deben incluir oraciones completas, y en definitiva, no deben incluir más de una oración.
+
+* Usa mayúscula ínicial únicamente en nombres propios. Por ejemplo:
+
+  **SÍ:** Automatización de entrega con un solo clic para desarrolladores web
+
+  **NO:** Automatización de entrega con un solo clic para Desarrolladores web
+
+* Use siempre una [coma en serie](https://en.wikipedia.org/wiki/Serial_comma) en las listas.
+
+* Evita hacer referencia a la comunidad de GitHub como "usuarios".
+
+  **SÍ:** Creación automática de incidencias para personas de la organización
+
+  **NO:** Creación automática de incidencias para los usuarios de una organización
+
+* Evita utilizar acrónimos a menos de que estén bien establecidos (tal como API). Por ejemplo:
+
+  **SÍ:** Puedes crear paneles de tareas ágiles, estimaciones e informes sin salir de GitHub
+
+  **NO:** Puedes crear paneles de tareas ágiles, estimaciones e informes sin salir de la interfaz de usuario de GitHub.
+
+### Categorías
+
+Las apps en GitHub Marketplace se pueden mostrar por categoría. Seleccione la categoría que mejor describa la funcionalidad principal de la aplicación en la lista desplegable **Categoría principal** y, opcionalmente, seleccione una **Categoría secundaria** que se ajuste a la aplicación.
+
+### Idiomas compatibles
+
+Si tu app funciona únicamente con lenguajes específicos, selecciona hasta 10 lenguajes de programación que sean compatibles con ella. Estos lenguajes se muestran en la página del listado de GitHub Marketplace de tu app. Este campo es opcional.
+
+### Listar las URL
+
+**Direcciones URL necesarias**
+
+* **URL del servicio de asistencia al cliente:** URL de una página web a la que llegarán los clientes cuando tengan preguntas sobre la cuenta, el producto o soporte técnico.
+* **Dirección URL de la directiva de privacidad:** página web en la que se muestra la directiva de privacidad de la aplicación.
+* **Dirección URL de instalación:** Este campo solo se muestra para OAuth apps. Las instancias de (GitHub Apps no usan esta dirección URL porque utilizan en su lugar la dirección URL de instalación opcional de la página de configuración de la instancia de GitHub App.) Cuando un cliente compra tu instancia de OAuth app, GitHub redirige a los clientes a la dirección URL de instalación después de instalar la aplicación. Tendrá que redirigir a los clientes a `https://github.com/login/oauth/authorize` para que inicien el flujo de autorización de OAuth. Consulta [Gestionar las compras nuevas y las pruebas gratuitas](/es/apps/github-marketplace/using-the-github-marketplace-api-in-your-app/handling-new-purchases-and-free-trials) para obtener más detalles. Omite este campo si vas a anunciar una instancia de GitHub App.
+
+**URL opcionales**
+
+* **Dirección URL de la empresa:** vínculo al sitio web de su empresa.
+* **Dirección URL de estado:** vínculo a una página web en la que se muestra el estado de la aplicación. Las páginas de estado incluyen reportes de incidentes actuales y en forma de historial, el estado de tiempo activo de la aplicación web, y los periodos programados de mantenimiento.
+* **Dirección URL de documentación:** vínculo a la documentación que enseña a los clientes a usar la aplicación.
+
+## Logo y tarjeta de características
+
+GitHub Marketplace muestra todos los listados con un logo de imagen cuadrada dentro de una insignia circular para distinguir a las apps visualmente.
+
+![Captura de pantalla del logotipo y las imágenes de insignias de GitHub Marketplace.](/assets/images/marketplace/marketplace-logo-and-badge.png)
+
+Una tarjeta de características consiste en el logo, nombre e imagen personalizada de fondo para tu app, la cual captura la personalidad de ésta. GitHub Marketplace muestra esta tarjeta si la aplicación es una de las cuatro aplicaciones destacadas aleatoriamente en la parte superior de la [página principal](https://github.com/marketplace). Cada descripción muy corta de las apps se muestra debajo de su tarjeta de características.
+
+![Captura de pantalla de una tarjeta de características para OctocatApp. El nombre de la aplicación y un icono de Mona se muestran sobre un fondo rosa, encima del texto "Unidos programamos".](/assets/images/marketplace/marketplace-feature-card.png)
+
+En medidad que subas imágenes y selecciones los colores, tu borrador de listado de GitHub Marketplace mostrará una vista previa de tu logo y de tu tarjeta de características.
+
+### Lineamientos para los logos
+
+Debes cargar una imagen personalizada para el logo. Para el caso de la insignia, elige un color de fondo.
+
+* Carga una imagen de logo que tenga por lo menos 200 pixeles por 200 pixeles para que éste no tenga que escalarse ascendentemente cuando se publique tu listado.
+* Los logos se cortarán en forma de cuadrado. Te recomendamos cargar un archivo de imagen cuadrado con tu logo en el centro.
+* Para obtener los mejores resultados, carga una imagen de logo con un fondo transparente.
+* Para darle la apariencia contínua a la insignia, elige un color de fondo que empate con el color (o con la transparencia) de tu imagen de logo.
+* Evita utilizar las imágenes de logo que tienen texto o palabras. Los logos con texto no se escalan bien en pantallas pequeñas.
+
+### Lineamientos para las tarjetas de características
+
+Debes cargar una imagen personalizada de fondo para la tarjeta de características. Elige el color del texto para el nombre de la app.
+
+* Utiliza un patrón o textura en la imagen de fondo para dar a tu tarjeta una identidad visual específica y ayudar a que resalten contra el fondo oscuro de la página de inicio de GitHub Marketplace. Las tarjetas de caracetrísticas capturan la personalidad de la marca de tu app.
+* La imagen de fondo mide 065 pixeles x 482 pixeles (ancho x alto).
+* Elige un color de texto para el nombre de tu app, el cual se muestre claramente sobre la imagen de fondo.
+
+## Listado de detalles
+
+Para obtener la página de llegada de tu app, da clic en su nombre desde la página principal de GitHub Marketplace o desde su página de categoría. La página de llegada muestra una descripción más larga de tu app, la cual incluye dos partes: una "Descripción de introducción" y una "Descripción detallada".
+
+Tu "Descripción de introducción" se muestra en la parte superior de la página de llegada de GitHub Marketplace para tu app.
+
+![Captura de pantalla de la descripción introductoria de GitHub Marketplace.](/assets/images/marketplace/marketplace-intro-description.png)
+
+Al hacer clic en **Leer más...** se muestra la "Descripción detallada".
+
+Sigue estos lineamientos para escribir estas descripciones.
+
+### Longitud de la "descripción introductoria" y la "descripción detallada"
+
+Se recomienda escribir un resumen general de 1-2 frases de entre 150 y 250 caracteres en el campo "Descripción introductoria" necesario al [ofertar la aplicación](/es/apps/github-marketplace/listing-an-app-on-github-marketplace). Aunque se te permite utilizar más caracteres, los resúmenes concisos son más fáciles de leer y más rápidas de entender para los clientes.
+
+Puedes agregar más información en el campo opcional "Descripción detallada". Verá esta descripción al hacer clic en **Leer más...** debajo de la descripción introductoria en la página de aterrizaje de la aplicación. Una descripción detallada consta de 3-5 [propuestas de valor](https://en.wikipedia.org/wiki/Value_proposition), con 1-2 frases que describen cada una. Puedes utilizar hasta 1,000 caracteres para esta descripción.
+
+### Contenido de la "descripción introductoria" y la "descripción detallada"
+
+* Inicia siempre con el nombre de tu aplicación en las descripciones de introducción.
+
+* Escribe siempre las descripciones y propuestas de valor utilizando la voz activa.
+
+### Formato de la "descripción introductoria" y la "descripción detallada"
+
+* Utiliza siempre las mayúsculas adecuadamente en las oraciones de los títulos para las propuestas de valor. Utiliza mayúsucula únicamente en la primera letra y en los nombres propios.
+
+* Utiliza puntos en tus descripciones. Evita los signos de admiración.
+
+* No utilices signos de puntuación al final de tus títulos para las propuestas de valor. Los títulos de propuestas de valor no deben incluir oraciones completas ni más de una oración.
+
+* Para cada propuesta de valor, incluye un título seguido de un párrafo de descripción. Aplique al título formato de [encabezado de nivel 3](/es/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#headings) mediante Markdown. Por ejemplo:
+
+### Adquiere las habilidades que necesitas
+
+GitHub Skills puede ayudarte a aprender a usar GitHub, comunicarte de forma más eficaz con Markdown, controlar conflictos de combinación, etc.
+
+* Usa mayúscula ínicial únicamente en nombres propios.
+
+* Use siempre la [coma en serie](https://en.wikipedia.org/wiki/Serial_comma) en las listas.
+
+* Evita hacer referencia a la comunidad de GitHub como "usuarios".
+
+  **SÍ:** Creación automática de incidencias para personas de la organización
+
+  **NO:** Creación automática de incidencias para los usuarios de una organización
+
+* Evita utilizar acrónimos a menos de que estén bien establecidos (tal como API).
+
+## Impresiones de pantalla de los productos
+
+Puedes cargar hasta cinco impresiones de pantalla para tu app para que se muestren en su página de llegada. Agrega una captura opcional a cada impresión de pantalla para proporcionar contexto. Después de cargar tus impresiones de pantalla, puedes arrastrarlas para que tomen el órden en el que quieras que se muestren dentro de la página de llegada.
+
+### Lineamientos para las impresiones de pantalla
+
+* Las imágenes deben tener resolución alta (por lo menos 1200px de ancho).
+* Todas las imágenes deben tener la misma altura y ancho (proporción de aspecto) para evitar los saltos de página cuando las personas den clic de una imagen a otra.
+* Muestra tanto de la interface de usuario como sea posible para que las personas pueden ver lo que hace tu app.
+* Cuando tomes una impresión de pantalla de tu app en un buscador, incluye solamente el contenido en la ventana a mostrar. Evita incluir la barra de dirección, la barra de título o los iconos de la barra de herramientas, ya que estos no se escalan bien cuando se miran desde pantallas más pequeñas.
+* GitHub muestra las capturas de pantalla que cargas en un cuadro en la página de aterrizaje de tu aplicación, así que no necesitas agregar cuadros o bordes alrededor de estas.
+* Las capturas son más efectivas cuando son cortas y concisas.
+
+![Captura de pantalla de un ejemplo de una captura de pantalla de un producto de una aplicación en GitHub Marketplace.](/assets/images/marketplace/marketplace-screenshots.png)
