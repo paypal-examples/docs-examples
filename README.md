@@ -1,3 +1,184 @@
+pkg archive/tar, type FileInfoNames interface { Gname, IsDir, ModTime, Mode, Name, Size, Sys, Uname } #50102
+pkg archive/tar, type FileInfoNames interface, Gname() (string, error) #50102
+pkg archive/tar, type FileInfoNames interface, IsDir() bool #50102
+pkg archive/tar, type FileInfoNames interface, ModTime() time.Time #50102
+pkg archive/tar, type FileInfoNames interface, Mode() fs.FileMode #50102
+pkg archive/tar, type FileInfoNames interface, Name() string #50102
+pkg archive/tar, type FileInfoNames interface, Size() int64 #50102
+pkg archive/tar, type FileInfoNames interface, Sys() interface{} #50102
+pkg archive/tar, type FileInfoNames interface, Uname() (string, error) #50102
+pkg crypto/tls, const QUICResumeSession = 8 #63691
+pkg crypto/tls, const QUICResumeSession QUICEventKind #63691
+pkg crypto/tls, const QUICStoreSession = 9 #63691
+pkg crypto/tls, const QUICStoreSession QUICEventKind #63691
+pkg crypto/tls, method (*ECHRejectionError) Error() string #63369
+pkg crypto/tls, method (*QUICConn) StoreSession(*SessionState) error #63691
+pkg crypto/tls, type Config struct, EncryptedClientHelloConfigList []uint8 #63369
+pkg crypto/tls, type Config struct, EncryptedClientHelloRejectionVerify func(ConnectionState) error #63369
+pkg crypto/tls, type ConnectionState struct, ECHAccepted bool #63369
+pkg crypto/tls, type ECHRejectionError struct #63369
+pkg crypto/tls, type ECHRejectionError struct, RetryConfigList []uint8 #63369
+pkg crypto/tls, type QUICConfig struct, EnableSessionEvents bool #63691
+pkg crypto/tls, type QUICEvent struct, SessionState *SessionState #63691
+pkg crypto/tls, type QUICSessionTicketOptions struct, Extra [][]uint8 #63691
+pkg crypto/x509, func ParseOID(string) (OID, error) #66249
+pkg crypto/x509, method (*OID) UnmarshalBinary([]uint8) error #66249
+pkg crypto/x509, method (*OID) UnmarshalText([]uint8) error #66249
+pkg crypto/x509, method (OID) MarshalBinary() ([]uint8, error) #66249
+pkg crypto/x509, method (OID) MarshalText() ([]uint8, error) #66249
+pkg debug/elf, const PT_OPENBSD_NOBTCFI = 1705237480 #66054
+pkg debug/elf, const PT_OPENBSD_NOBTCFI ProgType #66054
+pkg debug/elf, const STT_GNU_IFUNC = 10 #66836
+pkg debug/elf, const STT_GNU_IFUNC SymType #66836
+pkg debug/elf, const STT_RELC = 8 #66836
+pkg debug/elf, const STT_RELC SymType #66836
+pkg debug/elf, const STT_SRELC = 9 #66836
+pkg debug/elf, const STT_SRELC SymType #66836
+pkg encoding/binary, func Append([]uint8, ByteOrder, interface{}) ([]uint8, error) #60023
+pkg encoding/binary, func Decode([]uint8, ByteOrder, interface{}) (int, error) #60023
+pkg encoding/binary, func Encode([]uint8, ByteOrder, interface{}) (int, error) #60023
+pkg go/ast, func Preorder(Node) iter.Seq[Node] #66339
+pkg go/types, method (*Alias) Origin() *Alias #67143
+pkg go/types, method (*Alias) Rhs() Type #66559
+pkg go/types, method (*Alias) SetTypeParams([]*TypeParam) #67143
+pkg go/types, method (*Alias) TypeArgs() *TypeList #67143
+pkg go/types, method (*Alias) TypeParams() *TypeParamList #67143
+pkg go/types, method (*Func) Signature() *Signature #65772
+pkg iter, func Pull2[$0 interface{}, $1 interface{}](Seq2[$0, $1]) (func() ($0, $1, bool), func()) #61897
+pkg iter, func Pull[$0 interface{}](Seq[$0]) (func() ($0, bool), func()) #61897
+pkg iter, type Seq2[$0 interface{}, $1 interface{}] func(func($0, $1) bool) #61897
+pkg iter, type Seq[$0 interface{}] func(func($0) bool) #61897
+pkg maps, func All[$0 interface{ ~map[$1]$2 }, $1 comparable, $2 interface{}]($0) iter.Seq2[$1, $2] #61900
+pkg maps, func Collect[$0 comparable, $1 interface{}](iter.Seq2[$0, $1]) map[$0]$1 #61900
+pkg maps, func Insert[$0 interface{ ~map[$1]$2 }, $1 comparable, $2 interface{}]($0, iter.Seq2[$1, $2]) #61900
+pkg maps, func Keys[$0 interface{ ~map[$1]$2 }, $1 comparable, $2 interface{}]($0) iter.Seq[$1] #61900
+pkg maps, func Values[$0 interface{ ~map[$1]$2 }, $1 comparable, $2 interface{}]($0) iter.Seq[$2] #61900
+pkg math/rand/v2, func Uint() uint #61716
+pkg math/rand/v2, method (*ChaCha8) Read([]uint8) (int, error) #67059
+pkg math/rand/v2, method (*Rand) Uint() uint #61716
+pkg net, method (*DNSError) Unwrap() error #63116
+pkg net, method (*TCPConn) SetKeepAliveConfig(KeepAliveConfig) error #62254
+pkg net, type DNSError struct, UnwrapErr error #63116
+pkg net, type Dialer struct, KeepAliveConfig KeepAliveConfig #62254
+pkg net, type KeepAliveConfig struct #62254
+pkg net, type KeepAliveConfig struct, Count int #62254
+pkg net, type KeepAliveConfig struct, Enable bool #62254
+pkg net, type KeepAliveConfig struct, Idle time.Duration #62254
+pkg net, type KeepAliveConfig struct, Interval time.Duration #62254
+pkg net, type ListenConfig struct, KeepAliveConfig KeepAliveConfig #62254
+pkg net/http, func ParseCookie(string) ([]*Cookie, error) #66008
+pkg net/http, func ParseSetCookie(string) (*Cookie, error) #66008
+pkg net/http, method (*Request) CookiesNamed(string) []*Cookie #61472
+pkg net/http, type Cookie struct, Partitioned bool #62490
+pkg net/http, type Cookie struct, Quoted bool #46443
+pkg net/http, type Request struct, Pattern string #66405
+pkg net/http/httptest, func NewRequestWithContext(context.Context, string, string, io.Reader) *http.Request #59473
+pkg os, func CopyFS(string, fs.FS) error #62484
+pkg path/filepath, func Localize(string) (string, error) #57151
+pkg reflect, func SliceAt(Type, unsafe.Pointer, int) Value #61308
+pkg reflect, method (Value) Seq() iter.Seq[Value] #66056
+pkg reflect, method (Value) Seq2() iter.Seq2[Value, Value] #66056
+pkg reflect, type Type interface, CanSeq() bool #66056
+pkg reflect, type Type interface, CanSeq2() bool #66056
+pkg reflect, type Type interface, OverflowComplex(complex128) bool #60427
+pkg reflect, type Type interface, OverflowFloat(float64) bool #60427
+pkg reflect, type Type interface, OverflowInt(int64) bool #60427
+pkg reflect, type Type interface, OverflowUint(uint64) bool #60427
+pkg runtime/debug, func SetCrashOutput(*os.File, CrashOptions) error #42888
+pkg runtime/debug, type CrashOptions struct #67182
+pkg slices, func All[$0 interface{ ~[]$1 }, $1 interface{}]($0) iter.Seq2[int, $1] #61899
+pkg slices, func AppendSeq[$0 interface{ ~[]$1 }, $1 interface{}]($0, iter.Seq[$1]) $0 #61899
+pkg slices, func Backward[$0 interface{ ~[]$1 }, $1 interface{}]($0) iter.Seq2[int, $1] #61899
+pkg slices, func Chunk[$0 interface{ ~[]$1 }, $1 interface{}]($0, int) iter.Seq[$0] #53987
+pkg slices, func Collect[$0 interface{}](iter.Seq[$0]) []$0 #61899
+pkg slices, func Repeat[$0 interface{ ~[]$1 }, $1 interface{}]($0, int) $0 #65238
+pkg slices, func SortedFunc[$0 interface{}](iter.Seq[$0], func($0, $0) int) []$0 #61899
+pkg slices, func SortedStableFunc[$0 interface{}](iter.Seq[$0], func($0, $0) int) []$0 #61899
+pkg slices, func Sorted[$0 cmp.Ordered](iter.Seq[$0]) []$0 #61899
+pkg slices, func Values[$0 interface{ ~[]$1 }, $1 interface{}]($0) iter.Seq[$1] #61899
+pkg structs, type HostLayout struct #66408
+pkg sync, method (*Map) Clear() #61696
+pkg sync/atomic, func AndInt32(*int32, int32) int32 #61395
+pkg sync/atomic, func AndInt64(*int64, int64) int64 #61395
+pkg sync/atomic, func AndUint32(*uint32, uint32) uint32 #61395
+pkg sync/atomic, func AndUint64(*uint64, uint64) uint64 #61395
+pkg sync/atomic, func AndUintptr(*uintptr, uintptr) uintptr #61395
+pkg sync/atomic, func OrInt32(*int32, int32) int32 #61395
+pkg sync/atomic, func OrInt64(*int64, int64) int64 #61395
+pkg sync/atomic, func OrUint32(*uint32, uint32) uint32 #61395
+pkg sync/atomic, func OrUint64(*uint64, uint64) uint64 #61395
+pkg sync/atomic, func OrUintptr(*uintptr, uintptr) uintptr #61395
+pkg sync/atomic, method (*Int32) And(int32) int32 #61395
+pkg sync/atomic, method (*Int32) Or(int32) int32 #61395
+pkg sync/atomic, method (*Int64) And(int64) int64 #61395
+pkg sync/atomic, method (*Int64) Or(int64) int64 #61395
+pkg sync/atomic, method (*Uint32) And(uint32) uint32 #61395
+pkg sync/atomic, method (*Uint32) Or(uint32) uint32 #61395
+pkg sync/atomic, method (*Uint64) And(uint64) uint64 #61395
+pkg sync/atomic, method (*Uint64) Or(uint64) uint64 #61395
+pkg sync/atomic, method (*Uintptr) And(uintptr) uintptr #61395
+pkg sync/atomic, method (*Uintptr) Or(uintptr) uintptr #61395
+pkg syscall (openbsd-386), const EBADMSG = 92 #67998
+pkg syscall (openbsd-386), const ELAST = 95 #67998
+pkg syscall (openbsd-386), const ENOTRECOVERABLE = 93 #67998
+pkg syscall (openbsd-386), const ENOTRECOVERABLE Errno #67998
+pkg syscall (openbsd-386), const EOWNERDEAD = 94 #67998
+pkg syscall (openbsd-386), const EOWNERDEAD Errno #67998
+pkg syscall (openbsd-386), const EPROTO = 95 #67998
+pkg syscall (openbsd-386-cgo), const EBADMSG = 92 #67998
+pkg syscall (openbsd-386-cgo), const ELAST = 95 #67998
+pkg syscall (openbsd-386-cgo), const ENOTRECOVERABLE = 93 #67998
+pkg syscall (openbsd-386-cgo), const ENOTRECOVERABLE Errno #67998
+pkg syscall (openbsd-386-cgo), const EOWNERDEAD = 94 #67998
+pkg syscall (openbsd-386-cgo), const EOWNERDEAD Errno #67998
+pkg syscall (openbsd-386-cgo), const EPROTO = 95 #67998
+pkg syscall (openbsd-amd64), const EBADMSG = 92 #67998
+pkg syscall (openbsd-amd64), const ELAST = 95 #67998
+pkg syscall (openbsd-amd64), const ENOTRECOVERABLE = 93 #67998
+pkg syscall (openbsd-amd64), const ENOTRECOVERABLE Errno #67998
+pkg syscall (openbsd-amd64), const EOWNERDEAD = 94 #67998
+pkg syscall (openbsd-amd64), const EOWNERDEAD Errno #67998
+pkg syscall (openbsd-amd64), const EPROTO = 95 #67998
+pkg syscall (openbsd-amd64-cgo), const EBADMSG = 92 #67998
+pkg syscall (openbsd-amd64-cgo), const ELAST = 95 #67998
+pkg syscall (openbsd-amd64-cgo), const ENOTRECOVERABLE = 93 #67998
+pkg syscall (openbsd-amd64-cgo), const ENOTRECOVERABLE Errno #67998
+pkg syscall (openbsd-amd64-cgo), const EOWNERDEAD = 94 #67998
+pkg syscall (openbsd-amd64-cgo), const EOWNERDEAD Errno #67998
+pkg syscall (openbsd-amd64-cgo), const EPROTO = 95 #67998
+pkg syscall (windows-386), const WSAENOPROTOOPT = 10042 #62254
+pkg syscall (windows-386), const WSAENOPROTOOPT Errno #62254
+pkg syscall (windows-amd64), const WSAENOPROTOOPT = 10042 #62254
+pkg syscall (windows-amd64), const WSAENOPROTOOPT Errno #62254
+pkg syscall, const EBADMSG Errno #67998
+pkg syscall, const EPROTO Errno #67998
+pkg unicode/utf16, func RuneLen(int32) int #44940
+pkg unique, func Make[$0 comparable]($0) Handle[$0] #62483
+pkg unique, method (Handle[$0]) Value() $0 #62483
+pkg unique, type Handle[$0 comparable] struct #62483
+PKï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½4aï¿½\ï¿½ï¿½*ï¿½ï¿½ï¿½[Content_Types].xml ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½0Eï¿½Hï¿½ï¿½ï¿½-JÜ²@5ï¿½ï¿½*Q>ï¿½ï¿½'ï¿½ï¿½c[ï¿½ï¿½ï¿½ï¿½Lï¿½6Bï¿½4ï¿½ï¿½ï¿½Hï¿½Ì½ï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½,[BLÆ»ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½1yï¿½ï¿½9K(ï¿½ï¿½ï¿½;(ï¿½
+ï¿½ï¿½ï¿½Mï¿½ï¿½Hï¿½Rï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½PÉ”ï¿½ï¿½ï¿½*ï¿½ï¿½ï¿½Dzï¿½3ï¿½ï¿½ï¿½3ï¿½ï¿½Þ�Pï¿½!8Ì°ï¿½ï¿½ï¿½ï¿½ï¿½raï¿½=ï¿½ï¿½ï¿½$ï¿½Mï¿½=në¬‚ï¿½ï¿½Qï¿½.ï¿½Nï¿½Hï¿½v        9)ï¿½ï¿½47!ï¿½Pgï¿½`DSï¿½5a/|ï¿½Ã‰FËˆï¿½ï¿½ï¿½6ï¿½ï¿½Qï¿½Õ¢"i~ï¿½ï¿½ï¿½ï¿½/Kï¿½ï¿½ï¿½ï¿½n!z)Ñ©W6o+ï¿½4ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½[ï¿½?ï¿½").Aï¿½sï¿½fXï¿½ï¿½ï¿½bï¿½Ì»IJ
+ï¿½È©ï¿½ï¿½sï¿½ï¿½ï¿½Hï¿½ï¿½gï¿½dï¿½ï¿½ï¿½h&ï¿½ï¿½ï¿½ï¿½6;ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½tï¿½zm$yï¿½<!Ô·ï¿½}(\47ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½*ï¿½{ï¿½ï¿½ï¿½ï¿½Qï¿½ï¿½ï¿½_rels/.rels ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½0@ï¿½ï¿½ï¿½Ñ½Qï¿½ï¿½ï¿½N/cï¿½ï¿½ï¿½[ILï¿½ï¿½jï¿½ï¿½ï¿½<ï¿½]ï¿½aGï¿½ï¿½Ó“ï¿½zsï¿½Fuï¿½ï¿½]ï¿½ï¿½U
+ï¿½ï¿½        ï¿½ï¿½^ï¿½[ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½1xï¿½pï¿½ï¿½ï¿½ï¿½fï¿½ï¿½#I)Êƒï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*Dï¿½ï¿½i")ï¿½ï¿½c$ï¿½ï¿½ï¿½qUï¿½ï¿½ï¿½~3ï¿½ï¿½1ï¿½ï¿½jH[{ï¿½=Eï¿½ï¿½ï¿½ï¿½~
+f?ï¿½ï¿½3-ï¿½ï¿½ï¿½Þ²]ï¿½Tê“¸2ï¿½j)ï¿½,l0/%ï¿½ï¿½bï¿½
+ï¿½WZ]ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½%!4!ï¿½eï¿½ÏŒï¿½Fï¿½ï¿½\ï¿½<ï¿½Gï¿½=$ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½Ch>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½6ï¿½ï¿½ï¿½word/_rels/document.xml.rels ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½0Eï¿½ï¿½ï¿½ï¿½ï¿½}-;}PBï¿½lJ!ï¿½ï¿½ï¿½ï¿½E?ï¿½,        ï¿½ï¿½á¿¯Hiï¿½ï¿½`ï¿½ï¿½rï¿½ï¿½sÏ€6ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½{ï¿½ï¿½ï¿½rèŒ¯{ï¿½*xï¿½ï¿½ï¿½AkWkï¿½*ï¿½`[^^lï¿½ï¿½jNKï¿½ï¿½ï¿½Dï¿½8Rï¿½1ï¿½ï¿½ï¿½d:4e>ï¿½K/ï¿½ï¿½ï¿½ï¿½4ï¿½Vm^uï¿½rï¿½ï¿½w2NPï¿½0Å®Vwï¿½5ï¿½jï¿½ï¿½oï¿½ï¿½ï¿½ï¿½7o:>S!?pï¿½ï¿½ï¿½ï¿½8JX[dï¿½0KDï¿½ï¿½jIï¿½ï¿½ï¿½ï¿½:ï¿½:ï¿½hqjpï¿½gï¿½oï¿½ï¿½ç´‹ï¿½ï¿½ï¿½ï¿½;,f%nï¿½ï¿½hï¿½ï¿½Jï¿½ï¿½Dï¿½-ï¿½ï¿½o/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½ï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½word/document.xmlï¿½[oï¿½6ï¿½ï¿½ï¿½;zï¿½ï¿½;ï¿½Qï¿½hsCï¿½v0ï¿½ï¿½iï¿½Mï¿½gRï¿½HÊŠ7ï¿½ï¿½Pwï¿½]!;hd`ï¿½C$ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Pmï¿½ï¿½ï¿½gÎœ
+ï¿½ï¿½ï¿½pï¿½v/:ï¿½CB,|ï¿½&î—§ï¿½ï¿½#ï¿½Qï¿½>b"$wKï¿½ï¿½~ï¿½ï¿½ï’±/pï¿½Iï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½
+ï¿½ï¿½Æžï¿½p@8Rï¿½b)ï¿½Xï¿½,ï¿½'ï¿½Kï¿½ï¿½ï¿½ï¿½{ï¿½Nï¿½ï¿½ï¿½ER`ï¿½ï¿½wï¿½ï¿½
+Rn.ï¿½ï¿½ï¿½ï¿½ï¿½%Pï¿½^z8@Rï¿½ï¿½Jï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½hï¿½ï¿½gï¿½:ï¿½<Iï¿½:Pï¿½ï¿½ï¿½ï¿½ï¿½
+OSï¿½*]ï¿½ï¿½ï¿½?Tï¿½ï¿½t0ï¿½ï¿½ï¿½ï¿½        !s)$G.ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½-GHï¿½eToAï¿½3,d
+ï¿½'Xï¿½Jï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½e}cï¿½8ï¿½ï¿½ï¿½ï¿½5kï¿½ï¿½ï¿½È³fJueï¿½eï¿½oï¿½%ï¿½ï¿½'        ?ï¿½P4*g~ï¿½dï¿½ï¿½ï¿½[ï¿½pVï¿½Kï¿½nï¿½Pï¿½ï¿½ï¿½ï¿½6ï¿½P        61?gï¿½Yfï¿½ï¿½ï¿½ï¿½4ï¿½DYï¿½ï¿½        ï¿½mï¿½pï¿½Uï¿½'ï¿½ï¿½ï¿½ï¿½nï¿½É§ï¿½1ixï¿½(4Fï¿½ï¿½ï¿½ï¿½ï¿½6:ï¿½aX:ï¿½C+ï¿½vÎ�ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½^ï¿½Wï¿½ï¿½EHï¿½ï¿½(ï¿½ï¿½ï¿½r[^ï¿½Qï¿½zY <HGï¿½}ï¿½ï¿½c5%&fqrï¿½VPï¿½ W/3fï¿½fJï¿½Ç�ï¿½PHï¿½``ï¿½ï¿½#ï¿½I        ï¿½ï¿½0Pï¿½!=%ï¿½iï¿½aï¿½9Æ�Âªj!ï¿½ï¿½9FN2ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½Iï¿½x}9ï¿½8ê•‰ï¿½dï¿½bï¿½Mï¿½ï¿½ï¿½ï¿½cï¿½È™ï¿½
+ï¿½ï¿½3ï¿½ï¿½zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ndï¿½/\ï¿½3edVTÞ‹P+(ï¿½ï¿½ï¿½ï¿½FÄ’ï¿½ï¿½Bï¿½Hï¿½!Tï¿½ï¿½Xï¿½%ï¿½ï¿½ï¿½Kzï¿½ï¿½}ï¿½ï¿½m'c=ï¿½^ï¿½qï¿½Mï¿½2"Mï¿½ÎŠdï¿½Yß™ï¿½Iï¿½A"ï¿½ï¿½ï¿½"Eï¿½3q8ï¿½~SZB0ï¿½ï¿½ï¿½ï¿½`^Zdï¿½ï¿½SWA)L.ï¿½\ï¿½cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½jï¿½ï¿½:ï¿½"ï¿½ï¿½Kï¿½ï¿½0XTxJ:Je9Qï¿½ï¿½ï¿½ï¿½ï¿½<ï¿½ï¿½"        ï¿½Tï¿½hï¿½ï¿½Nï¿½tï¿½_ï¿½ï¿½jdï¿½L8ì¸¿%ï¿½ï¿½f0Dï¿½ï¿½ï¿½
+kï¿½aGIï¿½11ï¿½aTdï¿½ï¿½ï¿½ï¿½$ï¿½ï¿½ï¿½Ô‚ï¿½Ì°ï¿½Ú§É†eï¿½ï¿½.ï¿½%tï¿½ï¿½R^ï¿½bï¿½_ï¿½ï¿½)Ï«/ï¿½ï¿½.mï¿½ï¿½ï¿½ï¿½ï¿½Cxxï¿½ï¿½ï¿½ï¿½{ï¿½x!ï¿½ï¿½ï¿½kqï¿½Â‚ï¿½o?wï¿½ï¿½ï¿½eLï¿½ï¿½ï¿½"ï¿½8ï¿½{Ï¶ï¿½Yï¿½Aï¿½ï¿½<Dcï¿½ï¿½&ï¿½ï¿½jÛ©ï¿½Yï¿½ï¿½ï¿½|On#ï¿½ï¿½ï¿½,)#OÛˆì³±`Z#ï¿½ï¿½DCï¿½iTt,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï˜ï¿½vï¿½Lï¿½#ï¿½ï¿½Qï¿½\ï¿½ï¿½3ï¿½kR,ï¿½,ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½6F9Moï¿½ï¿½Hï¿½ï¿½ï¿½ï¿½ß‚iL@}r/ï¿½ï¿½ï¿½hï¿½`ï¿½ï¿½
+ï¿½ Ø¼2'Nï¿½ï¿½ï¿½e0*Aï¿½ï¿½ï¿½ï¿½.ï¿½ï¿½ï¿½_ï¿½ï¿½qï¿½ï¿½Vï¿½Í´`Zï¿½@xmï¿½ï¿½ï¿½=Kï¿½y}xï¿½ï¿½!ï¿½ï¿½4ï¿½Zï¿½`ï¿½ï¿½ï¿½ï¿½"ï¿½è¬‚ï¿½Î¬ï¿½~ï¿½Ï¡ï¿½~ï¿½Vï¿½ 7ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½?ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½{ï¿½ï¿½ï¿½Uï¿½Rï¿½~`.Bkï¿½ï¿½lFï¿½Yï¿½e*Hï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½\.ï¿½Ðµï¿½Ulï¿½        ï¿½ï¿½ï¿½Ã‚Ç©aï¿½Jï¿½}ï¿½ï¿½yCnï¿½ï¿½ï¿½hF5Cï¿½Ã¬ï¿½Wx$=ï¿½Þ“ï¿½C0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PKï¿½ï¿½ï¿½ï¿½ï¿½!ï¿½xÂ³}ï¿½ï¿½ï¿½m!ï¿½ï¿½ï¿½ï¿½ï¿½word/theme/theme1.xmlï¿½Z[ï¿½7~/ï¿½?ï¿½yw|ï¿½ï¿½%ï¿½ì±�ï¿½nï¿½NJï¿½cyFï¿½fd$y7&Jï¿½Ô—B!-}hï¿½o}(ï¿½ï¿½ï¿½ï¿½Hhï¿½QIï¿½Iï¿½ï¿½ï¿½d7%ï¿½ï¿½{Fï¿½ï¿½sï¿½ï¿½9::;ï¿½ï¿½ï¿½ï¿½Sï¿½f-ï¿½|ï¿½ï¿½ï¿½Etï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+pï¿½!$4C-oï¿½ï¿½wqï¿½ï¿½O.ï¿½ï¿½"A)ï¿½ï¿½ï¿½ï¿½ï¿½%BLï¿½ï¿½<ï¿½Ã�ï¿½ï¿½ï¿½É¹e)ï¿½ï¿½ï¿½!ï¿½GRnJï¿½ï¿½Rï¿½VL!ï¿½<ï¿½ï¿½Tï¿½H"pc4ï¿½ï¿½vï¿½ï¿½{Dï¿½eï¿½ï¿½ï¿½ï¿½ï¿½}%-8v8.ï¿½>ï¿½!aï¿½ï¿½ï¿½'5
+ï¿½ï¿½ï¿½ï¿½ ï¿½9ï¿½ï¿½Jï¿½ï¿½ï¿½Î…ï¿½EDï¿½ ï¿½ï¿½kI\0ï¿½ï¿½&ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½m`ï¿½Þ«ï¿½jkï¿½ï¿½Hï¿½vnï¿½-ï¿½^        ï¿½%ï¿½@ï¿½/Ò»ï¿½nï¿½l
+ï¿½-B;P6Aï¿½ï¿½ï¿½ï¿½ï¿½
+Wï¿½ï¿½eï¿½E:ï¿½NwCï¿½Fï¿½/k[ï¿½zï¿½ï¿½ï¿½ï¿½6Aï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½jï¿½+Ìˆï¿½ï¿½N|3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½D^Þ¥ï¿½e}        ï¿½Qï¿½g@ï¿½&h#ï¿½!ï¿½ï¿½]'2        '0ï¿½\ï¿½*ï¿½~ï¿½*ï¿½ÕŸï¿½ï¿½æ‘…ï¿½4è‹±ï¿½oï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wU
+ï¿½Ì«/^>zï¿½ï¿½Ñ¯/?~ï¿½ï¿½ï¿½ï¿½mï¿½eï¿½ï¿½&ï¿½ï¿½_ï¿½ï¿½ï¿½sï¿½ï¿½/ß¿yï¿½uï¿½ï¿½ï¿½ï¿½?}ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^}ï¿½ï¿½?>qï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ESï¿½Hï¿½
+tï¿½Þ‘2H 6)ï¿½,ï¿½0ï¿½ï¿½ï¿½ï¿½Dbï¿½ï¿½ï¿½ ï¿½.`ï¿½ï¿½ï¿½dq"/Mï¿½YFï¿½'l*ï¿½y-I-ï¿½ï¿½ï¿½Cï¿½{a×´:ï¿½ï¿½,ï¿½ï¿½Ï¦&ï¿½ï¿½ï¿½Nï¿½ï¿½Fï¿½{Ó‰ï¿½ï¿½)4Lï¿½eï¿½M"ï¿½cï¿½!ï¿½#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½t$ï¿½]:ï¿½3ï¿½Vjï¿½Yï¿½q*4sï¿½(Coyhï¿½ï¿½Pï¿½Tï¿½Eï¿½6TnHï¿½Bï¿½ï¿½y        NLï¿½VÃ”ï¿½ï¿½](ï¿½ï¿½ï¿½3Yï¿½ï¿½B=Fï¿½ï¿½ï¿½qï¿½$ï¿½`jï¿½kï¿½5Yr2`ï¿½ï¿½Rï¿½;ï¿½ï¿½ï¿½RÚ¥ï¿½0ï¿½ï¿½ï¿½m7ï¿½|ï¿½ï¿½eï¿½Bpï¿½
+ï¿½ï¿½ï¿½3ï¿½^fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cï¿½ï¿½Û²@ï¿½ï¿½Eï¿½Lï¿½sï¿½ jï¿½ï¿½Aï¿½ï¿½fï¿½Uï¿½ï¿½ï¿½3ï¿½3ï¿½ï¿½Tï¿½Eï¿½ï¿½#8DÜ¾ï¿½$Ð‰ï¿½ï¿½ï¿½ï¿½WYm.#ï¿½ï¿½ï¿½B;uï¿½}ï¿½8ï¿½fï¿½bÌ­ï¿½G1ï¿½3ioï¿½Qï¿½f0K!Ë•}}lï¿½OOï¿½ï¿½ï¿½;}I4ï¿½
+-fj'ï¿½ï¿½qï¿½+)Ç‘{3ï¿½Vï¿½ï¿½{ï¿½ï¿½ï¿½3fEï¿½Xï¿½Nï¿½ï¿½        ï¿½;IVï¿½ï¿½{hï¿½ï¿½ï¿½bï¿½<(ï¿½g1ï¿½+ï¿½ï¿½ï¿½4o
 WalletCore
 
 WalletCore/wallet.core.jni/Cardano/outputMinAdaAmount
