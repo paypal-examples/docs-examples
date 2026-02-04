@@ -1,3 +1,7 @@
+{"sys":{"links":{"jsBaseUrl":"https://www.sandbox.paypal.com/js","cssBaseUrl":"https://www.sandbox.paypal.com/css","templateBaseUrl":"https://www.sandbox.paypal.com/templates","resourceBaseUrl":"https://www.sandbox.paypal.com"},"pageInfo":{"date":"Feb 4, 2026 10:06:23 -08:00","hostName":"rZJvnqaaQhLn/nmWT8cSUjOx898qoYZ0gJ/s7uf3ja0+Uip5Xvdjdw","rlogId":"rZJvnqaaQhLn%2FnmWT8cSUmDP%2Bhip7g49eFYVqbGPqtrcf3YgDr9DRBZmxdhAyNCBTtigznC%2FWlY_19c29d580a3","script":"node","debug":null},"locality":{"timezone":{"determiner":"viaCowPrimary","value":"America/Mexico_City"},"country":"MX","locale":"es_XC","language":"es","directionality":"ltr"},"tracking":{"fpti":{"name":"pta","jsURL":"https://www.paypalobjects.com","serverURL":"https://t.paypal.com/ts","dataString":"pgrp=loggernodeweb%2F.dust&page=loggernodeweb%2F.dust&pgst=1770228383907&calc=f9256320b58ff&pgtf=Nodejs&env=sandbox&s=ci&csci=680d638a116c4e748224ffb6a0dbf1ba&comp=loggernodeweb&tsrce=mppnodeweb&cu=1&gacook=1959485940.1769896055&ef_policy=ccpa&c_prefs=T%3D1%2CP%3D1%2CF%3D1%2Ctype%3Dexplicit_banner"}}}}
+
+
+
 {
   "sys": {
     "links": {
