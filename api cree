@@ -1,3 +1,145 @@
+{
+      "id": "order-id",
+      "intent": "CAPTURE",
+      "status": "PAYER_ACTION_REQUIRED",
+      "purchase_units": [
+        {
+          "amount": {
+            "currency_code": "USD",
+            "value": "64.00"
+          },
+          "payee": {
+            "email_address": "merchant@example.com",
+            "merchant_id": "CR87QHB7JKKK"
+          },
+         "shipping": {
+            "name": {
+                "full_name": "Firstname Lastname"
+            },
+            "email_address": "customer@example.com",
+            "phone_number": {
+              "country_code": "1",
+              "national_number": "5555555555"
+            },
+            "address": {
+              "address_line_1": "123 Main St.",
+              "admin_area_2": "Anytown",
+              "admin_area_1": "CA",
+              "postal_code": "12345",
+              "country_code": "US"
+            }
+          }
+        }
+      ],
+      "create_time": "2024-01-31T02:52:12Z",
+      "links": [
+        {
+          "href": "https://www.api-m.paypal.com/v2/checkout/orders/order-id",
+          "rel": "self",
+          "method": "GET"
+        },
+        {
+          "href": "https://www.paypal.com/checkoutnow?token=order-id",
+          "rel": "payer-action",
+          "method": "GET"
+        }
+      ]
+    }
+  }
+}
+{
+  "id": "ORDER-ID",
+  "intent": "CAPTURE",
+  "status": "APPROVED",
+  "payment_source": {
+    "paypal": {
+      "email_address": "payer@example.com",
+      "name": {
+        "given_name": "Firstname",
+        "surname": "Lastname"
+      },
+      "address": {
+        "address_line_1": "123 Main St.",
+        "admin_area_2": "Anytown",
+        "admin_area_1": "CA",
+        "postal_code": "12345",
+        "country_code": "US"
+      }
+    }
+  },
+  "purchase_units": [{
+    "reference_id": "default",
+    "amount": {
+      "currency_code": "USD",
+      "value": "64.00"
+    },
+    "payee": {
+            "email_address": "merchant@example.com",
+            "merchant_id": "CR87QHB7JKKK"
+     },
+     "shipping": {
+           "name": {
+            "full_name": "Firstname Lastname"
+            },
+            "email_address": "customer_friend@example.com",
+            "phone_number": {
+              "country_code": "1",
+              "national_number": "2222222222"
+            },
+             "address": {
+                "address_line_1": "123 Main St.",
+                "admin_area_2": "Anytown",
+                "admin_area_1": "CA",
+                "postal_code": "12345",
+                "country_code": "US"
+              }
+          }
+  }]
+}
+{
+  "id": "order-id",
+  "intent": "CAPTURE",
+  "status": "PAYER_ACTION_REQUIRED",
+  "purchase_units": [{
+    "amount": {
+      "currency_code": "USD",
+      "value": "64.00"
+    },
+    "payee": {
+      "email_address": "merchant@example.com",
+      "merchant_id": "CR87QHB7JKKK"
+    },
+    "shipping": {
+      "name": {
+        "full_name": "Firstname Lastname"
+      },
+      "email_address": "customer@example.com",
+      "phone_number": {
+        "country_code": "1",
+        "national_number": "5555555555"
+      },
+      "address": {
+        "address_line_1": "123 Main St.",
+        "admin_area_2": "Anytown",
+        "admin_area_1": "CA",
+        "postal_code": "12345",
+        "country_code": "US"
+      }
+    }
+  }],
+  "create_time": "2024-01-31T02:52:12Z",
+  "links": [{
+    "href": "https://www.api-m.paypal.com/v2/checkout/orders/order-id",
+    "rel": "self",
+    "method": "GET"
+  }, {
+    "href": "https://www.paypal.com/checkoutnow?token=order-id",
+    "rel": "payer-action",
+    "method": "GET"
+  }]
+}
+}
+}
 # api credenciales Paypal edgarplasticos3@hotmail.com
 ARTh1JcgB4texLdbwWliMcjMNR_ljfg-yODyHKcjwlAdR4K8YAhLV3Pm1mwzXKbkEKTHDQSn1Qt0XJhO
 AUkLH8bV5AwJU6bfzKviRlWcPZFzuM2UqxBad5-qWiWAJp068W-MeKHAOA8W_BNlN0PZr9jfJ884UCWh
