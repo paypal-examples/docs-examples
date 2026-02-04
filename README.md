@@ -1,5 +1,317 @@
 
 
+Federal Register
+Vol. 90, No. 58Thursday, March 27, 2025
+Contents
+Civil Rights Commission
+NOTICES
+Hearings, Meetings, Proceedings, etc.:
+Wyoming Advisory Committee,
+13852
+Commerce Department
+See
+International Trade Administration
+See
+National Oceanic and Atmospheric Administration
+Consumer Product Safety Commission
+RULES
+Safety Standard:
+Stationary Activity Centers,
+13833-13838
+Drug Enforcement Administration
+NOTICES
+Decision and Order:
+Harvey Leslie, MD,
+13885-13886
+Joely Keen, APRN,
+13882-13884
+Thomas Andr'e Endicott, DDS,
+13892-13894
+Willard J. Davis, DO,
+13881-13882
+Importer, Manufacturer or Bulk Manufacturer of Controlled Substances; Application, Registration, etc.:
+Baxter Research Lab,
+13884
+Ohana Bio Pharma, LLC,
+13886
+Patheon API Services, Inc.,
+13884-13885
+Promega Corp.,
+13881
+Restek Corp.,
+13887-13892
+Royal Beverages, LLC,
+13886-13887
+Royal Emerald Pharmaceuticals,
+13892
+SpecGx LLC,
+13894
+Environmental Protection Agency
+RULES
+Pesticide Tolerance; Exemptions, Petitions, Revocations, etc.:
+Pseudomonas Oryzihabitans Strain SYM23945,
+13838-13840
+NOTICES
+Pesticide Product Registration:
+Applications for New Active Ingredients (January 2025),
+13859-13860
+Federal Aviation Administration
+PROPOSED RULES
+Airworthiness Directives:
+Airbus SAS Airplanes,
+13848-13851
+NOTICES
+Intent to Decommission Flight Service Remote Communications Outlets,
+13977-13978
+Federal Emergency Management Agency
+NOTICES
+Agency Information Collection Activities; Proposals, Submissions, and Approvals:
+Federal Hotel and Motel Fire Safety Declaration Form,
+13868
+Federal Motor Carrier Safety Administration
+NOTICES
+Exemption Application:
+Qualification of Drivers; Epilepsy and Seizure Disorders,
+13978-13989
+Qualification of Drivers; Epilepsy and Seizure Disorders; Correction,
+13986-13987
+Qualification of Drivers; Hearing,
+13989-13993
+Federal Reserve System
+NOTICES
+Agency Information Collection Activities; Proposals, Submissions, and Approvals,
+13860-13865
+Health and Human Services Department
+See
+National Institutes of Health
+Homeland Security Department
+See
+Federal Emergency Management Agency
+Interior Department
+See
+National Park Service
+Internal Revenue Service
+NOTICES
+Agency Information Collection Activities; Proposals, Submissions, and Approvals,
+13994-13995
+International Trade Administration
+NOTICES
+Antidumping or Countervailing Duty Investigations, Orders, or Reviews:
+Certain Lined Paper Products from India,
+13852-13854
+International Trade Commission
+NOTICES
+Antidumping or Countervailing Duty Investigations, Orders, or Reviews:
+Dioctyl Terephthalate from Malaysia, Poland, Taiwan, and Turkey,
+13880-13881
+Investigations; Determinations, Modifications, and Rulings, etc.:
+Certain Video Game Consoles, Routers and Gateways, and Components Thereof,
+13879-13880
+Justice Department
+See
+Drug Enforcement Administration
+National Institutes of Health
+NOTICES
+Hearings, Meetings, Proceedings, etc.:
+Center for Scientific Review,
+13865
+National Center for Advancing Translational Sciences,
+13866-13867
+National Heart, Lung, and Blood Institute,
+13866
+National Institute of Allergy and Infectious Diseases,
+13865-13867
+National Institute of Mental Health,
+13867
+National Oceanic and Atmospheric Administration
+RULES
+Fisheries of the Exclusive Economic Zone off Alaska:
+Authorizing Hook-and-Line Catcher/Processors to use Longline Pot Gear in the Bering Sea Greenland Turbot Fishery,
+13842-13847
+Federal Register / Vol. 90, No. 58 / Thursday, March 27, 2025iv
+Fisheries Off West Coast States:
+Modification of the West Coast Salmon Fisheries; Inseason Actions No. 17 through No. 18,
+13840-13842
+NOTICES
+Evaluation Findings for Coastal Zone Management Programs and National Estuarine Research Reserve,
+13856
+Hearings, Meetings, Proceedings, etc.:
+Caribbean Fishery Management Council,
+13854-13856
+New England Fishery Management Council,
+13854
+Permits; Applications, Issuances, etc.:
+Endangered and Threatened Species; Take of Anadromous Fish,
+13858-13859
+Fisheries of the Exclusive Economic Zone off Alaska,
+13856-13858
+National Park Service
+NOTICES
+Intended Disposition:
+U.S. Department of the Interior, National Park Service, Klondike Gold Rush National Historic Park, Skagway, AK,
+13877-13878
+Inventory Completion:
+American Museum of Natural History, New York, NY,
+13876-13877
+Oregon Historical Society, Portland, OR,
+13876
+U.S. Army Corps of Engineers, Mobile District, Mobile, AL,
+13871
+U.S. Department of the Interior, Bureau of Land Management, Utah State Office and Upper Colorado Basin Region, Salt Lake City, UT,
+13871-13874
+University of Tennessee, Department of Anthropology, Knoxville, TN,
+13875-13876
+Yale Peabody Museum, Yale University, New Haven, CT,
+13868-13869
+Repatriation of Cultural Items:
+Peabody Museum of Archaeology and Ethnology, Harvard University, Cambridge, MA,
+13870-13871
+San Bernardino County Museum, Redlands, CA,
+13878-13879
+University of California, Berkeley, Berkeley, CA,
+13874-13875
+University of Oregon Museum of Natural and Cultural History, Eugene, OR,
+13869-13870
+Personnel Management Office
+NOTICES
+Agency Information Collection Activities; Proposals, Submissions, and Approvals:
+Disabled Dependent Questionnaire,
+13895-13896
+Evidence to Prove Dependency of a Child,
+13894-13895
+Financial Resources Questionnaire, Notice of Amount Due Because of Annuity Overpayment,
+13896-13897
+Verification of Who is Getting Payments,
+13895
+Postal Regulatory Commission
+NOTICES
+New Postal Products,
+13897-13898
+Postal Service
+NOTICES
+Meetings; Sunshine Act,
+13899
+Product Change:
+Priority Mail and USPS Ground Advantage Negotiated Service Agreement,
+13898-13902
+Priority Mail Express, Priority Mail, and USPS Ground Advantage Negotiated Service Agreement,
+13898-13902
+Presidential Documents
+PROCLAMATIONS
+Special Observances:
+Greek Independence Day: A National Day of Celebration of Greek and American Democracy (Proc. 10907),
+13827-13828
+EXECUTIVE ORDERS
+Impose Tariffs; Countries Importing Venezuelan Oil,
+13829-13831
+Securities and Exchange Commission
+NOTICES
+Agency Information Collection Activities; Proposals, Submissions, and Approvals,
+13917-13918, 13936-13938
+Self-Regulatory Organizations; Proposed Rule Changes:
+Cboe BYX Exchange, Inc.,
+13938-13942
+Cboe BZX Exchange, Inc.,
+13902-13906, 13949-13952
+Cboe EDGA Exchange, Inc.,
+13910-13914
+Cboe EDGX Exchange, Inc.,
+13906-13910
+Fixed Income Clearing Corp.,
+13942-13949, 13965-13973
+LCH SA,
+13914-13917
+MIAX Emerald, LLC,
+13933-13936
+National Securities Clearing Corp.,
+13926-13933
+NYSE Arca, Inc.,
+13953-13965
+The Depository Trust Co.,
+13919-13926
+Small Business Administration
+NOTICES
+Disaster Declaration:
+Oklahoma; Public Assistance Only,
+13973
+Exemption:
+LCM Healthcare Fund I, LP; Small Business Investment Act, Conflicts of Interest,
+13973-13974
+Surrender of License of Small Business Investment Company:
+Silver Lake Waterman Fund II, LP,
+13973
+Stonehenge Opportunity Fund III-B, LP,
+13974
+Tennessee Valley Authority
+NOTICES
+Environmental Impact Statements; Availability, etc.:
+Sugar Camp Energy, LLC Mine No. 1 Significant Boundary Revision 8,
+13974-13977
+Transportation Department
+See
+Federal Aviation Administration
+See
+Federal Motor Carrier Safety Administration
+Treasury Department
+See
+Internal Revenue Service
+Reader Aids
+Consult the Reader Aids section at the end of this issue for phone numbers, online resources, finding aids, and notice of recently enacted public laws.
+To subscribe to the Federal Register Table of Contents electronic mailing list, go to https://public.govdelivery.com/accounts/USGPOOFR/subscriber/new, enter your e-mail address, then follow the instructions to join, leave, or manage your subscription.
+Vol. 90, No. 58Thursday, March 27, 2025
+Rules and Regulations
+Federal Register / Vol. 90, No. 58 / Thursday, March 27, 202513833
+CONSUMER PRODUCT SAFETY COMMISSION
+16 CFR Part 1238
+[Docket No. CPSC-2018-0015]
+Safety Standard for Stationary Activity Centers
+AGENCY:
+Consumer Product Safety Commission.
+ACTION:
+Direct final rule.
+SUMMARY:
+In June 2019, the U.S. Consumer Product Safety Commission (CPSC or Commission) published a consumer product safety standard for stationary activity centers pursuant to section 104 of the Consumer Product Safety Improvement Act of 2008 (CPSIA). The Commission's mandatory standard incorporates by reference ASTM F2012-18 ε 1 , Standard Consumer Safety Performance Specification for Stationary Activity Centers. The CPSIA sets forth a process for updating mandatory standards for durable infant or toddler products that are based on a voluntary standard, when a voluntary standards organization revises the standard. In November 2024, ASTM published a revised voluntary standard. This direct final rule updates the mandatory standard for stationary activity centers to incorporate by reference the 2024 version of ASTM F2012, which the Commission has allowed to become the mandatory standard under section 104. The purpose of the direct final rule is to conform the Code of Federal Regulations (CFR) to the correct version of ASTM F2012 to provide an accurate reference to the standard that will be enforced as a mandatory rule.
+DATES:
+The rule is effective on July 5, 2025, unless the Commission receives a significant adverse comment by April 28, 2025. If the Commission receives such a comment, it will publish a notice in the Federal Register , withdrawing this direct final rule before its effective date. The incorporation by reference of the publication listed in this rule is approved by the Director of the Federal Register as of July 5, 2025.
+ADDRESSES:
+You can submit comments, identified by Docket No. CPSC-2018-0015, by any of the following methods:
+Electronic Submissions: Submit electronic comments to the Federal eRulemaking Portal at: https://www.regulations.gov. Follow the instructions for submitting comments. CPSC typically does not accept comments submitted by email, except as described below.
+Mail/Hand Delivery/Courier/Confidential Written Submissions: CPSC encourages you to submit electronic comments by using the Federal eRulemaking Portal. You may, however, submit comments by mail, hand delivery, or courier to: Office of the Secretary, Consumer Product Safety Commission, 4330 East-West Highway, Bethesda, MD 20814; telephone: (301) 504-7479. If you wish to submit confidential business information, trade secret information, or other sensitive or protected information that you do not want to be available to the public, you may submit such comments by mail, hand delivery, or courier, or you may email them to: cpsc-os@cpsc.gov.
+Instructions: All submissions must include the agency name and docket number. CPSC may post all comments without change, including any personal identifiers, contact information, or other personal information provided, to: https://www.regulations.gov. Do not submit to this website: confidential business information, trade secret information, or other sensitive or protected information that you do not want to be available to the public. If you wish to submit such information, please submit it according to the instructions for mail/hand delivery/courier/confidential written submissions.
+Docket: For access to the docket to read background documents or comments received, go to: https://www.regulations.gov, and insert the docket number, CPSC-2018-0015, into the “Search” box, and follow the prompts.
+FOR FURTHER INFORMATION CONTACT:
+Bradley Gordon, Project Manager, Division of Mechanical and Combustion Engineering, U.S. Consumer Product Safety Commission, 5 Research Place, Rockville, MD 20850; telephone: (301) 987-2099; email: bgordon@cpsc.gov.
+SUPPLEMENTARY INFORMATION:
+I. Statutory Authority and Background
+A. Statutory Authority
+Section 104(b) of the CPSIA requires the Commission to assess the effectiveness of voluntary standards for durable infant or toddler products  1 and adopt mandatory standards for these products. 15 U.S.C. 2056a(b)(1). Mandatory standards must be “substantially the same as” applicable voluntary standards, or they may be “more stringent” than the voluntary standards if the Commission determines that more stringent requirements would further reduce the risk of injury associated with the products. Id. Accordingly, mandatory standards may be based, in whole or in part, on a voluntary standard.
+1  Section 104(f)(2)(G) of the CPSIA lists stationary activity centers as a durable infant or toddler product. 15 U.S.C. 2056a(f)(2)(G).
+Section 104(b)(4)(B) of the CPSIA specifies the process for when a voluntary standards organization revises a standard the Commission has incorporated by reference under section 104(b)(1). 15 U.S.C. 2056a(b)(4)(B). First, the voluntary standards organization must notify the Commission of the revision. Once the Commission receives this notification, the Commission may reject or accept the revised standard. To reject a revised standard, the Commission must notify the voluntary standards organization within 90 days of receiving the notice of revision that the Commission has determined that the revised standard does not improve the safety of the consumer product and that CPSC is retaining the existing standard. If the Commission does not take this action, then the revised voluntary standard will be considered a consumer product safety standard issued under section 9 of the Consumer Product Safety Act (CPSA) (15 U.S.C. 2058), effective 180 days after the Commission received notification of the revision (or a later date specified by the Commission in the Federal Register ). 15 U.S.C. 2056a(b)(4)(B).
+B. Safety Standard for Stationary Activity Centers
+On June 18, 2019, under section 104 of the CPSIA, the Commission published the first stationary activity centers rule that incorporated by reference ASTM F2012-18 ε 1 , Standard
+Federal Register / Vol. 90, No. 58 / Thursday, March 27, 202513834
+Consumer Safety Performance Specification for Stationary Activity Centers, as the mandatory standard. 84 FR 28205.
+The ASTM standard incorporated by CPSC defines a stationary activity center as “a freestanding product intended to remain stationary that enables a sitting or standing occupant whose torso is completely surrounded by the product to walk, rock, play, spin or bounce, or all of these, within a limited range of motion.” Section 3.1.12, ASTM F2012-18 ε 1 ; see 16 CFR 1238.2.
+On January 6, 2025, ASTM notified the Commission that it had approved and published a newly revised version of the voluntary standard, ASTM F2012-24. The revision includes a change to update the requirements for assessing the permanency of warning labels attached to the product. The Commission determines that this change improves the safety of stationary activity centers, because it provides improved requirements for permanent attachment of labels and improved testing consistency of label permanency.
+The revision to the standard also adds example warning labels that manufacturers can use on stationary activity centers, and it also includes several editorial changes. The Commission determines that these changes are safety-neutral and do not reduce the safety of stationary activity centers because they do not change any requirements in the standard.
+On January 21, 2025, the Commission published in the Federal Register a Notice of Availability, requesting comment on whether the 2024 revision improves the safety of stationary activity centers. 90 FR 6844. CPSC received one anonymous comment, discussed below, addressing the new example warning labels.
+Based on staff's evaluation of ASTM F2012-24 and consideration of the comment received, the Commission will allow ASTM F2012-24 to become the new consumer product safety standard for stationary activity centers because it improves safety. Pursuant to CPSIA section 104, the revised voluntary standard will take effect as the new mandatory standard for stationary activity centers on July 5, 2025. 15 U.S.C. 2056a(b)(4)(B). This direct final rule updates 16 CFR part 1238 to incorporate by reference the applicable provisions of the revised voluntary standard, ASTM F2012-24. 2
+2  On March 18, 2025, the Commission voted (4-1) to publish this direct final rule.
+II. Description of ASTM F2012-24 Related to Stationary Activity Centers
+The ASTM standard for stationary activity centers includes performance requirements, test methods, and requirements for marking, labeling, and instructional literature, to address hazards to children associated with stationary activity centers. The 2024 revision to the voluntary standard, ASTM F2012, includes updated requirements for assessing the permanency of attaching warning labels, updated warning label examples, and editorial changes.
+A. Updated Requirements for Assessing Warning Label Permanency
+In section 7.5.3 of ASTM F2012-24, ASTM revised the requirement to assess the permanency of attaching a warning label by a seam. In ASTM F2012-18 ε 1 , section 7.5.3 includes instructions to test whether a warning label is permanent, which require clamping the label and applying a specified pull force in any direction. In ASTM F2012-24, ASTM revised the test requirements to specify that (1) the same pull force specified in ASTM F2012-18 ε 1 must be applied in the direction most likely to cause failure, rather than in any direction, and (2) the pull force must be applied gradually within a period of 5 seconds and then maintained for an additional 10 seconds. The direction most likely to cause failure can be determined by applying pull forces to the label in different directions until separation from the product, to identify the direction with the lowest pull force. These changes are consistent with recommendations of the Ad Hoc Language task group. The Commission determines that the updated requirements are an improvement in safety because: (1) the requirement to pull the warning label in the direction most likely to cause failure represents the worst-case scenario and thus will better ensure the permanency of the label; and (2) the addition of a specific test duration will provide better consistency across test labs.
+B. Updated Warning Labels
+In ASTM F2012-18 ε 1 , section 8.4.7 provides one example of a warning label that meets the formatting requirements for a warning label's message panel text layout in section 8.4.6. This figure, shown in Figure 1, continues to be provided in section 8.4.7 in ASTM F2012-24.
+BILLING CODE 6355-01-P
+[Please see PDF for image: ER27MR25.002]
+Federal Register / Vol. 90, No. 58 / Thursday, March 27, 202513835
+The 2024 version of ASTM F2012, however, updates the language in section 8.4.7 from “an example warning” to “[e]xample warnings” to refer to four other example warning labels that are added to ASTM F2012, shown in Figure 2.
+3  Reprinted, with permission, from ASTM F2012-24, Standard Consumer Safety Performance Specification for Stationary Activity Centers, copyright ASTM International. A copy of the complete standard may be obtained for downloading from www.astm.org. The standard may be viewed at no charge as explained in § 1238.2 of the rule.
+[Please see PDF for image: ER27MR25.003]
+BILLING CODE 6355-01-C
+The content in the four additional example warning labels is the same as content in the initial example warning label. However, the arrangement of the text, the layout of the text relative to the signal word panel, and the overall dimensions of the warnings have been modified. The new example warning labels are wider and shorter than the initial example warning. Variations in the exterior dimensions of these warning labels allow for their placement on a wider range of product components, which provides manufacturers with more flexibility for label placement. The Commission determines that this revision is safety-neutral and does not reduce the safety of stationary activity centers.
+4  Reprinted, with permission, from ASTM F2012-24, Standard Consumer Safety Performance Specification for Stationary Activity Centers, copyright ASTM International. A copy of the complete standard may be obtained for downloadi
 [Federal Register Volume 90, Number 58 (Thursday, March 27, 2025)]
 [Notices]
 [Page 13973]
