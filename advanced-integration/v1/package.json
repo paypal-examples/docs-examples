@@ -9,7 +9,7 @@
     "start": "nodemon server/server.js",
     "format": "npx prettier --write **/*.{js,md}",
     "format:check": "npx prettier --check **/*.{js,md}",
-    "lint": "npx eslint server/*.js --env=node && npx eslint client/*.js --env=browser"
+    "lint": "npx eslint server/*.js client/*.js --no-config-lookup"
   },
   "license": "Apache-2.0",
   "dependencies": {

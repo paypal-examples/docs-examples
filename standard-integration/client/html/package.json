@@ -1,0 +1,17 @@
+{
+    "name": "paypal-standard-integration-frontend-html",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "preview": "vite preview",
+        "start": "vite",
+        "format": "npx prettier --write **/*.{js,md}",
+        "format:check": "npx prettier --check **/*.{js,md}"
+    },
+    "devDependencies": {
+        "dotenv": "^16.4.5",
+        "vite": "^5.4.2"
+    }
+}

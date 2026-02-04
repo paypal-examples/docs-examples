@@ -1,0 +1,23 @@
+{
+  "name": "paypal-standard-integration-backend-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@paypal/paypal-server-sdk": "^1.0.0",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "server-dev": "nodemon server.js",
+    "start": "npm run server-dev",
+    "prod": "node server.js",
+    "format": "npx prettier --write **/*.{js,jsx,md}",
+    "format:check": "npx prettier --check **/*.{js,jsx,md}"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
+  }
+}
