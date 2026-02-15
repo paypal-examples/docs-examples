@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+### dirección de depósito: https://www.paypal.me/edgarin8524jj#!/usr/bin/env ruby
 # Simple example of using Atheme's XMLRPC server with ruby
 # $Id: rubyxmlrpc.rb 8403 2007-06-03 21:34:06Z jilles $
 
