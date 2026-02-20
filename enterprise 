@@ -1,0 +1,76 @@
+# Visualización del uso del plan de GitHub Enterprise
+
+Obtén información sobre cómo mostrar el número de usuarios de tu empresa. Para GitHub Enterprise Cloud también está disponible la información de facturación completa.
+
+<!-- TRANSLATION_FALLBACK prop=markdown type=RenderError line=6 col=1 msg="Can't find the key 'reutilizables.enterprise-accounts.access-enterprise' in the scope." -->
+## Viewing subscription and usage for your enterprise
+
+You can view the subscription and usage for your enterprise and download a file with license details.
+
+1. In the top-right corner of GitHub, click your profile picture.
+2. Depending on your environment, click **Enterprise**, or click **Enterprises** then click the enterprise you want to view.
+3. At the top of the page, click **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-credit-card" aria-label="credit-card" role="img"><path d="M10.75 9a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5h-1.5Z"></path><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25ZM14.5 6.5h-13v5.75c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25Zm0-2.75a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25V5h13Z"></path></svg> Billing and licensing**.
+4. Click **Licensing** to show detailed information on license use.
+
+The information displayed varies according to your enterprise set up.
+
+* GitHub Enterprise Cloud, potentially with licenses synchronized from GitHub Enterprise Server
+* GitHub Enterprise Server
+
+To learn more about the license data associated with your enterprise account and how the number of consumed user licenses is calculated, see [Troubleshooting license usage for GitHub Enterprise](/en/billing/managing-your-license-for-github-enterprise/troubleshooting-license-usage-for-github-enterprise).
+
+## Finding information on GitHub Enterprise Cloud
+
+On the "Licensing" page, the number of consumed licenses is shown under "Enterprise Cloud". In addition, you can see:
+
+* Usage-based billing: the estimated monthly payment, assuming no further license changes
+* Volume billing: your total available licenses and your subscription expiration date.
+
+### Viewing more detailed information
+
+* To view details of license usage, to the right of "Enterprise Cloud", click **More details**.
+* To download a CSV file with license details, click **<svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-download" aria-label="download" role="img"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"></path></svg> Download CSV report**.
+
+### Viewing history of changes to license usage
+
+> \[!NOTE]
+> This feature is in public preview and only available to usage-based enterprise accounts without Visual Studio bundles.
+
+To view the history of license usage over time, on the "Licensing" page, to the right of "Enterprise Cloud", click **Manage**.
+
+The license history starts capturing history from the day the feature is enabled on your account, and provides a daily snapshot of license additions and removals for GitHub Enterprise Cloud. This information shows you how licenses are being consumed and why billed amounts change.
+
+The license history shows:
+
+* Daily snapshot of licenses so you can monitor usage over time
+* Actor(s) that added or removed each license to provide accountability
+* Date on which the license addition or removal was performed
+* Effective date for when the license additions and removals will affect your monthly bill
+
+### Synchronization of GitHub Enterprise Server use
+
+The date of the last license sync occurred is shown under "Enterprise Server instances". Look for timestamps next to usage uploaded or synced events.
+
+* "Server usage uploaded" indicates license usage between environments was manually updated when a GitHub Enterprise Server license file was uploaded.
+* "GitHub Connect server usage synced" indicates license usage between environments was automatically updated.
+* "GitHub Connect server usage never synced" indicates that GitHub Connect is configured, but license usage between environments has never updated successfully.
+
+For more information, see [Syncing license usage from GitHub Enterprise Server to Cloud](/en/billing/managing-your-license-for-github-enterprise/syncing-license-usage-between-github-enterprise-server-and-github-enterprise-cloud).
+
+### Synchronization of Visual Studio subscriptions with GitHub Enterprise subscriptions
+
+If your GitHub license includes Visual Studio subscriptions with GitHub Enterprise, you can identify whether a user account on GitHub Enterprise Cloud has successfully matched with a Visual Studio subscriber by downloading the CSV file that contains additional license details. The license status will be one of the following:
+
+* "Matched": The user account on GitHub.com is linked with a Visual Studio subscriber.
+* "Pending Invitation": An invitation was sent to a Visual Studio subscriber, but the subscriber has not accepted the invitation.
+* Blank: There is no Visual Studio association to consider for the user account on GitHub.com.
+
+## Finding information on GitHub Enterprise Server
+
+* Under "User licenses", view your total licenses, number of consumed licenses, and your subscription expiration date.
+* To view details for license usage or download a JSON file with license details, click **View users** or **Export license usage**.
+* Review your current GitHub Enterprise license, as well as consumed and available user licenses.
+
+## Reporting license information using the REST API
+
+You can also use the REST API to return consumed licenses data and the status of the license sync job. See [Licensing](/en/rest/enterprise-admin/license).

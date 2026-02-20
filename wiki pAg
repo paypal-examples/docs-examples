@@ -1,0 +1,64 @@
+traslación mensaje title by:Edgar Manuel Ruiz Arias , edgarplasticos3@hotmail.com
+Translations:2021-12 security release/FAQ/Page display title/en
+Translations:2021-12 security release/FAQ/1/en
+Translations:2021-12 security release/FAQ/25/en
+Translations:2021-12 security release/FAQ/26/en
+Translations:2021-12 security release/FAQ/27/en
+Translations:2021-12 security release/FAQ/2/en
+Translations:2021-12 security release/FAQ/3/en
+Translations:2021-12 security release/FAQ/28/en
+Translations:2021-12 security release/FAQ/29/en
+Translations:2021-12 security release/FAQ/4/en
+Translations:2021-12 security release/FAQ/5/en
+Translations:2021-12 security release/FAQ/6/en
+Translations:2021-12 security release/FAQ/7/en
+Translations:2021-12 security release/FAQ/8/en
+Translations:2021-12 security release/FAQ/9/en
+Translations:2021-12 security release/FAQ/10/en
+Translations:2021-12 security release/FAQ/11/en
+Translations:2021-12 security release/FAQ/12/en
+Translations:2021-12 security release/FAQ/13/en
+Translations:2021-12 security release/FAQ/14/en
+Translations:2021-12 security release/FAQ/15/en
+Translations:2021-12 security release/FAQ/16/en
+Translations:2021-12 security release/FAQ/17/en
+Translations:2021-12 security release/FAQ/18/en
+Translations:2021-12 security release/FAQ/19/en
+Translations:2021-12 security release/FAQ/20/en
+Translations:2021-12 security release/FAQ/21/en
+Translations:2021-12 security release/FAQ/22/en
+Translations:2021-12 security release/FAQ/23/en
+Translations:2021-12 security release/FAQ/24/en
+Translations:2021-12 security release/FAQ/30/e
+Message definition
+2021-12 security release/FAQ
+A series of vulnerabilities have been found in MediaWiki that allow an attacker to leak page contents from private wikis and bypass edit permissions.
+The main vector for this wiki-leak is using vulnerable actions on pages that are listed in $1 and therefore publicly accessible.
+MediaWiki now only makes the "view" action publicly accessible on pages in $1 by default.
+These issues are fixed in 1.35.5, 1.36.3, and 1.37.1, see the [$url announcement] for links to tarballs and patches.
+#NAME?
+* CVE-2021-44858: The "undo" feature ($1) allowed an attacker to view the contents of arbitrary revisions, regardless of whether they had permissions to do so. This was also found in the "$2" and "$3" actions ($4 and $5).
+* CVE-2021-44857: The "$1" and "$2" actions ($3 and $4) did not properly check for editing permissions, and allowed an attacker to take the content of any arbitrary revision and save it on any page of their choosing. This affects both public wikis and public pages on private wikis.
+== I don't have time to patch, how do I disable this? ==
+Add the following to your $1:
+If your wiki is private (requires login to view pages) you will '''also''' need to set:
+It should fully disable the vulnerable code. These changes will also work for vulnerable end-of-life MediaWiki versions that do not have a patch available.
+If you used $1 to allow logged-out users to see the main page with help text, you should instead move that help text to the [[MediaWiki:Loginreqpagetext|MediaWiki:Loginreqpagetext]] message, which is shown on the "login required" error.
+== Was I affected? ==
+* If your wiki is public (anyone can read pages): yes
+* If your wiki is private, and $1 or $2 has at least one page: yes
+If you use an extension like $1 or $2 to make some pages unreadable to some users, you are also likely affected.
+== What versions are vulnerable? ==
+All MediaWiki versions since 1.23.0 until 1.34.x, and 1.35.x, 1.36.x, 1.37.x before the fixes (see [[$1|the top section]]), are vulnerable to the private wiki read permissions bypasses (CVE-2021-44858, CVE-2021-45038).
+All MediaWiki versions since 1.32.0 until 1.34.x, and 1.35.x, 1.36.x, 1.37.x before the fixes (see [[$1|the top section]]), are vulnerable to the editing permissions bypass (CVE-2021-44857).
+== How is this being fixed long-term? ==
+All actions except "view" now require an explicit "read" user right. This is similar to permission checks used in the Action and REST APIs. If further vulnerabilities are found in actions, they will at least not be exploitable by logged-out users on private wikis.
+Actions that need to be usable on $1 pages can override the new $2 function.
+== How can I see if someone exploited it on my wiki? ==
+Look for $1 or $2 in your access logs. Unless you specifically enabled an extension that uses [[$3|multi-content revisions]], there is no legitimate use for these actions.
+In addition, look for $1 requests and check whether the revision IDs belong to a different title than the page being edited.
+For the rollback bug, look for $1 where the "from" parameter is a template transclusion (for example, $2).
+This bug does not cause any data loss, so any write actions an attacker could have taken will be recorded in page history like all other edits.
+== Credit ==
+The issue was discovered by $1, many thanks to them for identifying and reporting the issue.
+If you find a bug in MediaWiki, please see the process for [[$1|reporting security bugs]]
