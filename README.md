@@ -1,4 +1,67 @@
+# Almacenamiento de mensajes en repositorios de GitHub
 
+Almacena mensajes directamente en los repositorios de GitHub para aprovechar el resumen de texto automatizado y otras funcionalidades controladas por IA.
+
+Los mensajes se pueden almacenar como archivos directamente en repositorios de GitHub. Esto desbloquea la capacidad de ver los mensajes en una interfaz de usuario organizada, compartirlos con partes interesadas no técnicas y ejecutar iteraciones y comparaciones sin problemas sobre los ajustes a modelos y mensajes.
+
+## Ventajas
+
+* Integración sencilla con el nuevo conjunto de herramientas de desarrollo de inteligencia artificial directamente en GitHub.
+* Casos de uso sencillos y escalables desde simples a complejos.
+* Usa un formato ampliamente compatible con las herramientas existentes.
+
+## Formato de archivos admitido
+
+Almacena mensajes en archivos YAML.
+
+El archivo se puede ubicar en cualquier parte del repositorio, pero *debe tener la extensión `.prompt.yml` o `.prompt.yaml`.*
+
+Ejemplo:
+
+```yaml copy
+name: Text Summarizer
+description: Summarizes input text concisely
+model: openai/gpt-4o-mini
+modelParameters:
+  temperature: 0.5
+messages:
+  - role: system
+    content: You are a text summarizer. Your only job is to summarize text given to you.
+  - role: user
+    content: |
+      Summarize the given text, beginning with "Summary -":
+      <text>
+      {{input}}
+      </text>
+testData:
+  - input: |
+      The quick brown fox jumped over the lazy dog.
+      The dog was too tired to react.
+    expected: Summary - A fox jumped over a lazy, unresponsive dog.
+evaluators:
+  - name: Output should start with 'Summary -'
+    string:
+      startsWith: 'Summary -'
+```
+
+## Estructura de los mensajes
+
+Los mensajes tienen dos partes clave:
+
+* **Información en tiempo de ejecución** (obligatoria)
+  * Plantillas de mensajes (sistema, usuario, etc.) con marcadores de posición `{{variable}}` simples
+* **Información de desarrollo** (opcional)
+  * Nombre y descripción legibles para el usuario
+  * Identificador y parámetros del modelo
+  * Datos de muestra para pruebas y evaluaciones
+  * Datos que describan los propios evaluadores
+
+## Limitaciones
+
+No puedes almacenar mensajes para lo siguiente:
+
+* Lenguajes de plantillas complejos
+* Formatos de archivo propietarios o complejos (como `.ghprompt` o `.prompty`)
 
 # GitHub Bug Bounty Program Legal Safe Harbor
 
